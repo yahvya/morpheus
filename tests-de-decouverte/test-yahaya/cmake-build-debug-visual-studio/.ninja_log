@@ -1,0 +1,6 @@
+# ninja log v5
+2	4651	7211701450863855	CMakeFiles/test_opencv.dir/main.cpp.obj	7377f88b7c9c55a5
+4652	6185	7211701453035203	test_opencv.exe	b871d9bcfc98e6a7
+1	3137	7222783615010391	build.ninja	696d39bf34e45f73
+2	5368	7222783747892753	CMakeFiles/test_opencv.dir/main.cpp.obj	8875bf6cd8565a2e
+5369	7128	7222783752583782	test_opencv.exe	9d3e67228ed2c469
