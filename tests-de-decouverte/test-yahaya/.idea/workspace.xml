@@ -20,9 +20,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="88fa0909-d026-4423-8ce7-d2e1cf191110" name="Changes" comment="Test opencv avec c++ à finir">
-      <change afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
-    </list>
+    <list default="true" id="88fa0909-d026-4423-8ce7-d2e1cf191110" name="Changes" comment="Test opencv avec c++ à finir" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,27 +64,25 @@
     "cidr.known.project.marker": "true",
     "git-widget-placeholder": "tests",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/devel/Desktop/fac/master-1/morpheus",
+    "last_opened_file_path": "C:/Users/devel/Desktop/fichiers-temporaires/prog",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings",
+    "settings.editor.selected.configurable": "preferences.pluginManager",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\devel\Desktop\fac\master-1\morpheus\tests-de-decouverte\test-yahaya\cmake-build-debug-visual-studio\resources\calculator-network\models" />
+      <recent name="C:\Users\devel\Desktop\fac\master-1\morpheus\tests-de-decouverte\test-yahaya\cmake-build-debug-visual-studio" />
+      <recent name="C:\Users\devel\Desktop\fac\master-1\morpheus\tests-de-decouverte\test-yahaya\cmake-build-debug-visual-studio\resources" />
       <recent name="C:\Users\devel\Desktop\fac\master-1\projet-web\test-opencv\cmake-build-debug-visual-studio" />
     </key>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true">
-      <method v="2">
-        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="test_opencv" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="test_opencv" TARGET_NAME="test_opencv" CONFIG_NAME="Debug-Visual Studio" RUN_TARGET_PROJECT_NAME="test_opencv" RUN_TARGET_NAME="test_opencv">
       <method v="2">
         <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
@@ -109,6 +105,15 @@
       <workItem from="1700170848220" duration="337000" />
       <workItem from="1700572932619" duration="340000" />
       <workItem from="1700575147279" duration="77000" />
+      <workItem from="1701064759616" duration="3393000" />
+      <workItem from="1701096026957" duration="2000" />
+      <workItem from="1701200255085" duration="9000" />
+      <workItem from="1701256363774" duration="1277000" />
+      <workItem from="1701260017833" duration="9000" />
+      <workItem from="1701308154659" duration="11073000" />
+      <workItem from="1701319840468" duration="5355000" />
+      <workItem from="1701358594343" duration="36484000" />
+      <workItem from="1702667873368" duration="90000" />
     </task>
     <task id="LOCAL-00001" summary="Test opencv avec c++">
       <option name="closed" value="true" />

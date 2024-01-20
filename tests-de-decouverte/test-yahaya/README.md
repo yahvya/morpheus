@@ -1,1 +1,0 @@
-vcpkg avec clion peut facilier l'installation d'opencv pour exécuter le test

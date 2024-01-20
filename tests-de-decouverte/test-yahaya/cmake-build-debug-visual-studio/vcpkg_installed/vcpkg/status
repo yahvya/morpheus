@@ -243,3 +243,30 @@ Multi-Arch: same
 Description: Platform-dependent default features
 Status: install ok installed
 
+Package: sqlite3
+Version: 3.43.1
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: 58c00e5b6ffadc9ab3b6fbc509ad6458985f72f1e9b42e7eecbb1ef9fb2a06c0
+Description: SQLite is a software library that implements a self-contained, serverless, zero-configuration, transactional SQL database engine.
+Default-Features: json1
+Status: purge ok not-installed
+
+Package: sqlite3
+Feature: json1
+Architecture: x64-windows
+Multi-Arch: same
+Description: Enable JSON functionality for sqlite3
+Status: purge ok not-installed
+
+Package: fftw3
+Version: 3.3.10
+Port-Version: 8
+Depends: vcpkg-cmake, vcpkg-cmake-config
+Architecture: x64-windows
+Multi-Arch: same
+Abi: edc114bbf51707f32ed56749b3f647108188f62754ba0056c32dd4450d11bad1
+Description: FFTW is a C subroutine library for computing the discrete Fourier transform (DFT) in one or more dimensions, of arbitrary input size, and of both real and complex data (as well as of even/odd data, i.e. the discrete cosine/sine transforms or DCT/DST).
+Status: purge ok not-installed
+
