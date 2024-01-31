@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="87035270-2efb-4479-9d5a-ce656f414118" name="Changes" comment="Ajout de l'environnement python&#10;Ajout des fichiers de base">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -28,35 +26,17 @@
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
-  <component name="ProjectId" id="2bRxECLLotjLF8K5kiEhElmOAiq" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2bivpAry0rHepEWCzDD3MUpXVdG" />
   <component name="ProjectViewState">
-    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "dart.analysis.tool.window.visible": "false",
     "git-widget-placeholder": "app-api-dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/devel/Desktop/fac/master/master-1-dev-web-mobile-fullstack/cross-semestre/morpheus",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+    "settings.editor.selected.configurable": "preferences.lookFeel"
   }
 }]]></component>
   <component name="SharedIndexes">
@@ -69,41 +49,26 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="87035270-2efb-4479-9d5a-ce656f414118" name="Changes" comment="" />
-      <created>1706191578684</created>
+      <changelist id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="" />
+      <created>1706710893822</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1706191578684</updated>
-      <workItem from="1706191579716" duration="191000" />
-      <workItem from="1706693011359" duration="1405000" />
-      <workItem from="1706696022011" duration="2153000" />
+      <updated>1706710893822</updated>
     </task>
-    <task id="LOCAL-00001" summary="Ajout de la structure back end">
-      <option name="closed" value="true" />
-      <created>1706696142310</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1706696142311</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Ajout de l'environnement python&#10;Ajout des fichiers de base">
-      <option name="closed" value="true" />
-      <created>1706697377989</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1706697377989</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Ajout de la structure back end" />
-    <MESSAGE value="Ajout de l'environnement python&#10;Ajout des fichiers de base" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de l'environnement python&#10;Ajout des fichiers de base" />
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
