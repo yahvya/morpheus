@@ -3,3 +3,8 @@
 # @author Vitalli https://github.com/siegward-from
 # @author Yahaya https://github.com/yahvya
 
+from fastapi import FastAPI
+
+app = FastAPI()
+
+

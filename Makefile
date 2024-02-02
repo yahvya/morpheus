@@ -26,9 +26,14 @@ install-requirements-windows: init-env active-windows-env
 install-requirements-mac: init-env active-mac-env
 	pip install -r requirements.txt
 
+# lance l'application
+launch-app:
+	cd api
+	uvicorn api:app --reload
+
 # lance l'application sous windows
-launch-app-windows: disable-windows-env init-env
+launch-app-windows: disable-windows-env active-windows-env launch-app
 
 # lance l'application sous mac
-launch-app-mac: disable-windows-env init-env
+launch-app-mac: disable-windows-env active-windows-env launch-app
 
