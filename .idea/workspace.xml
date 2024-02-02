@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="mise à jour des commandes du readme">
-      <change afterPath="$PROJECT_DIR$/treatment/detector.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/treatment/resources/config/detector-config.json" afterDir="false" />
+    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="Début d'implémentation du gestionnaire de détection">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatment/resources/.gitkeep" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/custom_exception.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatment/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detector.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1706710893822</updated>
-      <workItem from="1706882604421" duration="3421000" />
+      <workItem from="1706882604421" duration="5177000" />
     </task>
     <task id="LOCAL-00001" summary="mise à jour des commandes du readme">
       <option name="closed" value="true" />
@@ -99,7 +98,15 @@
       <option name="project" value="LOCAL" />
       <updated>1706872415224</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Début d'implémentation du gestionnaire de détection">
+      <option name="closed" value="true" />
+      <created>1706886853631</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1706886853631</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -118,10 +125,11 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="mise à jour des commandes du readme" />
-    <option name="LAST_COMMIT_MESSAGE" value="mise à jour des commandes du readme" />
+    <MESSAGE value="Début d'implémentation du gestionnaire de détection" />
+    <option name="LAST_COMMIT_MESSAGE" value="Début d'implémentation du gestionnaire de détection" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/morpheus$custom_exception.coverage" NAME="custom_exception Coverage Results" MODIFIED="1706885632106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
-    <SUITE FILE_PATH="coverage/morpheus$detector.coverage" NAME="detector Coverage Results" MODIFIED="1706885788210" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
+    <SUITE FILE_PATH="coverage/morpheus$detector.coverage" NAME="detector Coverage Results" MODIFIED="1706887878945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
   </component>
 </project>

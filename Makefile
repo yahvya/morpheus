@@ -35,5 +35,5 @@ launch-app:
 launch-app-windows: disable-windows-env active-windows-env launch-app
 
 # lance l'application sous mac
-launch-app-mac: disable-windows-env active-windows-env launch-app
+launch-app-mac: disable-mac-env active-windows-env launch-app
 
