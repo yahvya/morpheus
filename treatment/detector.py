@@ -17,7 +17,6 @@ class ExtractManager(Enum):
     # les points de la bouche
     MOUTH = lambda video: True
 
-
 ##
 # @brief gestion de la détection
 class Detector:

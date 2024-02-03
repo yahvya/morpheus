@@ -28,8 +28,7 @@ install-requirements-mac: init-env active-mac-env
 
 # lance l'application
 launch-app:
-	cd api
-	uvicorn api:app --reload
+	cd api && uvicorn api:app --reload
 
 # lance l'application sous windows
 launch-app-windows: disable-windows-env active-windows-env launch-app
