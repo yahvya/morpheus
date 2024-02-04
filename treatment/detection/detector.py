@@ -4,6 +4,7 @@
 # @author https://github.com/ChakerYaakoub
 
 from treatment.detection.detector_result import DetectorResult
+from treatment.detection.front_processor import FrontProcessor
 from treatment.exceptions.custom_exception import CustomException
 from starlette.datastructures import UploadFile
 import filetype
@@ -13,7 +14,7 @@ import filetype
 # @brief données nécessaires à l'extraction des points
 class DetectorArg:
     ##
-    # @brief front_video vidéo de face de la personne puis ouvre la bouche (UploadFile)
+    # @brief vidéo de face de la personne puis ouvre la bouche (UploadFile)
     __front_video: UploadFile
 
     ##
@@ -57,6 +58,26 @@ class DetectorArg:
         self.__profile_head_down_video = profile_head_down_video
 
     ##
+    # @return vidéo de face de la personne puis ouvre la bouche (UploadFile)
+    def get_front_video(self) -> UploadFile:
+        return self.__front_video
+
+    ##
+    # @return vidéo de face de la personne puis lève la tête (UploadFile)
+    def get_front_head_move_video(self) -> UploadFile:
+        return self.__front_head_move_video
+
+    ##
+    # @return vidéo de profil de la personne puis baisse la tête (UploadFile)
+    def get_profile_head_down_video(self) -> UploadFile:
+        return self.__profile_head_down_video
+
+    ##
+    # @return vidéo de profil de la personne puis lève la tête (UploadFile)
+    def get_profile_head_up_video(self) -> UploadFile:
+        return self.__profile_head_up_video
+
+    ##
     # @brief vérifie que les paramètres fournis sont bien des vidéos
     # @param *videos liste des fichiers à vérifier (UploadFile)
     # @return si tous les élements envoyés sont valides
@@ -83,4 +104,13 @@ class Detector:
     # @throws CustomException en cas d'erreur
     @staticmethod
     async def extract_datas(detection_datas: DetectorArg) -> DetectorResult:
-        pass
+        try:
+            ##
+            # @todo finir le test et placer les résultats dans le detectorresult
+            FrontProcessor.process(detection_datas.get_front_video())
+
+            return DetectorResult()
+        except CustomException as e:
+            raise e
+        except Exception as _:
+            raise CustomException("Une erreur s'est produite lors du traitement des données", True)
