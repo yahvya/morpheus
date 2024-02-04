@@ -66,7 +66,7 @@ class DetectorArg:
                 len(videos) != 0 and
                 all(
                     isinstance(potential_video, UploadFile) and
-                    filetype.is_video(potential_video)
+                    filetype.is_video(potential_video.file)
 
                     for potential_video in videos
                 )

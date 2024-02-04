@@ -20,10 +20,12 @@ disable-mac-env:
 
 # installe les requis windows
 install-requirements-windows: init-env active-windows-env
+	python -m pip install --upgrade pip
 	pip install -r requirements.txt
 
 # installe les requis mac
 install-requirements-mac: init-env active-mac-env
+	python -m pip install --upgrade pip
 	pip install -r requirements.txt
 
 # lance l'application
@@ -34,5 +36,5 @@ launch-app:
 launch-app-windows: disable-windows-env active-windows-env launch-app
 
 # lance l'application sous mac
-launch-app-mac: disable-mac-env active-windows-env launch-app
+launch-app-mac: disable-mac-env active-mac-env launch-app
 
