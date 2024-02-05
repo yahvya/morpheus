@@ -32,10 +32,10 @@ class AppButton extends StatelessWidget{
 
 //######################################################################################################
 //################## pour lancer l'application veuillez passer ce bout de code pour lancer la fonction #
-// AppButton(                                                                                    #
+// AppButton(                                                                                          #
 //   onPressed: () {                                                                                   #
 //     // Comportement à exécuter lors du clic sur le bouton                                           #
-//     print("L'application  est lancée !");                                                    #
+//     print("L'application  est lancée !");                                                           #
 //   },                                                                                                #
 // )                                                                                                   #
 //######################################################################################################
