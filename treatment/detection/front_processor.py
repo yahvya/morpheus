@@ -16,7 +16,9 @@ class FrontProcessor:
     @staticmethod
     def process(video: UploadFile):
         try:
-            with mediapipe.solutions.face_mesh.FaceMesh() as extractor:
+            with mediapipe.solutions.face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True,
+                                                        min_detection_confidence=0.5,
+                                                        min_tracking_confidence=0.5) as extractor:
                 video_manager = cv2.VideoCapture(video.file.name)
 
                 while True:
@@ -30,13 +32,8 @@ class FrontProcessor:
                     converted_frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                     results = extractor.process(converted_frame)
 
-                    if results.multi_face_landmarks is None:
-                        continue
+                    print(results)
 
-                    landmarks = results.multi_face_landmarks[0]
-
-
-                    print(landmarks)
         except Exception as e:
             print(e)
             raise CustomException("Une erreur s'est produite lors du traitement de la vidéo de face", True)

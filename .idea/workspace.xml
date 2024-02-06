@@ -4,12 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="ajout des getter detectorarg">
-      <change afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
+    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatment/detection/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatment/detection/front_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,6 +39,20 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yahvya&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="bcb48795-878b-4597-8d9c-fa652d90c23f" />
+        <option name="url" value="https://github.com/yahvya/morpheus.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -56,26 +67,26 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "Makefile Target.Makefile.executor": "Run",
-    "Python.custom_exception.executor": "Run",
-    "Python.detector.executor": "Run",
-    "Python.front_processor.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "app-api-dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.externalDependencies",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
+    &quot;Makefile Target.Makefile.executor&quot;: &quot;Run&quot;,
+    &quot;Python.custom_exception.executor&quot;: &quot;Run&quot;,
+    &quot;Python.detector.executor&quot;: &quot;Run&quot;,
+    &quot;Python.front_processor.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;app-api-dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalDependencies&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus" />
@@ -102,7 +113,9 @@
       <updated>1706710893822</updated>
       <workItem from="1706882604421" duration="6850000" />
       <workItem from="1707045487083" duration="4830000" />
-      <workItem from="1707051284709" duration="4076000" />
+      <workItem from="1707051284709" duration="4240000" />
+      <workItem from="1707084976922" duration="6437000" />
+      <workItem from="1707223681336" duration="666000" />
     </task>
     <task id="LOCAL-00001" summary="mise à jour des commandes du readme">
       <option name="closed" value="true" />
@@ -152,7 +165,15 @@
       <option name="project" value="LOCAL" />
       <updated>1707046703119</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait">
+      <option name="closed" value="true" />
+      <created>1707055476210</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1707055476210</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -177,10 +198,12 @@
     <MESSAGE value="mise à jour du makefile dans le lancement d'uvicorn&#10;mise à jour des requirements.txt&#10;ajout de la class regroupant les arguments de détection dans detector.py&#10;ajout de la vérification du format vidéo&#10;début d'implémentation de la class de résultat d'extraction de données detector_result.py" />
     <MESSAGE value="ajout de la mise à jour de pip dans les commandes make&#10;correction de la vérification de vidéo detector.py" />
     <MESSAGE value="suppression du test requirements.txt mis à jour" />
-    <option name="LAST_COMMIT_MESSAGE" value="suppression du test requirements.txt mis à jour" />
+    <MESSAGE value="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait" />
+    <option name="LAST_COMMIT_MESSAGE" value="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/morpheus$custom_exception.coverage" NAME="custom_exception Coverage Results" MODIFIED="1706885632106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
     <SUITE FILE_PATH="coverage/morpheus$detector.coverage" NAME="detector Coverage Results" MODIFIED="1707045064618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
+    <SUITE FILE_PATH="coverage/morpheus$front_processor.coverage" NAME="front_processor Coverage Results" MODIFIED="1707055104704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
   </component>
 </project>
