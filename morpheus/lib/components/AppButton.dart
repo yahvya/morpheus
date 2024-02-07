@@ -25,7 +25,7 @@ class AppButton extends StatelessWidget {
         style: ElevatedButton.styleFrom( primary:color ),
         onPressed :onPressed,
         child:Text(
-           test ,  
+           text ,  
            style:TextStyle(color:textcolor ),
        
       ),
