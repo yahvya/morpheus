@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:morpheus/components/AppInput.dart';
+import 'package:morpheus/components/VideoRecapZone.dart';
 
 /// page d'accueil du projet
 class Home extends StatelessWidget{
@@ -14,7 +15,8 @@ class Home extends StatelessWidget{
             SizedBox(
               height: 50,
             ),
-            AppInput(label: "Email",placeholder: "entrez votre email",)
+            AppInput(label: "Email",placeholder: "entrez votre email",),
+            VideoRecapZone(name: "Recap de test", videoPath: "assets/video.mp4")
           ],
         ),
       )
