@@ -4,19 +4,15 @@ init-env:
 
 # lance l'environnement sous windows
 active-windows-env:
-	.\venv\Scripts\activate
+	./venv/Scripts/ctivate
 
 # lance l'environnement sous mac
 active-mac-env:
-	source .\venv\bin\activate
+	source ./venv/bin/activate
 
 # désactive l'environnement sous windows
 disable-windows-env:
 	.\venv\Scripts\deactivate
-
-# désactive l'environnement sous mac
-disable-mac-env:
-	source .\venv\bin\deactivate
 
 # installe les requis windows
 install-requirements-windows: init-env active-windows-env
@@ -36,5 +32,5 @@ launch-app:
 launch-app-windows: disable-windows-env active-windows-env launch-app
 
 # lance l'application sous mac
-launch-app-mac: disable-mac-env active-mac-env launch-app
+launch-app-mac: active-mac-env launch-app
 

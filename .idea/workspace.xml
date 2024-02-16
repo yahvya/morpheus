@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatment/detection/front_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
-    </list>
+    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="Add signature verification function" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,7 +170,14 @@
       <option name="project" value="LOCAL" />
       <updated>1707055476210</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="Add signature verification function">
+      <created>1708077068025</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1708077068025</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,7 +203,8 @@
     <MESSAGE value="ajout de la mise à jour de pip dans les commandes make&#10;correction de la vérification de vidéo detector.py" />
     <MESSAGE value="suppression du test requirements.txt mis à jour" />
     <MESSAGE value="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait" />
-    <option name="LAST_COMMIT_MESSAGE" value="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait" />
+    <MESSAGE value="Add signature verification function" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add signature verification function" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/morpheus$custom_exception.coverage" NAME="custom_exception Coverage Results" MODIFIED="1706885632106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
