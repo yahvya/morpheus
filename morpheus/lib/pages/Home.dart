@@ -7,10 +7,16 @@ class Home extends StatelessWidget{
   @override
   Widget build(BuildContext context){
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Color(0XFF1E1E1E),
       body: Container(
-        color: Color(0xFF1B1B1B),
-        child: AppInput(),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 50,
+            ),
+            AppInput(label: "Email",placeholder: "entrez votre email",)
+          ],
+        ),
       )
     );
   }

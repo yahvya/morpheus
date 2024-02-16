@@ -1,40 +1,48 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-/// zone de saisie de l'application
+
 class AppInput extends StatelessWidget{
+  const AppInput({super.key,required this.label,required this.placeholder,this.isProtected = false});
+
+  final String label;
+  final String placeholder;
+  final bool isProtected;
+
   @override
   Widget build(BuildContext context){
-    return Column(
-      children: [
-        SizedBox(height: 16),
-        TextField(
-          cursorColor: Color(0xFFFDFDFD),
-          style: TextStyle(
-            color: Color(0xFFFDFDFD)
+    var colorScheme = Theme.of(context).colorScheme;
+    var textColor = colorScheme.onSurface;
+    var opacityColor = textColor.withOpacity(0.4);
+
+    return Container(
+      padding: const EdgeInsets.fromLTRB(10, 0,10, 0),
+      decoration: BoxDecoration(
+        borderRadius: const BorderRadius.all(Radius.circular(4)),
+        border: Border.all(color: Color(0xFFD0D2CF)),
+        color: Color(0xFF1B1B1B)
+      ),
+      child: TextFormField(
+        cursorColor: textColor,
+        obscureText: isProtected,
+        decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            fontSize: 15,
+            color: textColor
           ),
-          decoration: InputDecoration(
-            focusColor: Color(0xFFFDFDFD),
-            hoverColor: Color(0xFFFDFDFD),
-            labelText: 'Entrez votre email', // Libellé du champ de saisie
-            border: OutlineInputBorder(), // Bordure du champ
+          labelText: label,
+          labelStyle: TextStyle(
+            fontSize: 20,
+            color: opacityColor
           ),
+          floatingLabelStyle: TextStyle(
+            color: opacityColor.withOpacity(0.4)
+          ),
+          floatingLabelBehavior:FloatingLabelBehavior.always
         ),
-        SizedBox(height: 16), // Espacement entre les champs
-        TextField(
-          cursorColor: Color(0xFFFDFDFD),
-          style: TextStyle(
-              color: Color(0xFFFDFDFD)
-          ),
-          obscureText: true, // Pour masquer les caractères du mot de passe
-          decoration: InputDecoration(
-            focusColor: Color(0xFFFDFDFD),
-            hoverColor: Color(0xFFFDFDFD),
-            labelText: 'Entrez votre mot de passe', // Libellé du champ de saisie
-            border: OutlineInputBorder(), // Bordure du champ
-          ),
-        ),
-      ],
+      )
     );
-} 
+  }
 }
