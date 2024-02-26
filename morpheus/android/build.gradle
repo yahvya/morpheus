@@ -10,10 +10,6 @@ buildscript {
     }
 }
 
-android{
-    compileSdkVersion 34
-}
-
 allprojects {
     repositories {
         google()
@@ -31,4 +27,7 @@ subprojects {
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
+}
+android {
+    compileSdkVersion 34
 }

@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
+import 'package:morpheus/config/ThemeConfig.dart';
 import 'package:video_player/video_player.dart';
 
 /// zone de recapitulatif de vidéo
 class VideoRecapZone extends StatelessWidget{
-  const VideoRecapZone({super.key,required this.name,required this.videoPath});
+  const VideoRecapZone({super.key,required this.name,required this.videoPath, this.width=140, this.height=140});
 
   final String name;
   final String videoPath;
+  final double width;
+  final double height;
 
   @override
   Widget build(BuildContext context){
@@ -20,12 +23,12 @@ class VideoRecapZone extends StatelessWidget{
     return Column(
       children: [
         Container(
-          width: 140,
-          height: 140,
+          width: width,
+          height: height,
           child: VideoPlayer(videoController),
         ),
         const SizedBox(height: 15,),
-        Text(name)
+        Text(name, style: TextStyle(color: ThemeConfig.backgroundTextColor))
       ],
     );
   }
