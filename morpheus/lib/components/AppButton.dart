@@ -1,34 +1,31 @@
+import 'package:flutter/material.dart';
+import 'package:morpheus/config/ThemeConfig.dart';
 
-import 'package:flutter/cupertino.dart';
+/// bouton de l'application
+class AppButton extends StatelessWidget{
+  const AppButton({super.key,required this.text, this.onPressed});
 
-class AppButton extends StatelessWidget {
   final String text;
-  final VoidCallback onPressed;
-  final Color color;
-  final Color textcolor;
- 
-  AppButton(( 
-    text:"Increment",
-    onPressed:_incrementCounter,
-    color: Colors.green,
-    textcolor: Colors.white,
-  ), // AppButton
-      required this. text,
-       required this. onPressed,
-       this.color = Colors.blue,
-       this.textcolor = Colors.white,
-     
-      );
-   @override
-    Widget Build(BuildContext context  ){
-      return ElevatedButton( 
-        style: ElevatedButton.styleFrom( primary:color ),
-        onPressed :onPressed,
-        child:Text(
-           text ,  
-           style:TextStyle(color:textcolor ),
-       
-      ),
-      ); 
-    }
+  final void Function()? onPressed;
+
+  @override
+  Widget build(BuildContext context){
+    return TextButton(
+        onPressed: onPressed,
+        style: ButtonStyle(
+          backgroundColor: MaterialStateProperty.all(ThemeConfig.specialColor),
+          shape: MaterialStateProperty.all(
+            const RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(4))
+            )
+          )
+        ),
+        child: Text(
+          text,
+          style: TextStyle(
+              color: ThemeConfig.specialTextColor
+          )
+        ),
+    );
+  }
 }
