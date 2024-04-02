@@ -1,11 +1,22 @@
 # Api du projet morpheus
 
-Pour lancer l'application pour la première fois utilisez:
+> Si vous ne disposez pas de l'utilitaire *make* copiez et coller directement les commandes dans le terminal
+ 
+## Lancement
+
+### Windows
+
 ```
-make install-requirements-(windows ou mac)
+make init-env
+./venv/Scripts/activate
+make install-requirements launch-api
 ```
 
-Pour lancer l'application:
+### Unix
+
 ```
-make launch-app-(windows ou mac)
+make init-env
+source ./venv/bin/activate
+make install-requirements launch-api
 ```
+
