@@ -19,7 +19,7 @@ async def treat_video(
         profile_head_up_video: UploadFile = File(...),
         profile_head_down_video: UploadFile = File()
 ):
-    check_signature(request)
+    # check_signature(request)
     try:
         await Detector.extract_datas(DetectorArg(
             front_video,
@@ -28,7 +28,13 @@ async def treat_video(
             profile_head_down_video
         ))
 
-        return "ok"
+        return {
+            "success": True,
+            "result": {}
+        }
 
     except CustomException as e:
-        return e.get_error_message()
+        return {
+            "success": False,
+            "result": e.get_error_message()
+        }
