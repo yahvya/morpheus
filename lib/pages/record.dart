@@ -369,10 +369,7 @@ class RecordState extends State<Record>{
     try {
       var request = http.MultipartRequest('POST', Uri.parse(url));
       var key = 'c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227';
-      var signature;
-      generateSignature(videoPaths, key).then((sign) {
-        print('signature: $sign');
-      });
+      var signature = await generateSignature(videoPaths, key);
 
       request.files.add(await http.MultipartFile.fromPath(
         'front_video',
@@ -393,6 +390,12 @@ class RecordState extends State<Record>{
         'profile_head_down_video',
         videoPaths[3],
       ));
+
+      request.headers.addAll({
+        'Content-Type': 'multipart/form-data',
+        'Signature': signature,
+      });
+
 
       var response = await request.send();
       print(response.statusCode);
