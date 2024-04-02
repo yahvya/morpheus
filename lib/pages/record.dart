@@ -6,6 +6,10 @@ import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/pages/page_model.dart';
 import 'package:morpheus_team/style-config/app_theme.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:http/http.dart' as http;
+import 'dart:io';
+import 'dart:convert';
+import 'package:crypto/crypto.dart';
 
 import 'home.dart';
 
@@ -25,6 +29,9 @@ class RecordState extends State<Record>{
 
   /// @brief Sections déjà prises
   List<Map<String, Object?>> alreadyDone = [];
+
+  /// @brief Chemins de video
+  List<String> videoPaths = [];
 
   /// @brief Timer
   Timer? timer;
@@ -128,8 +135,12 @@ class RecordState extends State<Record>{
     if(toDo.isEmpty){
       upperZone = Column(
         children: [
-          const AppButton(
+          AppButton(
             containedText: "Lancer le traitement",
+            onPressed: () { sendVideos(
+              'http://10.0.2.2:8000/video',
+              videoPaths,
+            ); },
           ),
           // choix du score de mallampati
           const SizedBox(height: 45),
@@ -344,6 +355,7 @@ class RecordState extends State<Record>{
 
     setState((){
       alreadyDone.add(treatedSection.cast());
+      videoPaths.add(video.path);
 
       startedRecordingCurrentSection = false;
 
@@ -351,6 +363,67 @@ class RecordState extends State<Record>{
         timerSeconds = toDo[0].cast()["duration"];
       }
     });
+  }
+
+  Future<void> sendVideos(String url, List<String> videoPaths) async {
+    try {
+      var request = http.MultipartRequest('POST', Uri.parse(url));
+      var key = 'c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227';
+      var signature;
+      generateSignature(videoPaths, key).then((sign) {
+        print('signature: $sign');
+      });
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'front_video',
+        videoPaths[0],
+      ));
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'front_head_move_video',
+        videoPaths[1],
+      ));
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'profile_head_up_video',
+        videoPaths[2],
+      ));
+
+      request.files.add(await http.MultipartFile.fromPath(
+        'profile_head_down_video',
+        videoPaths[3],
+      ));
+
+      var response = await request.send();
+      print(response.statusCode);
+      var responseBody = await response.stream.bytesToString();
+      print(responseBody);
+
+      if (response.statusCode == 200) {
+        print('Videos have been sent');
+      } else {
+        print('Error: ${response.statusCode}');
+      }
+    } catch (e) {
+      print('Server error: $e');
+    }
+  }
+
+  Future<String> generateSignature(List<String> videoPaths, String key) async {
+    var keyBytes = utf8.encode(key);
+    var hmac = Hmac(sha256, keyBytes);
+
+    var accumulatedData = BytesBuilder();
+
+    for (var path in videoPaths) {
+      var fileBytes = await File(path).readAsBytes();
+      accumulatedData.add(fileBytes);
+    }
+
+    var message = accumulatedData.toBytes();
+    var digest = hmac.convert(message);
+
+    return digest.toString();
   }
 
   @protected
