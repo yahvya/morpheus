@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus_team/app/api/api_contact.dart';
 import 'package:morpheus_team/app/detection/detection_config.dart';
 import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/pages/page_model.dart';
@@ -25,6 +26,9 @@ class RecordState extends State<Record>{
 
   /// @brief Sections déjà prises
   List<Map<String, Object?>> alreadyDone = [];
+
+  /// @brief Chemins de video
+  List<String> videoPaths = [];
 
   /// @brief Timer
   Timer? timer;
@@ -128,8 +132,14 @@ class RecordState extends State<Record>{
     if(toDo.isEmpty){
       upperZone = Column(
         children: [
-          const AppButton(
+          AppButton(
             containedText: "Lancer le traitement",
+            onPressed: () {
+              ApiContact.sendVideos(
+                'http://10.0.2.2:8000/video',
+                videoPaths,
+              );
+            }
           ),
           // choix du score de mallampati
           const SizedBox(height: 45),
@@ -344,6 +354,7 @@ class RecordState extends State<Record>{
 
     setState((){
       alreadyDone.add(treatedSection.cast());
+      videoPaths.add(video.path);
 
       startedRecordingCurrentSection = false;
 

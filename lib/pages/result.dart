@@ -22,7 +22,6 @@ class Result extends StatelessWidget {
       ]
     },
     {
-      "section": "Distances test 2",
       "content": [
         {
           "title": "obm 2",
