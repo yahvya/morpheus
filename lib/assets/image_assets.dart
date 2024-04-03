@@ -4,7 +4,9 @@ import 'package:flutter/cupertino.dart';
 enum ImageAssets{
   favicon(path: "favicon.png"),
   tap(path: "tap.png"),
-  rec(path: "rec.png");
+  rec(path: "rec.png"),
+  outils(path: "outils.jpeg"),
+  mallampati(path: "mallampati.jpeg");
 
   const ImageAssets({required this.path});
 
