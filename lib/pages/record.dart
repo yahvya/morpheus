@@ -1,15 +1,12 @@
 import 'dart:async';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:morpheus_team/app/api/api_contact.dart';
 import 'package:morpheus_team/app/detection/detection_config.dart';
 import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/pages/page_model.dart';
 import 'package:morpheus_team/style-config/app_theme.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
-import 'package:http/http.dart' as http;
-import 'dart:io';
-import 'dart:convert';
-import 'package:crypto/crypto.dart';
 
 import 'home.dart';
 
@@ -137,10 +134,12 @@ class RecordState extends State<Record>{
         children: [
           AppButton(
             containedText: "Lancer le traitement",
-            onPressed: () { sendVideos(
-              'http://10.0.2.2:8000/video',
-              videoPaths,
-            ); },
+            onPressed: () {
+              ApiContact.sendVideos(
+                'http://10.0.2.2:8000/video',
+                videoPaths,
+              );
+            }
           ),
           // choix du score de mallampati
           const SizedBox(height: 45),
@@ -363,78 +362,6 @@ class RecordState extends State<Record>{
         timerSeconds = toDo[0].cast()["duration"];
       }
     });
-  }
-
-  /// @brief Fonction pour envoyer des vidéos à un serveur
-  Future<void> sendVideos(String url, List<String> videoPaths) async {
-    try {
-      var request = http.MultipartRequest('POST', Uri.parse(url));
-      var key = 'c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227';
-      // Génération de la signature basée sur les chemins des vidéos et la clé
-      var signature = await generateSignature(videoPaths, key);
-
-      // Ajout des fichiers vidéo à la requête
-      request.files.add(await http.MultipartFile.fromPath(
-        'front_video',
-        videoPaths[0],
-      ));
-
-      request.files.add(await http.MultipartFile.fromPath(
-        'front_head_move_video',
-        videoPaths[1],
-      ));
-
-      request.files.add(await http.MultipartFile.fromPath(
-        'profile_head_up_video',
-        videoPaths[2],
-      ));
-
-      request.files.add(await http.MultipartFile.fromPath(
-        'profile_head_down_video',
-        videoPaths[3],
-      ));
-
-      request.headers.addAll({
-        'Content-Type': 'multipart/form-data',
-        'Signature': signature,
-      });
-
-      // Envoi de la requête au serveur
-      var response = await request.send();
-      print(response.statusCode);
-      // Lecture de la réponse du serveur
-      var responseBody = await response.stream.bytesToString();
-      print(responseBody);
-
-      if (response.statusCode == 200) {
-        print('Videos have been sent');
-      } else {
-        print('Error: ${response.statusCode}');
-      }
-    } catch (e) {
-      print('Server error: $e');
-    }
-  }
-
-  /// @brief Fonction pour générer une signature HMAC SHA-256
-  Future<String> generateSignature(List<String> videoPaths, String key) async {
-    var keyBytes = utf8.encode(key);
-    var hmac = Hmac(sha256, keyBytes);
-
-    // Accumulation des données des fichiers vidéo
-    var accumulatedData = BytesBuilder();
-
-    // Lecture des bytes de chaque fichier vidéo
-    for (var path in videoPaths) {
-      var fileBytes = await File(path).readAsBytes();
-      accumulatedData.add(fileBytes);
-    }
-
-    // Génération de la signature
-    var message = accumulatedData.toBytes();
-    var digest = hmac.convert(message);
-
-    return digest.toString();
   }
 
   @protected
