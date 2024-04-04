@@ -28,7 +28,7 @@ class RecordState extends State<Record>{
   List<Map<String, Object?>> alreadyDone = [];
 
   /// @brief Chemins de video
-  List<String> videoPaths = [];
+  Map<int,String> videoPaths = {};
 
   /// @brief Timer
   Timer? timer;
@@ -89,7 +89,7 @@ class RecordState extends State<Record>{
             setState((){
               // suppression dans les éléments déjà fait
               alreadyDone.removeAt(index);
-              videoPaths.remove(datas["video"].path);
+              videoPaths.remove(datas["index"]);
 
               // suppression des données ajoutées
               datas.remove("preview");
@@ -356,7 +356,7 @@ class RecordState extends State<Record>{
 
     setState((){
       alreadyDone.add(treatedSection.cast());
-      videoPaths.add(video.path);
+      videoPaths[treatedSection["index"]] = video.path;
 
       startedRecordingCurrentSection = false;
 

@@ -3,12 +3,12 @@ import 'dart:io';
 import 'dart:typed_data';
 import 'package:http/http.dart' as http;
 import 'package:crypto/crypto.dart';
+import 'package:morpheus_team/app/detection/detection_config.dart';
 
 /// @brief Gestionnaire d'échange avec l'api
 class ApiContact{
   /// @brief Fonction pour envoyer des vidéos à l'api serveur
-  static Future<bool> sendVideos(String url, List<String> videoPaths) async {
-
+  static Future<bool> sendVideos(String url, Map<int,String> videoPaths) async {
     try {
       if(videoPaths.length < 4) {
         return false;
@@ -17,27 +17,37 @@ class ApiContact{
       var request = http.MultipartRequest('POST', Uri.parse(url));
       var key = 'c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227';
       // Génération de la signature basée sur les chemins des vidéos et la clé
-      var signature = await ApiContact.generateSignature(videoPaths, key);
+      List<String> organizedList = [];
+
+      var keys = videoPaths.keys.toList();
+
+      keys.sort();
+
+      for(var key in keys){
+        organizedList.add(videoPaths[key]!);
+      }
+
+      var signature = await ApiContact.generateSignature(organizedList, key);
 
       // Ajout des fichiers vidéo à la requête
       request.files.add(await http.MultipartFile.fromPath(
         'front_video',
-        videoPaths[0],
+        videoPaths[DetectionManager.config[0]["index"]]!,
       ));
 
       request.files.add(await http.MultipartFile.fromPath(
         'front_head_move_video',
-        videoPaths[1],
+        videoPaths[DetectionManager.config[1]["index"]]!,
       ));
 
       request.files.add(await http.MultipartFile.fromPath(
         'profile_head_up_video',
-        videoPaths[2],
+        videoPaths[DetectionManager.config[2]["index"]]!,
       ));
 
       request.files.add(await http.MultipartFile.fromPath(
         'profile_head_down_video',
-        videoPaths[3],
+        videoPaths[DetectionManager.config[3]["index"]]!,
       ));
 
       request.headers.addAll({

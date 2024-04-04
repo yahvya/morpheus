@@ -10,7 +10,8 @@ class DetectionManager{
       "Faîtes lui ouvrir la bouche"
       ],
       "duration": 5,
-      "verifier": null
+      "verifier": null,
+      "index": 1
     },
     // posture de face (tête levé)
     {
@@ -20,7 +21,8 @@ class DetectionManager{
         "Faîtes lui lever la tête vers l'arrière"
       ],
       "duration": 5,
-      "verifier": null
+      "verifier": null,
+      "index": 2
     },
     // posture de profil (tête baissé)
     {
@@ -30,7 +32,8 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": null
+      "verifier": null,
+      "index": 3
     },
     // posture de profil (gauche baissé)
     {
@@ -40,7 +43,8 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": null
+      "verifier": null,
+      "index": 4
     },
   ];
 
