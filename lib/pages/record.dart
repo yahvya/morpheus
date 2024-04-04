@@ -89,6 +89,7 @@ class RecordState extends State<Record>{
             setState((){
               // suppression dans les éléments déjà fait
               alreadyDone.removeAt(index);
+              videoPaths.remove(datas["video"].path);
 
               // suppression des données ajoutées
               datas.remove("preview");

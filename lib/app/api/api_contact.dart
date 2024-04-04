@@ -7,8 +7,13 @@ import 'package:crypto/crypto.dart';
 /// @brief Gestionnaire d'échange avec l'api
 class ApiContact{
   /// @brief Fonction pour envoyer des vidéos à l'api serveur
-  static Future<void> sendVideos(String url, List<String> videoPaths) async {
+  static Future<bool> sendVideos(String url, List<String> videoPaths) async {
+
     try {
+      if(videoPaths.length < 4) {
+        return false;
+      }
+
       var request = http.MultipartRequest('POST', Uri.parse(url));
       var key = 'c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227';
       // Génération de la signature basée sur les chemins des vidéos et la clé
@@ -49,12 +54,15 @@ class ApiContact{
 
       if (response.statusCode == 200) {
         print('Videos have been sent');
+        return true;
       } else {
         print('Error: ${response.statusCode}');
       }
     } catch (e) {
       print('Server error: $e');
     }
+
+    return false;
   }
 
   /// @brief Fonction pour générer une signature HMAC SHA-256

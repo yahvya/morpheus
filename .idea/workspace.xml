@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0801933b-80f0-48c8-b8f2-63fd0b2c0711" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/morpheus.iml" beforeDir="false" />
+    <list default="true" id="0801933b-80f0-48c8-b8f2-63fd0b2c0711" name="Changes" comment="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/record.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/record.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/result.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/result.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/widget_test.dart" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -73,11 +65,24 @@
       <updated>1712260826751</updated>
       <workItem from="1712260827560" duration="3000" />
       <workItem from="1712260832251" duration="952000" />
-      <workItem from="1712261803094" duration="3132000" />
+      <workItem from="1712261803094" duration="3934000" />
     </task>
+    <task id="LOCAL-00001" summary="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat">
+      <option name="closed" value="true" />
+      <created>1712265698758</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712265698758</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat" />
+    <option name="LAST_COMMIT_MESSAGE" value="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat" />
   </component>
 </project>
