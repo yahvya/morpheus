@@ -136,7 +136,7 @@ class RecordState extends State<Record>{
             containedText: "Lancer le traitement",
             onPressed: () {
               ApiContact.sendVideos(
-                'http://10.0.2.2:8000/video',
+                'http://192.168.11.210:8000/video',
                 videoPaths,
               );
             }
@@ -312,6 +312,7 @@ class RecordState extends State<Record>{
       timer!.cancel();
     }
 
+    timerSeconds = toDo[0].cast()["duration"];
     timer = Timer.periodic(
       const Duration(seconds: 1),
       (time) {

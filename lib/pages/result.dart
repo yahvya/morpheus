@@ -22,6 +22,7 @@ class Result extends StatelessWidget {
       ]
     },
     {
+      "section": "Distances 2",
       "content": [
         {
           "title": "obm 2",
@@ -48,24 +49,28 @@ class Result extends StatelessWidget {
         fontSize: 20
     );
 
-    const separator = SizedBox(height: 10,);
+    const headSeparator = SizedBox(height: 30,);
+    const basicSeparator = SizedBox(height: 20,);
 
     var sections = [];
 
     for(var config in testDatas){
-      sections.add(
-        Text(
-          config["section"],
-          style: headTitleStyle
-        )
-      );
+      sections.addAll([
+          Text(
+            config["section"],
+            style: headTitleStyle
+          ),
+          headSeparator
+      ]);
+
       for(var sectionContent in config["content"]){
-          sections.add(
+          sections.addAll([
             Text(
               "${sectionContent["title"]} - ${sectionContent["value"]}",
-              style: headTitleStyle
-            )
-          );
+              style: basicStyle
+            ),
+            basicSeparator
+          ]);
       }
     }
 
