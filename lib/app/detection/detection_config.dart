@@ -1,7 +1,12 @@
+import 'package:morpheus_team/app/detection/front_face_head_move_verificator.dart';
+import 'package:morpheus_team/app/detection/front_face_verificator.dart';
+import 'package:morpheus_team/app/detection/left_profile_verificator.dart';
+import 'package:morpheus_team/app/detection/right_profile_verificator.dart';
+
 /// @brief Gestionnaire de détection
 class DetectionManager{
   /// @brief Configuration des différentes positions de détection
-  static const List<Map<String, Object?>> config = [
+  static List<Map<String, Object>> config = [
     // posture de face (bouche)
     {
       "text": "Face (1)",
@@ -10,7 +15,7 @@ class DetectionManager{
       "Faîtes lui ouvrir la bouche"
       ],
       "duration": 5,
-      "verifier": null,
+      "verifier": FrontFaceVerificator(),
       "index": 1
     },
     // posture de face (tête levé)
@@ -21,7 +26,7 @@ class DetectionManager{
         "Faîtes lui lever la tête vers l'arrière"
       ],
       "duration": 5,
-      "verifier": null,
+      "verifier": FrontFaceHeadMoveVerificator(),
       "index": 2
     },
     // posture de profil (tête baissé)
@@ -32,7 +37,7 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": null,
+      "verifier": RightProfileVerificator(),
       "index": 3
     },
     // posture de profil (gauche baissé)
@@ -43,7 +48,7 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": null,
+      "verifier": LeftProfileVerificator(),
       "index": 4
     },
   ];
