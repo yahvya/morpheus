@@ -3,6 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:morpheus_team/app/api/api_contact.dart';
 import 'package:morpheus_team/app/detection/detection_config.dart';
+import 'package:morpheus_team/app/detection/verificator.dart';
 import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/pages/page_model.dart';
 import 'package:morpheus_team/style-config/app_theme.dart';
@@ -22,10 +23,10 @@ class Record extends StatefulWidget{
 
 class RecordState extends State<Record>{
   /// @brief sections restantes
-  late List<Map<String, Object?>> toDo;
+  late List<Map<String, Object>> toDo;
 
   /// @brief Sections déjà prises
-  List<Map<String, Object?>> alreadyDone = [];
+  List<Map<String, Object>> alreadyDone = [];
 
   /// @brief Chemins de video
   Map<int,String> videoPaths = {};
@@ -182,7 +183,7 @@ class RecordState extends State<Record>{
       );
     }
     else{
-      Map<String,Object?> currentSection = toDo[0];
+      Map<String,Object> currentSection = toDo[0];
 
       // ajout de la zone d'enregistrement
       upperZone =  Column(
@@ -305,8 +306,13 @@ class RecordState extends State<Record>{
 
     startedRecordingCurrentSection = true;
 
-    // lancement de l'enregistrement vidéo
-    await controller!.startVideoRecording();
+    // lancement de l'enregistrement vidéo et ajout de l'évenement de vérification
+
+    var currentSection = toDo[0];
+
+    await controller!.startVideoRecording(onAvailable: (CameraImage frame){
+      print(frame);
+    });
 
     // lancement du timer
     if(timer != null){
