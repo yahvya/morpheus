@@ -43,6 +43,9 @@ class RecordState extends State<Record>{
   /// @brief Si l'enregistrement de la section actuelle a démarré
   bool startedRecordingCurrentSection = false;
 
+  /// @brief Si la section est mise en pause
+  bool isPaused = false;
+
   /// @brief Controller vidéo
   CameraController? controller;
 
@@ -203,10 +206,13 @@ class RecordState extends State<Record>{
           Stack(
             children: [
               Container(
-                  width: 200,
-                  height: 300,
+                width: 200,
+                height: 300,
+                decoration: BoxDecoration(
                   color: AppTheme.onBackground,
-                  child: controller == null ? null : CameraPreview(controller!)
+                  border: isPaused ? Border.all(color: AppTheme.error,width: 3) : null
+                ),
+                child: controller == null ? null : CameraPreview(controller!),
               ),
               if(!startedRecordingCurrentSection)
                 Container(
@@ -304,14 +310,39 @@ class RecordState extends State<Record>{
       return;
     }
 
-    startedRecordingCurrentSection = true;
+    setState(() {
+      startedRecordingCurrentSection = true;
+      isPaused = false;
+    });
 
-    // lancement de l'enregistrement vidéo et ajout de l'évenement de vérification
+    // lancement de l'enregistrement vidéo et ajout de l'évènement de vérification
 
     var currentSection = toDo[0];
 
-    await controller!.startVideoRecording(onAvailable: (CameraImage frame){
-      print(frame);
+    await controller!.startVideoRecording(onAvailable: (image){
+      if(!(currentSection["verifier"] as Verificator).verify(image)){
+        if(!isPaused){
+          // mise en pause de l'enregistrement
+          controller!.pauseVideoRecording().then((_){
+            setState(() {
+              // arrêt du timer
+              timer!.cancel();
+
+              // mise à jour affichage style
+              isPaused = true;
+            });
+          });
+        }
+      }
+      else if(isPaused){
+        // arrêt de la pause
+        setState(() {
+          isPaused = false;
+          controller!.resumeVideoRecording();
+
+          timer = createAnimationTimer();
+        });
+      }
     });
 
     // lancement du timer
@@ -320,19 +351,7 @@ class RecordState extends State<Record>{
     }
 
     timerSeconds = toDo[0].cast()["duration"];
-    timer = Timer.periodic(
-      const Duration(seconds: 1),
-      (time) {
-        setState(() {
-          timerSeconds--;
-
-          if (timerSeconds <= 0) {
-            timer!.cancel();
-            endRecord();
-          }
-        });
-      }
-    );
+    timer = createAnimationTimer();
   }
 
   @protected
@@ -365,6 +384,7 @@ class RecordState extends State<Record>{
       videoPaths[treatedSection["index"]] = video.path;
 
       startedRecordingCurrentSection = false;
+      isPaused = true;
 
       if(toDo.isNotEmpty){
         timerSeconds = toDo[0].cast()["duration"];
@@ -377,6 +397,24 @@ class RecordState extends State<Record>{
   /// @param errorMessage le message d'erreur
   void showErrorMessage(String errorMessage){
     print(errorMessage);
+  }
+
+  /// @brief Crée le timer d'animation
+  /// @return le timer crée
+  Timer createAnimationTimer(){
+    return Timer.periodic(
+        const Duration(seconds: 1),
+            (time) {
+          setState(() {
+            timerSeconds--;
+
+            if (timerSeconds <= 0) {
+              timer!.cancel();
+              endRecord();
+            }
+          });
+        }
+    );
   }
 }
 

@@ -11,4 +11,5 @@ class AppTheme{
   static const textOnSpecial = Color.fromRGBO(255,255,255,1);
   static const lightTextOnBackground = Color.fromRGBO(253,253,253,0.4);
   static const lightTextOnSpecial = Color.fromRGBO(255,255,255,0.4);
+  static const Color error = Color.fromRGBO(255, 0, 0, 1);
 }
