@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:morpheus_team/app/auth/authenticator.dart';
 import 'package:morpheus_team/assets/image_assets.dart';
 import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/components/app_input.dart';
@@ -74,7 +75,12 @@ class Login extends StatelessWidget{
           AppButton(
             containedText: "Lancer l'application",
             onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Home()));
+              // authentification utilisateur
+              Authenticator.authenticateUser(emailValue, passwordValue, haveToKeepAuth).then((success){
+                if(success){
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const Home()));
+                }
+              });
             }
           )
         ]

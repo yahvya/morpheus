@@ -4,20 +4,35 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0801933b-80f0-48c8-b8f2-63fd0b2c0711" name="Changes" comment="correction de la suppression du chemin vidéo en cas de reprise de la vidéo&#10;ajout de la vérification du nombre de données fournies à l'envoi d'api">
+    <list default="true" id="0801933b-80f0-48c8-b8f2-63fd0b2c0711" name="Changes" comment="correction de l'ordre parmis les vidéos">
+      <change afterPath="$PROJECT_DIR$/lib/assets/config_assets.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/api/api_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/api/api_contact.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/record.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/record.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/auth/authenticator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/auth/authenticator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/pages/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="KubernetesApiProvider"><![CDATA[{
+  "isMigrated": true
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -67,7 +82,10 @@
       <updated>1712260826751</updated>
       <workItem from="1712260827560" duration="3000" />
       <workItem from="1712260832251" duration="952000" />
-      <workItem from="1712261803094" duration="7004000" />
+      <workItem from="1712261803094" duration="9827000" />
+      <workItem from="1712317533960" duration="5110000" />
+      <workItem from="1712570502124" duration="736000" />
+      <workItem from="1712651389043" duration="7666000" />
     </task>
     <task id="LOCAL-00001" summary="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat">
       <option name="closed" value="true" />
@@ -85,7 +103,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712266304019</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="correction de l'ordre parmis les vidéos">
+      <option name="closed" value="true" />
+      <created>1712270524422</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1712270524422</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -94,6 +120,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Correction mise à jour du timer à la fin des opérations&#10;Mise en forme page résultat" />
     <MESSAGE value="correction de la suppression du chemin vidéo en cas de reprise de la vidéo&#10;ajout de la vérification du nombre de données fournies à l'envoi d'api" />
-    <option name="LAST_COMMIT_MESSAGE" value="correction de la suppression du chemin vidéo en cas de reprise de la vidéo&#10;ajout de la vérification du nombre de données fournies à l'envoi d'api" />
+    <MESSAGE value="correction de l'ordre parmis les vidéos" />
+    <option name="LAST_COMMIT_MESSAGE" value="correction de l'ordre parmis les vidéos" />
   </component>
 </project>
