@@ -3,7 +3,7 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:morpheus_team/app/api/api_contact.dart';
 import 'package:morpheus_team/app/detection/detection_config.dart';
-import 'package:morpheus_team/app/detection/verificator.dart';
+import 'package:morpheus_team/app/detection/verifier.dart';
 import 'package:morpheus_team/components/app_button.dart';
 import 'package:morpheus_team/pages/page_model.dart';
 import 'package:morpheus_team/style-config/app_theme.dart';
@@ -24,6 +24,9 @@ class Record extends StatefulWidget{
 class RecordState extends State<Record>{
   /// @brief sections restantes
   late List<Map<String, Object>> toDo;
+
+  /// @brief Caméra utilisé
+  late CameraDescription usedCamera;
 
   /// @brief Sections déjà prises
   List<Map<String, Object>> alreadyDone = [];
@@ -141,7 +144,7 @@ class RecordState extends State<Record>{
             containedText: "Lancer le traitement",
             onPressed: () {
               ApiContact.sendVideos(
-                'http://192.168.11.210:8000/video',
+                ApiContact.defaultLink,
                 videoPaths,
               );
             }
@@ -290,9 +293,9 @@ class RecordState extends State<Record>{
   void loadCamera() async{
     try{
       var camerasDescriptions = await availableCameras();
-      var backCamera = camerasDescriptions.firstWhere((cameraDescription) => cameraDescription.lensDirection == CameraLensDirection.back);
+      usedCamera = camerasDescriptions.firstWhere((cameraDescription) => cameraDescription.lensDirection == CameraLensDirection.back);
 
-      controller = CameraController(backCamera, ResolutionPreset.max,enableAudio: false);
+      controller = CameraController(usedCamera, ResolutionPreset.max,enableAudio: false);
 
       await controller!.initialize();
 
@@ -318,31 +321,43 @@ class RecordState extends State<Record>{
     // lancement de l'enregistrement vidéo et ajout de l'évènement de vérification
 
     var currentSection = toDo[0];
+    var isVerifying = false;
 
     await controller!.startVideoRecording(onAvailable: (image){
-      if(!(currentSection["verifier"] as Verificator).verify(image)){
-        if(!isPaused){
-          // mise en pause de l'enregistrement
-          controller!.pauseVideoRecording().then((_){
-            setState(() {
-              // arrêt du timer
-              timer!.cancel();
+      if(isVerifying)
+        return;
+      isVerifying = true;
 
-              // mise à jour affichage style
-              isPaused = true;
+      (currentSection["verifier"] as Verifier).verify(usedCamera,image).then((isOk){
+        if(!isOk){
+          if(!isPaused){
+            // mise en pause de l'enregistrement
+            controller!.pauseVideoRecording().then((_){
+              setState(() {
+                // arrêt du timer
+                timer!.cancel();
+
+                // mise à jour affichage style
+                isPaused = true;
+              });
             });
+          }
+        }
+        else if(isPaused){
+          // arrêt de la pause
+          setState(() {
+            isPaused = false;
+            try{
+              controller!.resumeVideoRecording();
+            }
+            catch(_){}
+
+            timer = createAnimationTimer();
           });
         }
-      }
-      else if(isPaused){
-        // arrêt de la pause
-        setState(() {
-          isPaused = false;
-          controller!.resumeVideoRecording();
 
-          timer = createAnimationTimer();
-        });
-      }
+        isVerifying = false;
+      });
     });
 
     // lancement du timer

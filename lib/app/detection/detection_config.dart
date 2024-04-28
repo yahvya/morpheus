@@ -1,7 +1,7 @@
-import 'package:morpheus_team/app/detection/front_face_head_move_verificator.dart';
-import 'package:morpheus_team/app/detection/front_face_verificator.dart';
-import 'package:morpheus_team/app/detection/left_profile_verificator.dart';
-import 'package:morpheus_team/app/detection/right_profile_verificator.dart';
+import 'package:morpheus_team/app/detection/front_face_head_move_verifier.dart';
+import 'package:morpheus_team/app/detection/front_face_verifier.dart';
+import 'package:morpheus_team/app/detection/left_profile_verifier.dart';
+import 'package:morpheus_team/app/detection/right_profile_verifier.dart';
 
 /// @brief Gestionnaire de détection
 class DetectionManager{
@@ -15,7 +15,7 @@ class DetectionManager{
       "Faîtes lui ouvrir la bouche"
       ],
       "duration": 5,
-      "verifier": FrontFaceVerificator(),
+      "verifier": FrontFaceVerifier(),
       "index": 1
     },
     // posture de face (tête levé)
@@ -26,7 +26,7 @@ class DetectionManager{
         "Faîtes lui lever la tête vers l'arrière"
       ],
       "duration": 5,
-      "verifier": FrontFaceHeadMoveVerificator(),
+      "verifier": FrontFaceHeadMoveVerifier(),
       "index": 2
     },
     // posture de profil (tête baissé)
@@ -37,7 +37,7 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": RightProfileVerificator(),
+      "verifier": RightProfileVerifier(),
       "index": 3
     },
     // posture de profil (gauche baissé)
@@ -48,7 +48,7 @@ class DetectionManager{
         "Faîtes lui baisser la tête"
       ],
       "duration": 5,
-      "verifier": LeftProfileVerificator(),
+      "verifier": LeftProfileVerifier(),
       "index": 4
     },
   ];

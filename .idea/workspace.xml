@@ -4,13 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec5206-650a-4856-9df2-a7f67a103f59" name="Changes" comment="">
+    <list default="true" id="83ec5206-650a-4856-9df2-a7f67a103f59" name="Changes" comment="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqu">
+      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verifier.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/app/detection/front_face_verifier.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/api/api_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/api/api_contact.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verificator.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/front_face_verificator.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/left_profile_verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/left_profile_verifier.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/right_profile_verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/right_profile_verifier.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/verifier.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/pages/record.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/record.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/style-config/app_theme.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/style-config/app_theme.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,6 +30,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "yahvya"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yahvya/morpheus",
+    "accountId": "cdf94f83-f6dc-4ca1-8a51-6ad00de201ff"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -32,31 +54,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Flutter.main.dart.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "dart.analysis.tool.window.visible": "false",
-    "git-widget-placeholder": "app-front-dev",
-    "ignore.virus.scanning.warn.message": "true",
-    "io.flutter.reload.alreadyRun": "true",
-    "kotlin-language-version-configured": "true",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
-    "show.migrate.to.gradle.popup": "false",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Flutter.main.dart.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;app-front-dev&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;io.flutter.reload.alreadyRun&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;show.migrate.to.gradle.popup&quot;: &quot;false&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="main.dart" type="FlutterRunConfigurationType" factoryName="Flutter">
       <option name="filePath" value="$PROJECT_DIR$/lib/main.dart" />
       <method v="2" />
     </configuration>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9f38398b9061-18abd8497189-intellij.indexing.shared.core-IU-241.14494.240" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-IU-241.14494.240" />
+      </set>
+    </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -66,11 +96,52 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1712659860022</updated>
-      <workItem from="1712659861856" duration="3465000" />
+      <workItem from="1712659861856" duration="3977000" />
+      <workItem from="1712673669086" duration="4706000" />
+      <workItem from="1712695180446" duration="26000" />
+      <workItem from="1712695216144" duration="51000" />
+      <workItem from="1712695278477" duration="154000" />
+      <workItem from="1712695606264" duration="2019000" />
+      <workItem from="1712742207292" duration="1439000" />
+      <workItem from="1712834962801" duration="53000" />
+      <workItem from="1712927550410" duration="95000" />
+      <workItem from="1712928100287" duration="160000" />
+      <workItem from="1712928277876" duration="17000" />
+      <workItem from="1712928305139" duration="180000" />
+      <workItem from="1712928505842" duration="54000" />
+      <workItem from="1712928623199" duration="87000" />
+      <workItem from="1712930220441" duration="42000" />
+      <workItem from="1712930276839" duration="18000" />
+      <workItem from="1713392125407" duration="38000" />
+      <workItem from="1714317304848" duration="16000" />
+      <workItem from="1714317421444" duration="423000" />
+      <workItem from="1714317949612" duration="21807000" />
     </task>
+    <task id="LOCAL-00001" summary="Ajout de la logique de blocage et reprise vidéo en cas de vérification manquée">
+      <option name="closed" value="true" />
+      <created>1712663833052</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1712663833052</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqué">
+      <option name="closed" value="true" />
+      <created>1712663851832</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1712663851832</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manquée" />
+    <MESSAGE value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqué" />
+    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqué" />
   </component>
 </project>
