@@ -9,4 +9,4 @@ install-requirements:
 
 # lance l'application
 launch-api:
-	uvicorn api.api:app --reload
+	uvicorn api.api:app --reload --port 8000 --host 0.0.0.0

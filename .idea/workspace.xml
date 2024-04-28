@@ -4,20 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="Add signature verification function">
+    <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatment/detection/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatment/detection/front_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="ChangesViewManager" show_ignored="true">
-    <option name="groupingKeys">
-      <option value="directory" />
-    </option>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -26,196 +26,68 @@
       </list>
     </option>
   </component>
-  <component name="FlaskConsoleOptions" custom-start-script="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))">
-    <envs>
-      <env key="FLASK_APP" value="app" />
-    </envs>
-    <option name="myCustomStartScript" value="import sys&#10;sys.path.extend([WORKING_DIR_AND_PYTHON_PATHS])&#10;from flask.cli import ScriptInfo&#10;locals().update(ScriptInfo(create_app=None).load_app().make_shell_context())&#10;print(&quot;Python %s on %s\nApp: %s [%s]\nInstance: %s&quot; % (sys.version, sys.platform, app.import_name, app.env, app.instance_path))" />
-    <option name="myEnvs">
-      <map>
-        <entry key="FLASK_APP" value="app" />
-      </map>
-    </option>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-  </component>
-  <component name="GitHubPullRequestSearchHistory">{
-  &quot;lastFilter&quot;: {
-    &quot;state&quot;: &quot;OPEN&quot;,
-    &quot;assignee&quot;: &quot;yahvya&quot;
-  }
-}</component>
-  <component name="GithubPullRequestsUISettings">
-    <option name="selectedUrlAndAccountId">
-      <UrlAndAccount>
-        <option name="accountId" value="bcb48795-878b-4597-8d9c-fa652d90c23f" />
-        <option name="url" value="https://github.com/yahvya/morpheus.git" />
-      </UrlAndAccount>
-    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProjectColorInfo">{
-  &quot;associatedIndex&quot;: 8
+  &quot;associatedIndex&quot;: 2
 }</component>
-  <component name="ProjectId" id="2bivpAry0rHepEWCzDD3MUpXVdG" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2eeMPcEGD8oOR9HqjOBKWJzyd39" />
   <component name="ProjectViewState">
+    <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;ASKED_ADD_EXTERNAL_FILES&quot;: &quot;true&quot;,
-    &quot;Makefile Target.Makefile.executor&quot;: &quot;Run&quot;,
-    &quot;Python.custom_exception.executor&quot;: &quot;Run&quot;,
-    &quot;Python.detector.executor&quot;: &quot;Run&quot;,
-    &quot;Python.front_processor.executor&quot;: &quot;Run&quot;,
+    &quot;Python.front_processor.executor&quot;: &quot;Debug&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;app-api-dev&quot;,
     &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/devel/Desktop/fac/master/master-1-dev-web-mobile-fullstack/cross-semestre/morpheus&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/devel/Desktop/fac/master/master-1-dev-web-mobile-fullstack/cross-semestre/morpheus/morpheus-api&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.externalDependencies&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus" />
-      <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus\api" />
-      <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus\api\api-utils" />
-      <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus\treatment\detection" />
-      <recent name="C:\Users\devel\Desktop\fac\master\master-1-dev-web-mobile-fullstack\cross-semestre\morpheus\treatment\exceptions" />
-    </key>
-  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-python-sdk-5a2391486177-2887949eec09-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-233.13763.11" />
+        <option value="bundled-js-predefined-1d06a55b98c1-74d2a5396914-JavaScript-PY-241.14494.241" />
+        <option value="bundled-python-sdk-0509580d9d50-28c9f5db9ffe-com.jetbrains.pycharm.pro.sharedIndexes.bundled-PY-241.14494.241" />
       </set>
     </attachedChunks>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="1995c764-819c-4692-b2c5-2334fa9ca50a" name="Changes" comment="" />
-      <created>1706710893822</created>
+      <changelist id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="" />
+      <created>1712260568342</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1706710893822</updated>
-      <workItem from="1706882604421" duration="6850000" />
-      <workItem from="1707045487083" duration="4830000" />
-      <workItem from="1707051284709" duration="4240000" />
-      <workItem from="1707084976922" duration="6437000" />
-      <workItem from="1707223681336" duration="666000" />
-      <workItem from="1712058290258" duration="25000" />
-      <workItem from="1712058348857" duration="832000" />
+      <updated>1712260568342</updated>
+      <workItem from="1712260569448" duration="13270000" />
+      <workItem from="1712317401206" duration="10407000" />
+      <workItem from="1712572650310" duration="612000" />
+      <workItem from="1712870167572" duration="20000" />
+      <workItem from="1714317250088" duration="15000" />
+      <workItem from="1714317274314" duration="47000" />
+      <workItem from="1714317376458" duration="477000" />
+      <workItem from="1714317945036" duration="7691000" />
     </task>
-    <task id="LOCAL-00001" summary="mise à jour des commandes du readme">
-      <option name="closed" value="true" />
-      <created>1706872415224</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1706872415224</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Début d'implémentation du gestionnaire de détection">
-      <option name="closed" value="true" />
-      <created>1706886853631</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1706886853631</updated>
-    </task>
-    <task id="LOCAL-00003" summary="Ajout de la fonction de gestion d'extraction&#10;Ajout de l'énumération des points pouvant être extrait">
-      <option name="closed" value="true" />
-      <created>1706888457958</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1706888457958</updated>
-    </task>
-    <task id="LOCAL-00004" summary="mise à jour du makefile dans le lancement d'uvicorn&#10;mise à jour des requirements.txt&#10;ajout de la class regroupant les arguments de détection dans detector.py&#10;ajout de la vérification du format vidéo&#10;début d'implémentation de la class de résultat d'extraction de données detector_result.py">
-      <option name="closed" value="true" />
-      <created>1707045457414</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1707045457414</updated>
-    </task>
-    <task id="LOCAL-00005" summary="ajout de la mise à jour de pip dans les commandes make&#10;correction de la vérification de vidéo detector.py">
-      <option name="closed" value="true" />
-      <created>1707046387389</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1707046387389</updated>
-    </task>
-    <task id="LOCAL-00006" summary="suppression du test requirements.txt mis à jour">
-      <option name="closed" value="true" />
-      <created>1707046703119</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1707046703119</updated>
-    </task>
-    <task id="LOCAL-00007" summary="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait">
-      <option name="closed" value="true" />
-      <created>1707055476210</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1707055476210</updated>
-    </task>
-    <task id="LOCAL-00008" summary="Add signature verification function">
-      <created>1708077068025</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1708077068025</updated>
-    </task>
-    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State />
-          </value>
-        </entry>
-      </map>
-    </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="mise à jour des commandes du readme" />
-    <MESSAGE value="Début d'implémentation du gestionnaire de détection" />
-    <MESSAGE value="Ajout de la fonction de gestion d'extraction&#10;Ajout de l'énumération des points pouvant être extrait" />
-    <MESSAGE value="mise à jour du makefile dans le lancement d'uvicorn&#10;mise à jour des requirements.txt&#10;ajout de la class regroupant les arguments de détection dans detector.py&#10;ajout de la vérification du format vidéo&#10;début d'implémentation de la class de résultat d'extraction de données detector_result.py" />
-    <MESSAGE value="ajout de la mise à jour de pip dans les commandes make&#10;correction de la vérification de vidéo detector.py" />
-    <MESSAGE value="suppression du test requirements.txt mis à jour" />
-    <MESSAGE value="début d'implémentation de la détection sur la vidéo de face , ajout de la méthode process et récupération des landmarks fait" />
-    <MESSAGE value="Add signature verification function" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add signature verification function" />
-  </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/morpheus$custom_exception.coverage" NAME="custom_exception Coverage Results" MODIFIED="1706885632106" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment" />
-    <SUITE FILE_PATH="coverage/morpheus$detector.coverage" NAME="detector Coverage Results" MODIFIED="1707045064618" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
-    <SUITE FILE_PATH="coverage/morpheus$front_processor.coverage" NAME="front_processor Coverage Results" MODIFIED="1707055104704" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
+    <SUITE FILE_PATH="coverage/morpheus_api$front_processor.coverage" NAME="front_processor Coverage Results" MODIFIED="1712321450114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
   </component>
 </project>
