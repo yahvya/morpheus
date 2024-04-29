@@ -19,7 +19,6 @@ def generate_signature(key: bytes, files) -> str:
                 hmac_sha256.update(chunk)
     return hmac_sha256.hexdigest()
 
-
 async def save_upload_file(directory: str, file):
     file_location = f"{directory}/{file.filename}"
     with open(file_location, "wb") as buffer:

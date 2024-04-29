@@ -47,10 +47,15 @@ class FrontProcessor:
                 # récupération de la distance bouche
                 success, distance = FrontProcessor.get_mouth_distance(normalized_face_frame)
 
+                if success and distance > max_distance:
+                    max_distance = distance
+
             if max_distance == -1:
                 raise CustomException("Echec de détection de la bouche", True)
 
             front_video_manager.release()
+
+            print(f"distance : {max_distance}")
         except CustomException as e:
             raise e
         except Exception:
@@ -109,7 +114,7 @@ class FrontProcessor:
     # @param reference_value valeur de référence
     # @return la distance avec l'état de succès au format (success, distance)
     @staticmethod
-    def get_mouth_distance(normalized_frame: Mat | ndarray[Any, dtype[generic]] | ndarray, mouth_landmarks_indexes: (int, int) = (0, 17),references_landmarks_indexes: (int, int) = (133, 362)):
+    def get_mouth_distance(normalized_frame: Mat | ndarray[Any, dtype[generic]] | ndarray, mouth_landmarks_indexes: (int, int) = (0, 17), references_landmarks_indexes: (int, int) = (144, 373)):
         try:
             extractor = mediapipe.solutions.face_mesh.FaceMesh(max_num_faces=1, refine_landmarks=True, min_detection_confidence=0.5, min_tracking_confidence=0.5)
             founded_faces = extractor.process(normalized_frame)
@@ -130,11 +135,9 @@ class FrontProcessor:
 
             # calcul de la distance
             distance_in_pixels = Detector.get_distance_between_landmarks_in_pixel(up_landmark, down_landmark, normalized_frame.shape)
-            success, value = Detector.get_pixel_reference_value(landmarks, references_landmarks_indexes, normalized_frame.shape, 3.2)
+            success, value = Detector.get_pixel_reference_value(landmarks, references_landmarks_indexes, normalized_frame.shape, 6)
 
-            print(f"p : {distance_in_pixels} - value : {value} - result: {distance_in_pixels * value}")
-
-            return success, distance_in_pixels * value if success else -1
+            return success, distance_in_pixels / value if success else -1
         except Exception:
             return False, -1
 

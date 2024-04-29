@@ -149,11 +149,13 @@ class Detector:
     @staticmethod
     def get_distance_between_landmarks_in_pixel(first_landmark, second_landmark, frame_dimensions: (int, ...)):
         # récupération des emplacements des points
-        image_h, image_w, _ = frame_dimensions
+        image_h, image_w,image_c = frame_dimensions
 
         up_x = int(first_landmark.x * image_w)
         up_y = int(first_landmark.y * image_h)
+        up_z = int(first_landmark.z * image_c)
         down_x = int(second_landmark.x * image_w)
         down_y = int(second_landmark.y * image_h)
+        down_z = int(second_landmark.z * image_c)
 
-        return sqrt(((down_x - up_x) ** 2) + ((down_y - up_y) ** 2))
+        return sqrt(((down_x - up_x) ** 2) + ((down_y - up_y) ** 2) + ((down_z - up_z) ** 2))
