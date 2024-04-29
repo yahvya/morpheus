@@ -152,8 +152,8 @@ class Detector:
         image_h, image_w, _ = frame_dimensions
 
         up_x = int(first_landmark.x * image_w)
-        up_y = int(second_landmark.y * image_h)
-        down_x = int(first_landmark.x * image_w)
+        up_y = int(first_landmark.y * image_h)
+        down_x = int(second_landmark.x * image_w)
         down_y = int(second_landmark.y * image_h)
 
         return sqrt(((down_x - up_x) ** 2) + ((down_y - up_y) ** 2))

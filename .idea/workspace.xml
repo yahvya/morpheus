@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="correction de la structure des fonctions">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/api.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treatment/detection/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/detector.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treatment/detection/front_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
     </list>
@@ -29,6 +25,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "yahvya"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/yahvya/morpheus",
+    "accountId": "cdf94f83-f6dc-4ca1-8a51-6ad00de201ff"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -80,12 +88,26 @@
       <workItem from="1714317250088" duration="15000" />
       <workItem from="1714317274314" duration="47000" />
       <workItem from="1714317376458" duration="477000" />
-      <workItem from="1714317945036" duration="7691000" />
+      <workItem from="1714317945036" duration="10575000" />
+      <workItem from="1714371399371" duration="3236000" />
     </task>
+    <task id="LOCAL-00001" summary="correction de la structure des fonctions">
+      <option name="closed" value="true" />
+      <created>1714341061560</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1714341061560</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="correction de la structure des fonctions" />
+    <option name="LAST_COMMIT_MESSAGE" value="correction de la structure des fonctions" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/morpheus_api$front_processor.coverage" NAME="front_processor Coverage Results" MODIFIED="1712321450114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />

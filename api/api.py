@@ -25,7 +25,7 @@ async def treat_video(
     try:
         files = [front_video, front_head_move_video, profile_head_up_video, profile_head_down_video]
         video_paths = await save_files(files)
-        check_signature(video_paths, signature)
+        # check_signature(video_paths, signature)
 
         await Detector.extract_datas(DetectorArg(
             front_video,

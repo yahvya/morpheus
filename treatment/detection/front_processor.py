@@ -47,11 +47,6 @@ class FrontProcessor:
                 # récupération de la distance bouche
                 success, distance = FrontProcessor.get_mouth_distance(normalized_face_frame)
 
-                if success:
-                    print(f"distance : {distance}")
-                else:
-                    print("distance non trouvée")
-
             if max_distance == -1:
                 raise CustomException("Echec de détection de la bouche", True)
 
@@ -137,7 +132,7 @@ class FrontProcessor:
             distance_in_pixels = Detector.get_distance_between_landmarks_in_pixel(up_landmark, down_landmark, normalized_frame.shape)
             success, value = Detector.get_pixel_reference_value(landmarks, references_landmarks_indexes, normalized_frame.shape, 3.2)
 
-            print(f"distance en pixel {distance_in_pixels} - value: {value}")
+            print(f"p : {distance_in_pixels} - value : {value} - result: {distance_in_pixels * value}")
 
             return success, distance_in_pixels * value if success else -1
         except Exception:
