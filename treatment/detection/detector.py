@@ -5,7 +5,10 @@
 from math import sqrt
 from typing import Any
 
+import numpy
+
 from treatment.detection.detector_result import DetectorResult
+from treatment.detection.profil_processor import ProfileProcessor, ProfileSide
 from treatment.exceptions.custom_exception import CustomException
 from starlette.datastructures import UploadFile
 import filetype
@@ -85,13 +88,13 @@ class DetectorArg:
     @staticmethod
     def are_videos(*videos: UploadFile) -> bool:
         return (
-                len(videos) != 0 and
-                all(
-                    isinstance(potential_video, UploadFile) and
-                    filetype.is_video(potential_video.file)
+            len(videos) != 0 and
+            all(
+                isinstance(potential_video, UploadFile) and
+                filetype.is_video(potential_video.file)
 
-                    for potential_video in videos
-                )
+                for potential_video in videos
+            )
         )
 
 
@@ -108,9 +111,9 @@ class Detector:
         from treatment.detection.front_processor import FrontProcessor
 
         try:
-            ##
-            # @todo finir le test et placer les résultats dans le detectorresul
             FrontProcessor.process(detection_datas.get_front_video())
+            ProfileProcessor.process(detection_datas.get_profile_head_down_video, ProfileSide.RIGHT)
+            ProfileProcessor.process(detection_datas.get_profile_head_up_video, ProfileSide.LEFT)
 
             return DetectorResult()
         except CustomException as e:
@@ -159,3 +162,4 @@ class Detector:
         down_z = int(second_landmark.z * image_c)
 
         return sqrt(((down_x - up_x) ** 2) + ((down_y - up_y) ** 2) + ((down_z - up_z) ** 2))
+

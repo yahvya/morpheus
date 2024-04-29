@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="mise à jour des modifications de test">
+    <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treatment/detection/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/detector.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/treatment/detection/front_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/front_processor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +88,7 @@
       <workItem from="1714317274314" duration="47000" />
       <workItem from="1714317376458" duration="477000" />
       <workItem from="1714317945036" duration="10575000" />
-      <workItem from="1714371399371" duration="7780000" />
+      <workItem from="1714371399371" duration="11203000" />
     </task>
     <task id="LOCAL-00001" summary="correction de la structure des fonctions">
       <option name="closed" value="true" />
@@ -107,7 +106,15 @@
       <option name="project" value="LOCAL" />
       <updated>1714374924343</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test">
+      <option name="closed" value="true" />
+      <created>1714382009571</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714382009571</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -116,7 +123,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="correction de la structure des fonctions" />
     <MESSAGE value="mise à jour des modifications de test" />
-    <option name="LAST_COMMIT_MESSAGE" value="mise à jour des modifications de test" />
+    <MESSAGE value="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test" />
+    <option name="LAST_COMMIT_MESSAGE" value="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/morpheus_api$front_processor.coverage" NAME="front_processor Coverage Results" MODIFIED="1712321450114" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/treatment/detection" />
