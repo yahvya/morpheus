@@ -5,8 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9fca2ecf-26ef-4cee-9735-4e9daba07028" name="Changes" comment="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test">
+      <change afterPath="$PROJECT_DIR$/videos/face-bouche.mp4" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/videos/profil-gauche.mp4" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/treatment/detection/detector.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/detector.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/treatment/detection/profil_processor.py" beforeDir="false" afterPath="$PROJECT_DIR$/treatment/detection/profile_processor.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,18 +26,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "yahvya"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yahvya&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yahvya/morpheus",
-    "accountId": "cdf94f83-f6dc-4ca1-8a51-6ad00de201ff"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yahvya/morpheus&quot;,
+    &quot;accountId&quot;: &quot;cdf94f83-f6dc-4ca1-8a51-6ad00de201ff&quot;
   }
-}]]></component>
+}</component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
@@ -42,6 +45,9 @@
   &quot;associatedIndex&quot;: 2
 }</component>
   <component name="ProjectId" id="2eeMPcEGD8oOR9HqjOBKWJzyd39" />
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="autoscrollToSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -49,6 +55,7 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "ASKED_ADD_EXTERNAL_FILES": "true",
     "Python.detector.executor": "Run",
     "Python.front_processor.executor": "Debug",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
@@ -89,6 +96,7 @@
       <workItem from="1714317376458" duration="477000" />
       <workItem from="1714317945036" duration="10575000" />
       <workItem from="1714371399371" duration="11203000" />
+      <workItem from="1714396572570" duration="9715000" />
     </task>
     <task id="LOCAL-00001" summary="correction de la structure des fonctions">
       <option name="closed" value="true" />
@@ -121,6 +129,7 @@
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
     <MESSAGE value="correction de la structure des fonctions" />
     <MESSAGE value="mise à jour des modifications de test" />
     <MESSAGE value="correction de la formule de transformation pixel en centimètre&#10;Vérification de signature désactivé dans les buts de test" />

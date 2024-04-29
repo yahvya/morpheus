@@ -5,14 +5,11 @@
 from math import sqrt
 from typing import Any
 
-import numpy
 
 from treatment.detection.detector_result import DetectorResult
-from treatment.detection.profil_processor import ProfileProcessor, ProfileSide
 from treatment.exceptions.custom_exception import CustomException
 from starlette.datastructures import UploadFile
 import filetype
-
 
 ##
 # @brief données nécessaires à l'extraction des points
@@ -109,11 +106,12 @@ class Detector:
     @staticmethod
     async def extract_datas(detection_datas: DetectorArg) -> DetectorResult:
         from treatment.detection.front_processor import FrontProcessor
+        from treatment.detection.profile_processor import ProfileProcessor, ProfileSide
 
         try:
-            FrontProcessor.process(detection_datas.get_front_video())
-            ProfileProcessor.process(detection_datas.get_profile_head_down_video, ProfileSide.RIGHT)
-            ProfileProcessor.process(detection_datas.get_profile_head_up_video, ProfileSide.LEFT)
+            # FrontProcessor.process(detection_datas.get_front_video())
+            ProfileProcessor.process(detection_datas.get_profile_head_down_video(), ProfileSide.RIGHT)
+            ProfileProcessor.process(detection_datas.get_profile_head_up_video(), ProfileSide.LEFT)
 
             return DetectorResult()
         except CustomException as e:
@@ -149,10 +147,14 @@ class Detector:
 
     ##
     # @brief Fourni la distance en pixel entre deux landmarks dans une frame donnée
+    # @param first_landmark premier point
+    # @param second_landmark second point
+    # @param frame_dimensions dimensions de la frame
+    # @return la distance en pixel entre les deux marqueurs
     @staticmethod
     def get_distance_between_landmarks_in_pixel(first_landmark, second_landmark, frame_dimensions: (int, ...)):
         # récupération des emplacements des points
-        image_h, image_w,image_c = frame_dimensions
+        image_h, image_w, image_c = frame_dimensions
 
         up_x = int(first_landmark.x * image_w)
         up_y = int(first_landmark.y * image_h)
@@ -162,4 +164,3 @@ class Detector:
         down_z = int(second_landmark.z * image_c)
 
         return sqrt(((down_x - up_x) ** 2) + ((down_y - up_y) ** 2) + ((down_z - up_z) ** 2))
-
