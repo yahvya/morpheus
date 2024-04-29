@@ -17,7 +17,7 @@ import mediapipe
 class FrontProcessor:
 
     ##
-    # @brief Extrait les données de la séquence vidéo de face
+    # @brief Extrait les données de la séquence vidéo de face (distance bouche ouverte)
     # @param front_video vidéo de face avec ouverture de bouche
     @staticmethod
     def process(front_video: UploadFile):
