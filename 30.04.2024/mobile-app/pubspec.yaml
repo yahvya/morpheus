@@ -27,3 +27,16 @@ flutter:
   # ressources de l'application
   assets:
     - assets/api/
+
+  fonts:
+    - family: "Poppins"
+      fonts:
+        - asset: fonts/Poppins-Regular.ttf
+        - asset: fonts/Poppins-Bold.ttf
+        - asset: fonts/Poppins-SemiBold.ttf
+    - family: "OpenSans"
+      fonts:
+        - asset: fonts/OpenSans-Regular.ttf
+        - asset: fonts/OpenSans-Bold.ttf
+        - asset: fonts/OpenSans-SemiBold.ttf
+        - asset: fonts/OpenSans-Medium.ttf
