@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 
 void main() {
-  print("morpheus mobile app");
+  WidgetsFlutterBinding.ensureInitialized();
 }
