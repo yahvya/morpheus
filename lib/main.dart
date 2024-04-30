@@ -10,9 +10,9 @@ void main() {
 
   Authenticator.init().then((_){
     runApp(MaterialApp(
-        title: "Morpheus",
-        locale: const Locale("fr"),
-        home: Authenticator.isUserLogged() ? const Home() : const Login()
+      title: "Morpheus",
+      locale: const Locale("fr"),
+      home: Authenticator.isUserLogged() ? const Home() : const Login()
     ));
   });
 }

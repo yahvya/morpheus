@@ -8,7 +8,7 @@ import 'package:morpheus_team/app/detection/detection_config.dart';
 /// @brief Gestionnaire d'échange avec l'api
 class ApiContact{
   /// @brief Lien de contact de l'api
-  static String defaultLink = "http://192.168.1.114:8000/video";
+  static String defaultLink = "http://192.168.39.210:8000/video";
 
   /// @brief Fonction pour envoyer des vidéos à l'api serveur
   static Future<bool> sendVideos(String url, Map<int,String> videoPaths) async {

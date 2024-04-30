@@ -4,23 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="83ec5206-650a-4856-9df2-a7f67a103f59" name="Changes" comment="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqu">
-      <change afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verifier.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/app/detection/front_face_verifier.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="83ec5206-650a-4856-9df2-a7f67a103f59" name="Changes" comment="Implémentation de la procédure de vérification des positions&#10;Ajout du markdown descriptif de comment tester&#10;ajout de la fonction de conversion de frame en inputimage">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/app/api/api_contact.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/api/api_contact.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/detection_config.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verificator.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/front_face_verificator.dart" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/left_profile_verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/left_profile_verifier.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/right_profile_verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/right_profile_verifier.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/app/detection/verificator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/verifier.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/pages/record.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/pages/record.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verifier.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/app/detection/front_face_head_move_verifier.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -30,18 +18,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
-  "lastFilter": {
-    "state": "OPEN",
-    "assignee": "yahvya"
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;yahvya&quot;
   }
-}]]></component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/yahvya/morpheus",
-    "accountId": "cdf94f83-f6dc-4ca1-8a51-6ad00de201ff"
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/yahvya/morpheus&quot;,
+    &quot;accountId&quot;: &quot;cdf94f83-f6dc-4ca1-8a51-6ad00de201ff&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 4
 }</component>
@@ -115,7 +103,13 @@
       <workItem from="1713392125407" duration="38000" />
       <workItem from="1714317304848" duration="16000" />
       <workItem from="1714317421444" duration="423000" />
-      <workItem from="1714317949612" duration="21807000" />
+      <workItem from="1714317949612" duration="22606000" />
+      <workItem from="1714393867992" duration="72000" />
+      <workItem from="1714393964460" duration="497000" />
+      <workItem from="1714396827908" duration="81000" />
+      <workItem from="1714459426158" duration="7299000" />
+      <workItem from="1714477508242" duration="3024000" />
+      <workItem from="1714484370876" duration="6918000" />
     </task>
     <task id="LOCAL-00001" summary="Ajout de la logique de blocage et reprise vidéo en cas de vérification manquée">
       <option name="closed" value="true" />
@@ -133,7 +127,15 @@
       <option name="project" value="LOCAL" />
       <updated>1712663851832</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Implémentation de la procédure de vérification des positions&#10;Ajout du markdown descriptif de comment tester&#10;ajout de la fonction de conversion de frame en inputimage">
+      <option name="closed" value="true" />
+      <created>1714346570597</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1714346570597</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -142,6 +144,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manquée" />
     <MESSAGE value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqué" />
-    <option name="LAST_COMMIT_MESSAGE" value="Ajout de la logique de blocage et reprise vidéo en cas de vérification manqué" />
+    <MESSAGE value="Implémentation de la procédure de vérification des positions&#10;Ajout du markdown descriptif de comment tester&#10;ajout de la fonction de conversion de frame en inputimage" />
+    <option name="LAST_COMMIT_MESSAGE" value="Implémentation de la procédure de vérification des positions&#10;Ajout du markdown descriptif de comment tester&#10;ajout de la fonction de conversion de frame en inputimage" />
   </component>
 </project>
