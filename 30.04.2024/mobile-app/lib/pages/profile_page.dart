@@ -1,14 +1,15 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/app/profiles/profile_manager.dart';
 import 'package:mobileapp/components/app_button.dart';
+import 'package:mobileapp/components/app_dialog.dart';
+import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/pages/page_model.dart';
-import 'package:mobileapp/theme/app_theme.dart';
 
 import '../app/profiles/profile.dart';
+import '../components/app_message.dart';
 import '../components/app_profile.dart';
 
-/// @brief Page de gestion des profils
+/// @brief Page de gestion / choix des profils
 class ProfilePage extends StatefulWidget{
   const ProfilePage({required this.profiles});
 
@@ -29,81 +30,133 @@ class ProfilePageState extends State<ProfilePage>{
 
   @override
   build(BuildContext context){
-    return PageModel.buildPage(Center(
-      child: Container(
-        padding: const EdgeInsets.only(bottom: 30),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Column(
-              children: [
-                const SizedBox(height: 70,),
-                PageModel.specialText(text: "Gestion des profils".toUpperCase()),
-                const SizedBox(height: 60),
-                Container(
-                  padding: const EdgeInsets.only(bottom: 30),
-                  height: 350,
-                  child: FractionallySizedBox(
-                    heightFactor: 1,
-                    widthFactor: 0.8,
-                    child: Container(
-                      decoration: BoxDecoration(
-                          border: Border(
-                              bottom: BorderSide(
-                                  color: AppTheme.specialBackgroundColor.color
-                              )
-                          )
-                      ),
-                      height: 350,
-                      child: profiles.isEmpty ? PageModel.basicText(text: "Aucun profil trouvé, veuillez créer un profil") : buildProfilesView(),
-                    )
-                  ),
-                )
-              ],
-            ),
-            AppButton(
-              text: "Nouveau profil",
-              icon: Icons.add,
-              size: MaterialStateProperty.all(const Size(300,20)),
-            )
-          ],
+    return PageModel.buildPage(SafeArea(
+      child: Center(
+        child: Container(
+          padding: const EdgeInsets.only(bottom: 50),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  const SizedBox(height: 30,),
+                  PageModel.specialText(text: "Choix du profil".toUpperCase()),
+                  const SizedBox(height: 60),
+                  getListZone()
+                ],
+              ),
+              AppButton(
+                text: "Nouveau profil",
+                icon: Icons.add_circle,
+                size: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width - 70,60)),
+              )
+            ],
+          ),
         ),
       ),
     ));
   }
 
-  ListView buildProfilesView(){
+  /// @brief Construis l'affichage de la liste des produits
+  /// @param context le contexte
+  /// @return L'affichage construis
+  List<Widget> buildProfilesView({required BuildContext context}){
     SizedBox separator = const SizedBox(height: 30);
+    return [
+      const SizedBox(height: 30),
+      FractionallySizedBox(
+        widthFactor: 0.90,
+        child: Column(
+          children: [
+            const AppMessage(message: "Cliquez sur un profil pour démarrer l'enregistrement"),
+            const SizedBox(height: 40),
+            SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              child: ListView.separated(
+                  itemBuilder: (BuildContext context,int index){
+                    return AppProfile(
+                      profile: profiles[index],
+                      index: index,
+                      onClick: (int? index) => showRecordPage(index: index!),
+                      onDelete: (int? index) => deleteProfile(index: index!,context: context),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context,int index) => separator,
+                  itemCount: profiles.length
+              ),
+            )
+          ],
+        )
+      )
+    ];
+  }
 
-    return ListView.separated(
-        itemBuilder: (BuildContext context,int index){
-          return AppProfile(
-            profile: profiles[index],
-            index: index,
-            onClick: (int? index) => showRecordPage(profileIndex: index!),
-            onDelete: (int? index) => deleteProfile(index: index!),
-          );
-        },
-        separatorBuilder: (BuildContext context,int index) => separator,
-        itemCount: profiles.length
-    );
+  /// @return La zone d'affichage de list
+  Widget getListZone(){
+    return profiles.isEmpty ?
+      const FractionallySizedBox(
+        widthFactor: 0.90,
+        child: AppMessage(message: "Aucun profil trouvé, veuillez créer un profil"),
+      ) :
+      Column(children: buildProfilesView(context: context),);
   }
 
   /// @brief Affiche la page d'enregistrement
-  void showRecordPage({required int profileIndex}){
+  /// @param index index du profil
+  void showRecordPage({required int index}){
 
   }
 
-  void deleteProfile({required int index}){
+  /// @brief Supprime un profil et met à jour l'écran
+  /// @param index index du profil
+  void deleteProfile({required int index,required BuildContext context}){
+    showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext builderContext) => AppDialog(
+        message: "Êtes-vous sûr de vouloir supprimer ce profil ?",
+        buttonsRow: buildValidationButtons(index: index,builderContext: builderContext)
+      )
+    );
+  }
+
+  /// @brief Construis les boutons de validation
+  /// @param index Index du profil
+  /// @param builderContext contexte de construction du dialogue
+  /// @return les boutons construits
+  Widget buildValidationButtons({required int index,required BuildContext builderContext}){
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        AppTextButton(
+          text: "Annuler",
+          onClick: () => Navigator.pop(builderContext),
+        ),
+        const SizedBox(width: 30,),
+        AppTextButton(
+          text: "Oui",
+          onClick: (){
+            Navigator.pop(builderContext);
+            validateDeleteOf(index: index);
+          },
+        ),
+      ],
+    );
+  }
+
+  /// @brief Valide la suppression d'un profil
+  /// @param index index du profil à supprimer
+  void validateDeleteOf({required int index}){
     try{
+      var deletedProfile = profiles.removeAt(index);
+
       ProfileManager.updateProfiles(profiles: profiles).then((success){
         if(!success) {
+          profiles.insert(index,deletedProfile);
           return;
         }
 
-        setState((){
-          profiles.removeAt(index);
-        });
+        setState((){});
       });
     }
     catch(_){}

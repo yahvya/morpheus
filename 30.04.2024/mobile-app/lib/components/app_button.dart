@@ -25,7 +25,7 @@ class AppButton extends StatelessWidget{
     return ElevatedButton.icon(
       onPressed: onPressed,
       icon: Icon(icon),
-      label: PageModel.basicText(text: text),
+      label: PageModel.basicText(text: text,color: AppTheme.specialText.color),
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
         shape: MaterialStateProperty.all(const RoundedRectangleBorder(
