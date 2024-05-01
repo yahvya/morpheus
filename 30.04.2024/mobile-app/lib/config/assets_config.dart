@@ -1,7 +1,10 @@
 /// @brief Configuration des chemins de ressources
 enum AssetsConfig{
   /// @brief Chemin du fichier contenant la configuration d'api
-  apiConfig(path: "/api/config.json");
+  apiConfig(path: "/api/config.json"),
+
+  /// @brief Chemin du logo de l'application
+  logoImage(path: "/images/logo.png");
 
   const AssetsConfig({required this.path});
 

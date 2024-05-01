@@ -4,6 +4,8 @@ import 'package:mobileapp/components/app_input.dart';
 import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/pages/page_model.dart';
 import 'package:mobileapp/theme/app_theme.dart';
+import 'package:mobileapp/app/utils/image_assets_reader.dart';
+import 'package:mobileapp/config/assets_config.dart';
 
 /// @brief Dialogue de création de profil
 class AppProfileCreator extends StatefulWidget{
@@ -38,36 +40,45 @@ class AppProfileCreatorState extends State<AppProfileCreator>{
   @override
   Widget build(BuildContext context){
     return Dialog(
-      child: FractionallySizedBox(
-        widthFactor: 0.9,
-        heightFactor: 0.7,
+      child: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: AppTheme.upperBackgroundColor.color,
-            borderRadius: BorderRadius.circular(10)
+              color: AppTheme.upperBackgroundColor.color,
+              borderRadius: BorderRadius.circular(10)
           ),
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
-              PageModel.specialText(
-                text: "Créez un nouveau profil",
-                color: AppTheme.specialText.color,
-                size: 23
+              Image(image: ResizeImage(
+                ImageAssetsReader.getImageFrom(AssetsConfig.logoImage)!,
+                width: 60,
+                height: 50
+              )),
+              Column(
+                children: [
+                  const SizedBox(height: 30,),
+                  PageModel.specialText(
+                    text: "Créez un nouveau profil",
+                    color: AppTheme.specialText.color,
+                    size: 23
+                  ),
+                  const SizedBox(height: 20),
+                  PageModel.basicText(
+                    text: errorMessage,
+                    color: AppTheme.specialText.color,
+                    size: 15
+                  ),
+                  const SizedBox(height: 20),
+                ],
               ),
-              const SizedBox(height: 10),
-              PageModel.basicText(
-                text: errorMessage,
-                color: AppTheme.specialText.color,
-                size: 15
-              ),
-              const SizedBox(height: 30),
               buildForm(context: context),
               const SizedBox(height: 40),
               buildValidationButtons(context: context)
             ],
           ),
-        )
-      ),
+        ),
+      )
     );
   }
 

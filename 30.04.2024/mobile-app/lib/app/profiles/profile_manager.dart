@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:mobileapp/app/profiles/profile.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-import 'package:mobileapp/config/storage-config.dart';
+import 'package:mobileapp/config/storage_config.dart';
 
 /// @brief Gestionnaire de profil de l'application
 class ProfileManager{

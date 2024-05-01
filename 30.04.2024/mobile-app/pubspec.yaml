@@ -27,6 +27,7 @@ flutter:
   # ressources de l'application
   assets:
     - assets/api/
+    - assets/images/
 
   fonts:
     - family: "Poppins"

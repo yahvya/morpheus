@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/app/profiles/profile_manager.dart';
 import 'package:mobileapp/components/app_button.dart';
@@ -5,6 +6,7 @@ import 'package:mobileapp/components/app_dialog.dart';
 import 'package:mobileapp/components/app_profile_creator.dart';
 import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/pages/page_model.dart';
+import 'package:mobileapp/pages/record_page.dart';
 
 import '../app/profiles/profile.dart';
 import '../components/app_message.dart';
@@ -74,7 +76,7 @@ class ProfilePageState extends State<ProfilePage>{
                     return AppProfile(
                       profile: profiles[index],
                       index: index,
-                      onClick: (int? index) => showRecordPage(index: index!),
+                      onClick: (int? index) => showRecordPage(index: index!,context: context),
                       onDelete: (int? index) => deleteProfile(index: index!,context: context),
                     );
                   },
@@ -100,8 +102,9 @@ class ProfilePageState extends State<ProfilePage>{
 
   /// @brief Affiche la page d'enregistrement
   /// @param index index du profil
-  void showRecordPage({required int index}){
-
+  /// @param context contexte de création
+  void showRecordPage({required int index,required BuildContext context}){
+    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RecordPage(usedProfile: profiles[index])));
   }
 
   /// @brief Supprime un profil et met à jour l'écran

@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
-import 'package:mobileapp/config/assets-config.dart';
+import 'package:mobileapp/config/assets_config.dart';
 
 /// @brief Utilitaire de lecture assets de type JSON
 class JsonAssetsReader{

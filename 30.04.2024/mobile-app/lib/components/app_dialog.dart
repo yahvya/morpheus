@@ -1,5 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:mobileapp/app/utils/image_assets_reader.dart';
+import 'package:mobileapp/config/assets_config.dart';
 import 'package:mobileapp/pages/page_model.dart';
 import 'package:mobileapp/theme/app_theme.dart';
 
@@ -27,6 +28,11 @@ class AppDialog extends StatelessWidget{
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
+              Image(image: ResizeImage(
+                ImageAssetsReader.getImageFrom(AssetsConfig.logoImage)!,
+                width: 60,
+                height: 50
+              )),
               PageModel.specialText(
                 text: message,
                 size: 18,
