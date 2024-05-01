@@ -11,7 +11,7 @@ void main() {
       MaterialApp(
         title: "Morpheus",
         locale: const Locale("fr"),
-        home: ProfilePage()
+        home: ProfilePage(profiles: profiles)
       )
     );
   });

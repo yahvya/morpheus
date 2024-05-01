@@ -44,7 +44,7 @@ class ProfileManager{
 
   /// @brief Met à jour la liste des profiles
   /// @return Si la mise à jour réussie
-  static Future<bool> updateProfiles(List<Profile> profiles) async {
+  static Future<bool> updateProfiles({required List<Profile> profiles}) async {
     try{
       const FlutterSecureStorage().write(
           key: StorageConfig.authProfiles.key,
