@@ -14,7 +14,7 @@ class AppMessage extends StatelessWidget{
     return Container(
       decoration: BoxDecoration(
         color: AppTheme.upperBackgroundColor.color,
-        borderRadius: const BorderRadius.all(Radius.circular(5))
+        borderRadius:  BorderRadius.circular(5)
       ),
       padding: const EdgeInsets.all(20),
       child: PageModel.basicText(text: message,size: 15),

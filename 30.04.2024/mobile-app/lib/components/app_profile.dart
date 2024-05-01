@@ -27,7 +27,7 @@ class AppProfile extends StatelessWidget{
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(
         color: AppTheme.upperBackgroundColor.color,
-        borderRadius: const BorderRadius.all(Radius.circular(5) )
+        borderRadius:  BorderRadius.circular(5)
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mobileapp/app/profiles/profile_manager.dart';
 import 'package:mobileapp/components/app_button.dart';
 import 'package:mobileapp/components/app_dialog.dart';
+import 'package:mobileapp/components/app_profile_creator.dart';
 import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/pages/page_model.dart';
 
@@ -45,11 +46,7 @@ class ProfilePageState extends State<ProfilePage>{
                   getListZone()
                 ],
               ),
-              AppButton(
-                text: "Nouveau profil",
-                icon: Icons.add_circle,
-                size: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width - 70,60)),
-              )
+              buildNewProfileButton(context: context)
             ],
           ),
         ),
@@ -160,5 +157,66 @@ class ProfilePageState extends State<ProfilePage>{
       });
     }
     catch(_){}
+  }
+
+  /// @brief Construis le bouton et gère la création de nouveau profil
+  /// @param context contexte de création
+  /// @return le bouton
+  AppButton buildNewProfileButton({required BuildContext context}){
+    return AppButton(
+      text: "Nouveau profil",
+      icon: Icons.add_circle,
+      size: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width - 70,60)),
+      onPressed: (){
+        showDialog(
+          barrierDismissible: false,
+          context: context,
+          builder: (BuildContext builderContext){
+            return AppProfileCreator(
+              builderContext: builderContext,
+              onCreate: (Profile createdProfile) => tryCreateProfile(profile: createdProfile)
+            );
+          }
+        );
+      },
+    );
+  }
+
+  /// @brief Tente de créer le profil
+  /// @param profile le profile à créer
+  /// @return null si la création réussi ou message d'erreur
+  Future<String?> tryCreateProfile({required Profile profile}) async{
+    try{
+      if(profile.fullname.isEmpty){
+        return "Le nom ne peut pas être vide";
+      }
+
+      if(profile.email.isEmpty){
+        return "L'email ne peut pas être vide";
+      }
+
+      // vérification d'existence du profil
+      for(Profile p in profiles){
+        if(p.email == profile.email){
+          return "Cet email est déjà associé au profil de '${p.fullname}'";
+        }
+      }
+
+      profiles.add(profile);
+
+      bool success = await ProfileManager.updateProfiles(profiles: profiles);
+
+      if(!success){
+        profiles.remove(profile);
+        return "Une erreur s'est produite lors de création du profil";
+      }
+
+      setState(() {});
+
+      return null;
+    }
+    catch(_){
+      return "Une erreur s'est produite lors de création du profil";
+    }
   }
 }

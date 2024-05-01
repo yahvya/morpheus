@@ -28,8 +28,8 @@ class AppButton extends StatelessWidget{
       label: PageModel.basicText(text: text,color: AppTheme.specialText.color),
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(15)),
-        shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-          borderRadius: BorderRadius.all(Radius.circular(10))
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10)
         )),
         textStyle: MaterialStateProperty.all(TextStyle(
           color: AppTheme.specialText.color,

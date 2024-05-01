@@ -22,7 +22,7 @@ class AppDialog extends StatelessWidget{
           padding: const EdgeInsets.all(20),
           decoration: BoxDecoration(
               color: AppTheme.upperBackgroundColor.color,
-              borderRadius: const BorderRadius.all(Radius.circular(10))
+              borderRadius:  BorderRadius.circular(10)
           ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceAround,

@@ -37,7 +37,6 @@ class ProfileManager{
         .map((profileConfig) => Profile.fromJson(profileConfig: profileConfig)).toList();
     }
     catch(_){
-      print(_);
       return [];
     }
   }

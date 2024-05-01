@@ -22,8 +22,8 @@ class AppIconButton extends StatelessWidget{
       color: AppTheme.specialText.color,
       style: ButtonStyle(
         padding: MaterialStateProperty.all(const EdgeInsets.all(5)),
-        shape: MaterialStateProperty.all(const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(3))
+        shape: MaterialStateProperty.all(RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(3)
         )),
         backgroundColor: MaterialStateProperty.all(AppTheme.specialBackgroundColor.color),
         foregroundColor: upperColorState,
