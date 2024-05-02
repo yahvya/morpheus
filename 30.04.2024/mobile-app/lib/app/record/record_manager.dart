@@ -62,7 +62,7 @@ class RecordManager{
 
   /// @brief Stoppe la pause et redémarre
   void resumeRecord(){
-    camera!.resumePreview();
+    camera!.resumeVideoRecording();
     isInPause = false;
     launchTimer();
   }

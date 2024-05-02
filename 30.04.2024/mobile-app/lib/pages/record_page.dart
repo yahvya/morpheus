@@ -338,10 +338,24 @@ class RecordPageState extends State<RecordPage>{
           return;
         }
         
-        // vérification de la frame
+        isDetecting = true;
 
+        // vérification de la frame
         checker.check(camera: recordManager.camera!,frame: frame).then((success){
-          
+          isDetecting = false;
+
+          if(!success && !recordManager.isInPause){
+            recordManager.pauseRecord();
+            
+            // mise à jour de l'état pour le changement de bordure
+            setState(() {});
+          }
+          else if(success && recordManager.isInPause){
+            recordManager.resumeRecord();
+
+            // mise à jour de l'état pour le changement de bordure
+            setState(() {});
+          }
         });
       }
     );
