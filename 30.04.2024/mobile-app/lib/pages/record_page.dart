@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:mobileapp/app/api/Result.dart';
+import 'package:mobileapp/app/api/api_result.dart';
 import 'package:mobileapp/app/api/contact.dart';
 import 'package:mobileapp/app/profiles/profile.dart';
 import 'package:mobileapp/app/record/record_check.dart';
@@ -11,15 +11,19 @@ import 'package:mobileapp/app/utils/json_assets_reader.dart';
 import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/config/assets_config.dart';
 import 'package:mobileapp/pages/page_model.dart';
+import 'package:mobileapp/pages/result_page.dart';
 import 'package:mobileapp/theme/app_theme.dart';
 import 'package:video_player/video_player.dart';
 
 /// @brief Page d'enregistrement
 class RecordPage extends StatefulWidget{
-  const RecordPage({super.key,required this.usedProfile});
+  const RecordPage({super.key,required this.profiles,required this.usedProfile});
 
   /// @brief Profil de l'utilisateur entrain d'enregistrer
   final Profile usedProfile;
+
+  /// @brief Liste des profiles
+  final List<Profile> profiles;
 
   @override
   State<StatefulWidget> createState() {
@@ -139,7 +143,7 @@ class RecordPageState extends State<RecordPage>{
                     const SizedBox(width: 35),
                     AppTextButton(
                       text: "Valider",
-                      onClick: () => sendDatas(),
+                      onClick: () => sendDatas(context: context),
                     ),
                   ],
                 ),
@@ -416,11 +420,17 @@ class RecordPageState extends State<RecordPage>{
   }
 
   /// @brief Démarre l'envoi
-  void sendDatas(){
+  /// @param context de création
+  void sendDatas({required BuildContext context}){
     setState(() {
       isValidating = true;
     });
-    Contact().contact(video: recordManager.getLastRecordedVideo()!, usedCamera: recordManager.camera!).then((Result result){
+    Contact.contact(
+      senderProfile: widget.usedProfile,
+      video: recordManager.getLastRecordedVideo()!, 
+      mallampatiScore: currentMallampati,
+      usedCamera: recordManager.camera!
+      ).then((ApiResult result){
       // erreur d'appel ajout du message
       if(!result.successfulyCalled){
         setState(() {
@@ -429,8 +439,11 @@ class RecordPageState extends State<RecordPage>{
         });
         return;
       }
-
+      
       // affichage de la page résultat
+      Navigator.of(context).pushReplacement(MaterialPageRoute(
+        builder: (BuildContext context) => ResultPage(result: result,profiles: widget.profiles,)
+      ));
     });
   }
 }

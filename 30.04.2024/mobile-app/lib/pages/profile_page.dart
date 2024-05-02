@@ -104,7 +104,12 @@ class ProfilePageState extends State<ProfilePage>{
   /// @param index index du profil
   /// @param context contexte de création
   void showRecordPage({required int index,required BuildContext context}){
-    Navigator.of(context).push(MaterialPageRoute(builder: (BuildContext context) => RecordPage(usedProfile: profiles[index])));
+    Navigator.of(context).push(MaterialPageRoute(
+      builder: (BuildContext context) => RecordPage(
+        usedProfile: profiles[index],
+        profiles: profiles,
+      )
+    ));
   }
 
   /// @brief Supprime un profil et met à jour l'écran
