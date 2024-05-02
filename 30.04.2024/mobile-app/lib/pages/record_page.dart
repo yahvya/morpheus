@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:mobileapp/app/api/Result.dart';
+import 'package:mobileapp/app/api/contact.dart';
 import 'package:mobileapp/app/profiles/profile.dart';
 import 'package:mobileapp/app/record/record_check.dart';
 import 'package:mobileapp/app/record/record_manager.dart';
@@ -50,6 +52,12 @@ class RecordPageState extends State<RecordPage>{
 
   /// @brief Si une validation est en cours
   bool isValidating = false;
+
+  /// @brief Si une détection est en cours
+  bool isDetecting = false;
+
+  /// @brief Message d'erreur en cas de non validation
+  String? errorMessage;
 
   /// @brief Vérificateur
   RecordCheck checker = RecordCheck();
@@ -102,32 +110,45 @@ class RecordPageState extends State<RecordPage>{
   build(BuildContext context){
     return PageModel.buildPage(SingleChildScrollView(
       child: SafeArea(child: Center(
-        child: Column(
+        child: Stack(
           children: [
-            const SizedBox(height: 30),
-            PageModel.specialText(text: "Enregistrement".toUpperCase()),
-            const SizedBox(height: 60),
-            buildCameraZone(context: context),
-            const SizedBox(height: 40),
-            buildSlider(context: context),
-            const SizedBox(height: 30),
-            PageModel.basicText(
-              text: "Assurez vous d'avoir fourni toutes les informations",
-              size: 13
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            Column(
               children: [
-                AppTextButton(
-                  text: "Annuler",
-                  onClick: () => returnToProfiles(context: context),
+                const SizedBox(height: 30),
+                PageModel.specialText(text: "Enregistrement".toUpperCase()),
+                const SizedBox(height: 60),
+                  if(errorMessage != null)
+                    PageModel.basicText(text: errorMessage!,size: 16),
+                const SizedBox(height: 10),
+                buildCameraZone(context: context),
+                const SizedBox(height: 40),
+                buildSlider(context: context),
+                const SizedBox(height: 30),
+                PageModel.basicText(
+                  text: "Assurez vous d'avoir fourni toutes les informations",
+                  size: 13
                 ),
-                const SizedBox(width: 35),
-                AppTextButton(text: "Valider"),
+                const SizedBox(height: 10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    AppTextButton(
+                      text: "Annuler",
+                      onClick: () => returnToProfiles(context: context),
+                    ),
+                    const SizedBox(width: 35),
+                    AppTextButton(
+                      text: "Valider",
+                      onClick: () => sendDatas(),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 80)
               ],
-            ),
-            const SizedBox(height: 80)
+            )
+            ,
+            if(isValidating)
+              buildWaitingScreen()
           ],
         ),
       )),
@@ -268,37 +289,62 @@ class RecordPageState extends State<RecordPage>{
     );
   }
 
+  /// @brief Ecran de chargement
+  Positioned buildWaitingScreen(){
+    return Positioned.fill(
+      child: Container(
+        color: AppTheme.backgroundColor.color.withOpacity(0.8),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            PageModel.specialText(
+              text: "Traitement des données ...",
+              size: 22
+            ),
+            const SizedBox(
+              height: 40,
+            ),
+            SizedBox(
+              width: 60,
+              height: 60,
+              child: CircularProgressIndicator(
+                backgroundColor: AppTheme.backgroundColor.color,
+                color: AppTheme.specialBackgroundColor.color,
+              ),
+            )
+          ],
+        )
+      )
+    );
+  }
+
   /// @brief Démarre l'enregistrement
   void startRecord(){
-    setState(() {
-      recordManager.startRecord(
-        toDoOnTimerIncrement: (){
-          if(recordManager.registeredDuration >= videoDuration){
-            recordManager.stopRecord().then((_){
-              setState(() {});
+    recordManager.startRecord(
+      toDoOnTimerIncrement: (){
+        if(recordManager.registeredDuration > videoDuration){
+          recordManager.stopRecord().then((_){
+            setState(() {
+              isDetecting = false;
             });
-          }
-          else{
-            setState(() {});
-          }
-        },
-        imageManager: (CameraImage frame){
-          recordManager.pauseRecord();
-
-          checker.check(frame: frame).then((success){
-            if(success){
-              recordManager.resumeRecord();
-            }
-            else{
-              try{
-                setState(() {});
-              }
-              catch(_){}
-            }
           });
         }
-      );
-    });
+        else{
+          setState(() {});
+        }
+      },
+      imageManager: (CameraImage frame){
+        if(!recordManager.isRecording || isDetecting){
+          return;
+        }
+        
+        // vérification de la frame
+
+        checker.check(camera: recordManager.camera!,frame: frame).then((success){
+          
+        });
+      }
+    );
   }
 
   /// @brief Crée la bordure en fonction du mode d'enregistrement
@@ -353,5 +399,24 @@ class RecordPageState extends State<RecordPage>{
   /// @param context contexte de création
   void returnToProfiles({required BuildContext context}){
     Navigator.pop(context);
+  }
+
+  /// @brief Démarre l'envoi
+  void sendDatas(){
+    setState(() {
+      isValidating = true;
+    });
+    Contact().contact(video: recordManager.getLastRecordedVideo()!, usedCamera: recordManager.camera!).then((Result result){
+      // erreur d'appel ajout du message
+      if(!result.successfulyCalled){
+        setState(() {
+          errorMessage = result.errorMessage;
+          isValidating = false;
+        });
+        return;
+      }
+
+      // affichage de la page résultat
+    });
   }
 }

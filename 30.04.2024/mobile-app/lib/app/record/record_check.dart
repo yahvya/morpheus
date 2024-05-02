@@ -1,52 +1,99 @@
+import 'dart:ui';
+
 import 'package:camera/camera.dart';
-import 'package:mobileapp/config/assets_config.dart';
-import 'package:tflite_flutter/tflite_flutter.dart';
+import 'package:flutter/foundation.dart';
+import 'package:google_mlkit_pose_detection/google_mlkit_pose_detection.dart';
 
 /// @brief Vérificateur de frame
 class RecordCheck{
-  /// @brief Interpréteur tensorflow
-  late Future<Interpreter>? interpreterFuture;
+  /// @brief Liste des landmarks utiles
+  /// @doc https://developers.google.com/ml-kit/vision/pose-detection?hl=fr
+  final List<PoseLandmarkType> usefullLandmarks = [
+    PoseLandmarkType.leftEye,
+    PoseLandmarkType.rightEye,
+    PoseLandmarkType.nose,
+    PoseLandmarkType.leftEar,
+    PoseLandmarkType.rightEar,
+    PoseLandmarkType.leftMouth,
+    PoseLandmarkType.rightMouth,
+    PoseLandmarkType.leftEyeInner,
+    PoseLandmarkType.leftEyeOuter,
+    PoseLandmarkType.rightEyeOuter,
+    PoseLandmarkType.rightEyeInner
+  ];
 
-  /// @brief Si les ressources sont alloués
-  bool isAllocated = false;
+  /// @brief Détecteur
+  late PoseDetector detector;
 
   RecordCheck(){
-    try{
-      interpreterFuture = Interpreter.fromAsset(AssetsConfig.detectionModel.getPath());
-    }
-    catch(_){}
+    detector = PoseDetector(options: PoseDetectorOptions(
+      model: PoseDetectionModel.accurate
+    ));      
   }
 
-  /// @brief Vérifie la présence d'une tête sur l'image
-  /// @param frame la frame
-  /// @return Si une tête est présente
-  Future<bool> check({required CameraImage frame}) async{
-    if(interpreterFuture == null){
-      return false;
-    }
-
+  /// @brief Vérifie qu'un haut de corps est présent dans la frame
+  /// @param camera controlleur de caméra
+  /// @param frame frame
+  /// @return Si un haut de corps est présent dans la frame
+  Future<bool> check({required CameraController camera,required CameraImage frame}) async{
     try{
-      var interpreter = await interpreterFuture;
+      var convertedImage = createImageFromFrame(camera.description, frame);
 
-      if(interpreter == null){
+      if(convertedImage == null){
         return false;
       }
 
-      // allocation des ressources pour le premier appel
-      if(!isAllocated){
-        interpreter.allocateTensors();
-        isAllocated = true;
+      List<Pose> results = await detector.processImage(convertedImage);
+
+      // vérification de la présence d'un des landmarks dans la pause
+      for(Pose pose in results){
+        for(PoseLandmarkType usefullLandmark in usefullLandmarks){
+          if(pose.landmarks.keys.contains(usefullLandmark)){
+            return true;
+          }
+        }
       }
 
-
-
-      return true;
-    }
-    catch(_){
-      print('erreur');
-      print(_);
       return false;
     }
+    catch(_){
+      return false;
+    }
+  }
 
+  /// @brief Converti la frame en InputImage
+  /// @param camera la caméra
+  /// @param frame la frame
+  /// @return l'image convertie ou null en cas d'erreur
+  InputImage? createImageFromFrame(CameraDescription camera,CameraImage frame) {
+    final WriteBuffer allBytes = WriteBuffer();
+
+    for (final Plane plane in frame.planes) {
+      allBytes.putUint8List(plane.bytes);
+    }
+
+    final bytes = allBytes
+      .done()
+      .buffer
+      .asUint8List();
+
+    final Size imageSize = Size(frame.width.toDouble(), frame.height.toDouble());
+
+    final imageRotation = InputImageRotationValue.fromRawValue(camera.sensorOrientation);
+
+    if (imageRotation == null) return null;
+
+    final inputImageFormat = InputImageFormatValue.fromRawValue(frame.format.raw);
+
+    if (inputImageFormat == null) return null;
+
+    final inputImageData = InputImageMetadata(
+      size: imageSize,
+      rotation: imageRotation,
+      format: inputImageFormat,
+      bytesPerRow: frame.planes[0].bytesPerRow,
+    );
+
+    return InputImage.fromBytes(bytes: bytes, metadata: inputImageData);
   }
 }

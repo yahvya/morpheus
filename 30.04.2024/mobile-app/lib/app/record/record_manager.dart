@@ -25,6 +25,7 @@ class RecordManager{
   /// @brief Action à faire à l'incrémentation du timer
   void Function()? toDoOnTimerIncrement;
 
+  /// @brief Dernière vidéo enregistrée
   XFile? lastRecordedVideo;
 
   /// @brief Met à jour le controller et crée la preview
@@ -42,13 +43,11 @@ class RecordManager{
     lastRecordedVideo = null;
     isRecording = true;
 
-    camera!.startVideoRecording();
-
-    // camera!.startImageStream((CameraImage image) {
-    //   if(imageManager != null && isRecording){
-    //     imageManager(image);
-    //   }
-    // });
+    camera!.startVideoRecording(onAvailable: (CameraImage frame){
+      if(imageManager != null && isRecording){
+        imageManager(frame);
+      }
+    });
 
     // lancement du timer
     launchTimer();
@@ -56,12 +55,14 @@ class RecordManager{
 
   /// @brief Stoppe l'enregistrement
   void pauseRecord(){
+    camera!.pauseVideoRecording();
     isInPause = true;
     timer.cancel();
   }
 
   /// @brief Stoppe la pause et redémarre
   void resumeRecord(){
+    camera!.resumePreview();
     isInPause = false;
     launchTimer();
   }
