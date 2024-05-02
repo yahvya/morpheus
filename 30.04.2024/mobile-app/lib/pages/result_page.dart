@@ -37,6 +37,13 @@ class ResultPageState extends State<ResultPage>{
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context){
     return PageModel.buildPage(SingleChildScrollView(
       child: SafeArea(
