@@ -1,7 +1,8 @@
 {
-    "key": "c27f9aad7c97689dffe026a2482bb3878dffbe78ae0e79e90638c72fcc545227",
-    "link": "http://192.168.39.210:8000/video",
-    "video-duration": 20,
+    "key": "UsvowEBopdU3sPw9q6JwpahrEv4AdDCvt098v4DG-i0=",
+    "expected-message": "morpheus-api",
+    "link": "http://192.168.39.210:8000/morpheus-mobile",
+    "video-duration": 3,
     "mallampati": {
         "min": 1,
         "max": 4

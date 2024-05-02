@@ -2,7 +2,7 @@
     @brief Api morpheus
 """
 
-from fastapi import FastAPI, File, Header, UploadFile
+from fastapi import FastAPI, File, Header, UploadFile, Form
 from api_utils.utils import CustomException,check_signature
 
 app = FastAPI()
@@ -13,7 +13,8 @@ app = FastAPI()
 @app.post("/morpheus-mobile")
 async def manage_mobile_app_request(
     signature: str = Header(...),
-    video: UploadFile = File(...)
+    video: UploadFile = File(...),
+    mallampatiScore: int = Form(...),
 ):
     try:
         # vérification de la signature
@@ -21,7 +22,11 @@ async def manage_mobile_app_request(
 
         return {
             "success": True,
-            "datas": {}
+            "datas": {
+                "textualDatas": {
+                    "Asta" : "Veux dormir"
+                }
+            }
         }
     except CustomException as e:
         return {
