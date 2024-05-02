@@ -4,7 +4,10 @@ enum AssetsConfig{
   apiConfig(path: "/api/config.json"),
 
   /// @brief Chemin du logo de l'application
-  logoImage(path: "/images/logo.png");
+  logoImage(path: "/images/logo.png"),
+
+  /// @brief Chemin du modèle de détection
+  detectionModel(path: "/detection/model.tflite");
 
   const AssetsConfig({required this.path});
 

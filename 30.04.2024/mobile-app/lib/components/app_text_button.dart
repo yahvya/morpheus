@@ -4,13 +4,16 @@ import 'package:mobileapp/theme/app_theme.dart';
 
 /// @brief Bouton d'icône
 class AppTextButton extends StatelessWidget{
-  const AppTextButton({super.key,required this.text,this.onClick});
+  const AppTextButton({super.key,required this.text,this.onClick,this.size});
 
   /// @brief Texte du bouton
   final String text;
 
   /// @brief Action à exécuter au click sur le bouton
   final void Function()? onClick;
+
+  /// @brief Taille du bouton
+  final MaterialStateProperty<Size>? size;
 
   @override
   build(BuildContext context){
@@ -29,6 +32,7 @@ class AppTextButton extends StatelessWidget{
         )),
         backgroundColor: MaterialStateProperty.all(AppTheme.specialBackgroundColor.color),
         foregroundColor: upperColorState,
+        minimumSize: size
       ),
     );
   }

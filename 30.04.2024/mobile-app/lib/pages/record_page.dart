@@ -1,18 +1,357 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:io';
+
+import 'package:camera/camera.dart';
+import 'package:flutter/material.dart';
 import 'package:mobileapp/app/profiles/profile.dart';
+import 'package:mobileapp/app/record/record_check.dart';
+import 'package:mobileapp/app/record/record_manager.dart';
+import 'package:mobileapp/app/utils/json_assets_reader.dart';
+import 'package:mobileapp/components/app_text_button.dart';
+import 'package:mobileapp/config/assets_config.dart';
 import 'package:mobileapp/pages/page_model.dart';
+import 'package:mobileapp/theme/app_theme.dart';
+import 'package:video_player/video_player.dart';
 
 /// @brief Page d'enregistrement
-class RecordPage extends StatelessWidget{
+class RecordPage extends StatefulWidget{
   const RecordPage({super.key,required this.usedProfile});
 
   /// @brief Profil de l'utilisateur entrain d'enregistrer
   final Profile usedProfile;
 
   @override
+  State<StatefulWidget> createState() {
+    return RecordPageState();
+  }
+}
+
+/// @brief Etat de la page d'enregistrement
+class RecordPageState extends State<RecordPage>{
+  /// @brief score actuel de mallampati
+  int currentMallampati = 1;
+
+  /// @brief Range min de mallampati
+  int mallampatiMin = 1;
+
+  /// @brief Range min de mallampati
+  int mallampatiMax = 4;
+
+  /// @brief Durée de la vidéo en secondes
+  late int videoDuration;
+
+  /// @brief Gestionnaire d'enregistrement
+  RecordManager recordManager = RecordManager();
+
+  /// @brief Gestionnaire de l'affichage vidéo
+  VideoPlayerController? playerController;
+
+  /// @brief Lecteur vidéo
+  VideoPlayer? player;
+
+  /// @brief Si une validation est en cours
+  bool isValidating = false;
+
+  /// @brief Vérificateur
+  RecordCheck checker = RecordCheck();
+
+  RecordPageState(){
+    // chargement du range de mallampati et de la durée de la vidéo
+    JsonAssetsReader.get(toRead: AssetsConfig.apiConfig).then((config){
+      var apiConfig = config as Map<String,dynamic>;
+      var mallampatiConfig = apiConfig["mallampati"] as Map<String,dynamic>;
+
+      setState((){
+        mallampatiMin = mallampatiConfig["min"] as int;
+        mallampatiMax = mallampatiConfig["max"] as int;
+        videoDuration = apiConfig["video-duration"] as int;
+      });
+    });
+
+    // chargement de la caméra
+    loadCameras();
+  }
+
+  /// @brief Tente de charger la caméra
+  void loadCameras() async{
+    try{
+      var foundedCameras = await availableCameras();
+
+      // recherche de la caméra arrière
+      for(var f in foundedCameras){
+        if(f.lensDirection == CameraLensDirection.back){
+          var cameraController = CameraController(
+            f,
+            ResolutionPreset.max,
+            enableAudio: false
+          );
+
+          await cameraController.initialize();
+
+          setState((){
+            recordManager.setController(controller: cameraController);
+          });
+
+          return;
+        }
+      }
+    }
+    catch(_){}
+  }
+
+  @override
   build(BuildContext context){
-    return PageModel.buildPage(Column(
-      children: [],
+    return PageModel.buildPage(SingleChildScrollView(
+      child: SafeArea(child: Center(
+        child: Column(
+          children: [
+            const SizedBox(height: 30),
+            PageModel.specialText(text: "Enregistrement".toUpperCase()),
+            const SizedBox(height: 60),
+            buildCameraZone(context: context),
+            const SizedBox(height: 40),
+            buildSlider(context: context),
+            const SizedBox(height: 30),
+            PageModel.basicText(
+              text: "Assurez vous d'avoir fourni toutes les informations",
+              size: 13
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppTextButton(
+                  text: "Annuler",
+                  onClick: () => returnToProfiles(context: context),
+                ),
+                const SizedBox(width: 35),
+                AppTextButton(text: "Valider"),
+              ],
+            ),
+            const SizedBox(height: 80)
+          ],
+        ),
+      )),
     ));
+  }
+
+  @override
+  void dispose() {
+    if(recordManager.isRecording){
+      recordManager.stopRecord();
+    }
+
+    if(playerController != null){
+      playerController!.dispose();
+    }
+
+    super.dispose();
+  }
+
+  /// @brief Construis la zone de récupération des informations du slider
+  /// @param context le contexte
+  /// @return la zone du slider
+  Column buildSlider({required BuildContext context}){
+    return Column(
+      children: [
+        PageModel.specialText(
+          text: "Score de mallampati : $currentMallampati",
+          size: 20
+        ),
+        const SizedBox(height: 20),
+        Slider(
+          value: currentMallampati.toDouble(),
+          onChanged: (double newValue){
+            // blocage de l'action en cas de vidéo en cours ou de validation
+            if(recordManager.isRecording || isValidating){
+              return;
+            }
+
+            setState(() {
+              currentMallampati = newValue.toInt();
+            });
+          },
+          min: mallampatiMin.toDouble(),
+          max: mallampatiMax.toDouble(),
+          activeColor: AppTheme.specialBackgroundColor.color,
+          inactiveColor: AppTheme.specialBackgroundColor.color,
+          secondaryActiveColor: AppTheme.specialBackgroundColor.color,
+          thumbColor: AppTheme.specialText.color,
+          mouseCursor: MouseCursor.uncontrolled,
+          divisions: mallampatiMax - mallampatiMin,
+          label: currentMallampati.toString()
+        )
+      ],
+    );
+  }
+
+  /// @brief Construis la zone caméra
+  /// @param context le context
+  /// @return la zone construite
+  Column buildCameraZone({required BuildContext context}){
+    List<Widget> children = [];
+
+    // définition du titre
+    if(recordManager.camera != null && recordManager.isRecording){
+      children.add(
+        PageModel.specialText(
+          text: "En cours d'enregistrement : ${recordManager.registeredDuration} sec",
+          size: 20,
+        )
+      );
+    }
+    else if(recordManager.getLastRecordedVideo() != null){
+      children.add(
+          PageModel.specialText(
+            text: "Validation",
+            size: 20,
+          )
+      );
+    }
+    else{
+      children.add(
+        PageModel.specialText(
+          text: "Appuyez pour enregistrer",
+          size: 20,
+        )
+      );
+    }
+
+    children.add(const SizedBox(height: 30));
+
+    // affichage caméra ou recap
+    if(recordManager.camera != null){
+      var size = MediaQuery.of(context).size;
+      var width = size.width * 0.9;
+      var height = size.height * 0.7;
+
+      if(recordManager.getLastRecordedVideo() == null){
+        children.add(Stack(
+          children: [
+            Container(
+              width: width,
+              height: height,
+              decoration: BoxDecoration(
+                  border: getRecordBorder()
+              ),
+              child: recordManager.preview,
+            ),
+            if(!recordManager.isRecording)
+              Container(
+                  width: width,
+                  height: height,
+                  color: AppTheme.specialBackgroundColor.color.withOpacity(0.6),
+                  child: IconButton(
+                    icon: const Icon(Icons.photo_camera),
+                    onPressed: () => startRecord(),
+                  )
+              )
+          ],
+        )
+        );
+      }
+      else{
+        var player = createPlayerFromRecord();
+
+        if(player != null){
+          children.add(player);
+        }
+      }
+    }
+    else{
+      children.add(
+        PageModel.basicText(text: "Caméra en cours de chargement, veuillez patienter",size: 16)
+      );
+    }
+
+    return Column(
+      children: children,
+    );
+  }
+
+  /// @brief Démarre l'enregistrement
+  void startRecord(){
+    setState(() {
+      recordManager.startRecord(
+        toDoOnTimerIncrement: (){
+          if(recordManager.registeredDuration >= videoDuration){
+            recordManager.stopRecord().then((_){
+              setState(() {});
+            });
+          }
+          else{
+            setState(() {});
+          }
+        },
+        imageManager: (CameraImage frame){
+          recordManager.pauseRecord();
+
+          checker.check(frame: frame).then((success){
+            if(success){
+              recordManager.resumeRecord();
+            }
+            else{
+              try{
+                setState(() {});
+              }
+              catch(_){}
+            }
+          });
+        }
+      );
+    });
+  }
+
+  /// @brief Crée la bordure en fonction du mode d'enregistrement
+  Border getRecordBorder(){
+    Color boxColor;
+
+    if(recordManager.isRecording){
+      // si est en pause alors bloqué
+      if(recordManager.isInPause){
+        boxColor = Colors.red;
+      }
+      else{
+        boxColor = Colors.green;
+      }
+    }
+    else{
+      boxColor = Colors.transparent;
+    }
+
+    return Border.all(color: boxColor);
+  }
+
+  /// @brief Crée le player à partir de l'enregistrement fait
+  /// @return le player
+  SizedBox? createPlayerFromRecord(){
+    try{
+      if(playerController != null){
+        playerController!.dispose();
+      }
+
+      playerController = VideoPlayerController.file(
+        File(recordManager.getLastRecordedVideo()!.path)
+      );
+
+      playerController!.initialize().then((_){
+        playerController!.setLooping(true);
+        playerController!.play();
+      });
+
+      return SizedBox(
+        width: 200,
+        height: 200,
+        child:  VideoPlayer(playerController!)
+      );
+    }
+    catch(_){
+      return null;
+    }
+  }
+
+  /// @brief Retourne sur la page profiles
+  /// @param context contexte de création
+  void returnToProfiles({required BuildContext context}){
+    Navigator.pop(context);
   }
 }
