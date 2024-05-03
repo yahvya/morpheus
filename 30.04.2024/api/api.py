@@ -8,6 +8,7 @@ from api_utils.utils import CustomException, check_signature, temporary_upload
 from detection.video.video_parser import VideoParser
 from detection.utils.important_landmarks import ImportantLandmarks, MarkerImportLandmarks
 from detection.utils.marker_detection import detect_marker
+from detection.treatment.treatment import Treatment
 
 app = FastAPI()
 
@@ -35,6 +36,11 @@ async def manage_mobile_app_request(
         parsing_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
             custom_detections_functions= [detect_marker]
+        )
+
+        treatment_result = Treatment(
+            video_path= file_path,
+            parsing_result= parsing_result
         )
 
         # suppression du fichier
