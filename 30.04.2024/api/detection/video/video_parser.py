@@ -33,6 +33,10 @@ class VideoParser:
         video = None
 
         try:        
+            """
+                @todo à supprimer à la fin du test
+            """
+            # video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
             video = cv2.VideoCapture(filename= self.video_path)
             
             if not video.isOpened():
@@ -132,7 +136,7 @@ class VideoParser:
             result_map = {}   
 
             for landmark_index in important_landmarks:
-                if landmark_index >= founded_face_landmarks_len:
+                if landmark_index >= founded_face_landmarks_len or founded_face_landmarks[landmark_index] is None:
                     continue
 
                 founded_landmark = founded_face_landmarks[landmark_index]

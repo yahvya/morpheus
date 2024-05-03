@@ -1,8 +1,15 @@
 from typing import Any, List
 
 import cv2
-from numpy import dtype, generic, ndarray
 import numpy
+from detection.utils.important_landmarks import MarkerImportLandmarks
+from numpy import dtype, generic, ndarray
+from mediapipe import solutions
+
+"""
+    @brief Détecteur de pose
+"""
+pose_detector = solutions.pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 """
     @brief Fonction de détection customisé (marqueurs)
@@ -14,18 +21,67 @@ def detect_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ) -> dict[int,dict[str,int]]:
-    """
-        Récupération des marqueurs et recherche de celui placé au niveau du cou
-    """
-    founded_markers = find_circles_in_frame(
-        frame= frame,
-        hsv_lower= [0, 0, 0],    
-        hsv_upper= [170, 255, 255]   
-    )
+    try:
+        """
+            Récupération de la zone du cou dans l'image par coupure entre les épaules et le nez
+        """
+        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2RGB)
+        detected_poses = pose_detector.process(converted_frame)
 
+        if not detected_poses.pose_landmarks:
+            return {}
+        
+        pose_landmarks = detected_poses.pose_landmarks.landmark
+        expected_landmarks = [
+            solutions.pose.PoseLandmark.LEFT_SHOULDER.value,
+            solutions.pose.PoseLandmark.NOSE.value
+        ]
 
+        """
+            Vérification de présence des landmarks et récupération des coordonnées de zone
+        """
 
-    return {}
+        if len(pose_landmarks) - 1 < max(expected_landmarks):
+            return {}
+
+        left_shoulder_landmark = pose_landmarks[solutions.pose.PoseLandmark.LEFT_SHOULDER.value]
+        nose_landmark = pose_landmarks[solutions.pose.PoseLandmark.NOSE.value]
+
+        if None in [left_shoulder_landmark, nose_landmark]:
+            return {}
+
+        image_height, _, __ = converted_frame.shape
+        image_height = int(image_height)
+        start_y = nose_landmark.y * image_height
+        end_y = left_shoulder_landmark.y * image_height
+
+        """
+            Récupération des marqueurs et récupération de celui qui se trouve dans la zone du coup
+        """
+        founded_markers = find_circles_in_frame(
+            frame= frame,
+            hsv_lower= [0, 0, 0],    
+            hsv_upper= [170, 255, 255],
+            min_radius= 3,
+            max_radius=20  
+        )
+
+        for marker_data in founded_markers:
+            (marker_center_x, marker_center_y), __ = marker_data
+
+            if not (marker_center_y > start_y and marker_center_y < end_y ):
+                continue
+
+            return {
+                MarkerImportLandmarks.ADAM_APPLE.value: {
+                    "x": marker_center_x,
+                    "y": marker_center_y
+                }
+            }
+
+        return {}
+    except:
+        return {}
 
 """
     @brief Recherche les cercles dans la frame fournie
@@ -52,7 +108,7 @@ def find_circles_in_frame(
         upper_pink = numpy.array(object= hsv_upper)
 
         mask = cv2.inRange(src= hsv, lowerb= lower_pink,upperb= upper_pink)
-        contours, _ = cv2.findContours(src= mask,mode= cv2.RETR_TREE,method= cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(image= mask,mode= cv2.RETR_TREE,method= cv2.CHAIN_APPROX_SIMPLE)
 
         for contour in contours:
             (x, y), radius = cv2.minEnclosingCircle(points= contour)

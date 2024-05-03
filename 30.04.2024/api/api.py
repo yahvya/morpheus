@@ -6,7 +6,7 @@ import os
 from fastapi import FastAPI, File, Header, UploadFile, Form
 from api_utils.utils import CustomException, check_signature, temporary_upload
 from detection.video.video_parser import VideoParser
-from detection.utils.important_landmarks import ImportantLandmarks
+from detection.utils.important_landmarks import ImportantLandmarks, MarkerImportLandmarks
 from detection.utils.marker_detection import detect_marker
 
 app = FastAPI()
