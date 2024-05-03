@@ -8,6 +8,7 @@ import 'package:mobileapp/app/profiles/profile.dart';
 import 'package:mobileapp/app/record/record_check.dart';
 import 'package:mobileapp/app/record/record_manager.dart';
 import 'package:mobileapp/app/utils/json_assets_reader.dart';
+import 'package:mobileapp/components/app_icon_button.dart';
 import 'package:mobileapp/components/app_text_button.dart';
 import 'package:mobileapp/config/assets_config.dart';
 import 'package:mobileapp/pages/page_model.dart';
@@ -84,13 +85,14 @@ class RecordPageState extends State<RecordPage>{
   }
 
   /// @brief Tente de charger la caméra
-  void loadCameras() async{
+  /// @param direction direction de la caméra à charger
+  void loadCameras({CameraLensDirection direction = CameraLensDirection.back}) async{
     try{
       var foundedCameras = await availableCameras();
 
       // recherche de la caméra arrière
       for(var f in foundedCameras){
-        if(f.lensDirection == CameraLensDirection.back){
+        if(f.lensDirection == direction){
           var cameraController = CameraController(
             f,
             ResolutionPreset.max,
@@ -281,6 +283,22 @@ class RecordPageState extends State<RecordPage>{
           children.add(player);
         }
       }
+
+      // boutton de retournement de la caméra
+      children.addAll([
+        const SizedBox(height: 20),
+        AppIconButton(
+          icon: Icons.cameraswitch_rounded,
+          onClick: (){
+            if(!isValidating && !recordManager.isRecording){
+              // changement du sens de la caméra
+              loadCameras(
+                direction: recordManager.camera!.description.lensDirection == CameraLensDirection.back ? CameraLensDirection.front : CameraLensDirection.back
+              );
+            }
+          },
+        )
+      ]);
     }
     else{
       children.add(
