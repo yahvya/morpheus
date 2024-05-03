@@ -7,7 +7,7 @@ from fastapi import FastAPI, File, Header, UploadFile, Form
 from api_utils.utils import CustomException, check_signature, temporary_upload
 from detection.video.video_parser import VideoParser
 from detection.utils.important_landmarks import ImportantLandmarks
-from detection.utils import marker_detection
+from detection.utils.marker_detection import detect_marker
 
 app = FastAPI()
 
@@ -32,14 +32,18 @@ async def manage_mobile_app_request(
         file_path = temporary_upload(file= video)
 
         # traitement de la vidéo
-        parsing_result = VideoParser.parse(
-            video_path= file_path,
+        parsing_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
-            custom_detection_functions= [marker_detection]
+            custom_detections_functions= [detect_marker]
         )
 
         # suppression du fichier
         os.unlink(path= file_path)
+
+        return {
+            "success": False,
+            "error": "Erreur de test"
+        }
 
         return {
             "success": True,
