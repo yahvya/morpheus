@@ -12,7 +12,7 @@ from detection.utils.marker_detection import detect_marker
 app = FastAPI()
 
 """
-    @brief Traitement de l'application mobile
+    @brief Traitement de vidéo
 """
 @app.post("/morpheus-mobile")
 async def manage_mobile_app_request(

@@ -13,8 +13,8 @@ from mediapipe import solutions
 def new_face_detector(
     max_num_faces:int = 1, 
     redefine_landmarks = True,
-    min_detection_confidence= 0.5,
-    min_tracking_confidence=0.5,
+    min_detection_confidence= 0.8,
+    min_tracking_confidence=0.8,
     static_image_mode= False
 ) -> solutions.face_mesh.FaceMesh:
     return solutions.face_mesh.FaceMesh(
