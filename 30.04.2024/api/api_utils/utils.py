@@ -3,7 +3,9 @@
 """
 
 import os
+import time
 from cryptography.fernet import Fernet
+from fastapi import UploadFile
 
 """
     @brief Extension customisé de l'application
@@ -24,10 +26,11 @@ class CustomException(Exception):
     @brief Vérifie la signature
     @param signature signature à vérifier
     @return si la signature est valide
+    @throws CustomException en cas d'erreur
 """
 def check_signature(signature: str):
     try:
-        with open(f"{os.path.dirname(__file__)}/secret.txt") as secret_config_file:
+        with open(f"{os.path.dirname(__file__)}/resources/secret.txt") as secret_config_file:
             try:
                 key = secret_config_file.readline()
                 expected_message = secret_config_file.readline()
@@ -50,3 +53,23 @@ def check_signature(signature: str):
         raise e
     except:
         raise CustomException(message= "Echec de vérification de la provenance")
+    
+"""
+    @brief Crée une sauvegarde temporaire du fichier
+    @param file fichier à sauvegarder
+    @return le chemin du fichier
+    @throws CustomException en cas d'erreur
+"""
+def temporary_upload(file: UploadFile) -> str:
+
+    tmp_dir_path = f"{os.path.dirname(__file__)}/resources/tmp/";
+    file_path = f"{tmp_dir_path}{int(time.time())}.tmp"
+
+    with open(file= file_path, mode= "wb+") as temporary_file:
+        try:
+            temporary_file.write(file.file.read());
+        
+            return file_path
+        except:
+            raise CustomException(message= "Echec de sauvegarde temporaire du fichier", is_displayable= False)
+
