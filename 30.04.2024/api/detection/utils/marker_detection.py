@@ -22,7 +22,7 @@ def detect_marker(
         hsv_lower= [0, 0, 0],    
         hsv_upper= [170, 255, 255]   
     )
-    
+
 
 
     return {}
@@ -38,11 +38,11 @@ def detect_marker(
 """
 def find_circles_in_frame(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
-    hsv_lower: List[int, int, int],
-    hsv_upper: List[int, int, int],
+    hsv_lower: List[int],
+    hsv_upper: List[int],
     min_radius:int = 3,
     max_radius:int = 20
-) -> List[(int,int)]:
+):
     circles = []
 
     try:
