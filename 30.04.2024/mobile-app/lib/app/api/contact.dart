@@ -48,6 +48,8 @@ class Contact{
       // création des en-têtes
       request.headers["signature"] = signature;
       request.fields["mallampatiScore"] = mallampatiScore.toString();
+      request.fields["username"] = senderProfile.fullname;
+      request.fields["user_email"] = senderProfile.email;
       request.files.add(
         await http.MultipartFile.fromPath("video",video.path)
       );

@@ -1,3 +1,6 @@
+import cv2
+from mediapipe import solutions
+
 """
     @brief Parseur de vidéo
 """

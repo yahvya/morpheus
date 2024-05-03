@@ -2,3 +2,5 @@ uvicorn
 fastapi
 cryptography
 python-multipart
+opencv-python
+mediapipe
