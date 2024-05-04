@@ -12,12 +12,12 @@ from mediapipe import solutions
 pose_detector = solutions.pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
 
 """
-    @brief Fonction de détection customisé (marqueurs)
+    @brief Fonction de détection customisé du marqueur du cou
     @param frame La frame à traiter
     @param important_landmarks liste des landmarks important à détecter
     @return map des détections faîtes
 """
-def detect_marker(
+def detect_neck_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ) -> dict[int,dict[str,int]]:

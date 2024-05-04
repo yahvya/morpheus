@@ -74,7 +74,11 @@ class MouthTreatment:
                 drawing_color= self.drawing_color
             )
 
+            """
+                Calcul de la distance entre les deux points avec la distance entre les yeux comme valeur de référence
+            """
+            
+
             return True, 30
-        except Exception as e:
-            print(e)
+        except:
             return False, None
