@@ -5,16 +5,6 @@ from enum import Enum
 """
 class ImportantLandmarks(Enum):
     """
-        @brief Oeil gauche
-    """
-    LEFT_EYE = 144
-
-    """
-        @brief Oeil droit
-    """
-    RIGHT_EYE = 373
-
-    """
         @brief Pointe du menton
     """
     CHIN_CENTER = 175

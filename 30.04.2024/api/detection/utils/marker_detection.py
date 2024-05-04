@@ -30,7 +30,7 @@ def detect_neck_marker(
 ) -> dict[int,dict[str,int]]:
     try:
         """
-            Récupération de la zone du cou dans l'image par coupure entre les épaules et le nez
+            Récupération de la zone du cou dans l'image par coupure entre l'épaule droite et l'oreille droite
         """
         converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2RGB)
         detected_poses = pose_detector.process(converted_frame)
@@ -40,12 +40,12 @@ def detect_neck_marker(
         
         pose_landmarks = detected_poses.pose_landmarks.landmark
         expected_landmarks = [
-            solutions.pose.PoseLandmark.LEFT_SHOULDER.value,
+            solutions.pose.PoseLandmark.RIGHT_SHOULDER.value,
             solutions.pose.PoseLandmark.NOSE.value
         ]
 
         """
-            Vérification de présence des landmarks et récupération des coordonnées de zone
+            Vérification de présence des landmarks ainsi que de l'oreille droite dans le champ et récupération des coordonnées de zone
         """
 
         if len(pose_landmarks) - 1 < max(expected_landmarks):
@@ -54,7 +54,7 @@ def detect_neck_marker(
         left_shoulder_landmark = pose_landmarks[solutions.pose.PoseLandmark.LEFT_SHOULDER.value]
         nose_landmark = pose_landmarks[solutions.pose.PoseLandmark.NOSE.value]
 
-        if None in [left_shoulder_landmark, nose_landmark]:
+        if None in [left_shoulder_landmark, nose_landmark] or len(detect_right_profile_marker(frame= frame, important_landmarks= important_landmarks)) == 0:
             return {}
 
         image_height, _, __ = converted_frame.shape
