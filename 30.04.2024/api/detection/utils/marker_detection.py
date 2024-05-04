@@ -5,11 +5,13 @@ import numpy
 from detection.utils.important_landmarks import MarkerImportLandmarks
 from numpy import dtype, generic, ndarray
 from mediapipe import solutions
+from detection.utils.utils import new_face_detector
 
 """
     @brief Détecteur de pose
 """
 pose_detector = solutions.pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+face_detector = new_face_detector()
 
 """
     @brief Fonction de détection customisé du marqueur du cou
@@ -67,7 +69,7 @@ def detect_neck_marker(
         )
 
         for marker_data in founded_markers:
-            (marker_center_x, marker_center_y), __ = marker_data
+            (marker_center_x, marker_center_y), radius = marker_data
 
             if not (marker_center_y > start_y and marker_center_y < end_y ):
                 continue
@@ -75,7 +77,8 @@ def detect_neck_marker(
             return {
                 MarkerImportLandmarks.ADAM_APPLE.value: {
                     "x": marker_center_x,
-                    "y": marker_center_y
+                    "y": marker_center_y,
+                    "radius": radius
                 }
             }
 
@@ -89,8 +92,60 @@ def detect_neck_marker(
     @param important_landmarks liste des landmarks important à détecter
     @return map des détections faîtes
 """
-def detect_front_reference_marker():
-    return {}
+def detect_front_reference_marker(
+    frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
+    important_landmarks: List[int]
+):
+    try:
+        """
+            Récupération de la zone du front par séparation entre le haut de la tête et le nez
+        """
+        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2RGB)
+        founded_faces = face_detector.process(converted_frame)
+
+        if not founded_faces.multi_face_landmarks:
+            return {}
+        
+        founded_landmarks = founded_faces.multi_face_landmarks[0].landmark
+        head_top_landmark_index = 10
+        nose_landmark_index = 195
+
+        if len(founded_landmarks) <= 195:
+            return {}
+
+        image_height, image_width, _ = converted_frame.shape
+        head_top_landmark_y = int(founded_landmarks[head_top_landmark_index].y * image_height)
+        nose_landmark_y = int(founded_landmarks[nose_landmark_index].y * image_height)
+
+        """
+           Recherche des marqueurs dans la zone fournie 
+        """
+        founded_markers = find_circles_in_frame(
+            frame= frame,
+            hsv_lower= [0, 0, 0],    
+            hsv_upper= [170, 255, 255],
+            min_radius= 5,
+            max_radius= 15  
+        )
+
+        for marker_data in founded_markers:
+            (marker_center_x, marker_center_y), radius = marker_data
+
+            if not (marker_center_y > head_top_landmark_y and marker_center_y < nose_landmark_y):
+                continue
+
+            return {
+                MarkerImportLandmarks.FRONT_REFERENCE.value : {
+                    "x": marker_center_x,
+                    "y": marker_center_y,
+                    "radius": radius
+                }
+            }
+
+        return {}
+    except Exception as e:
+        print(e)
+        return {}
 
 """
     @brief Fonction de détection customisé du marqueur de référence du profile gauche
@@ -98,7 +153,10 @@ def detect_front_reference_marker():
     @param important_landmarks liste des landmarks important à détecter
     @return map des détections faîtes
 """
-def detect_left_profile_marker():
+def detect_left_profile_marker(
+    frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
+    important_landmarks: List[int]
+):
     return {}
 
 """
@@ -107,7 +165,10 @@ def detect_left_profile_marker():
     @param important_landmarks liste des landmarks important à détecter
     @return map des détections faîtes
 """
-def detect_right_profile_marker():
+def detect_right_profile_marker(
+    frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
+    important_landmarks: List[int]
+):
     return {}
 
 """
