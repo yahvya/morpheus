@@ -1,8 +1,8 @@
-from typing import Any, Tuple
 import cv2
 import time
 import os
-
+from math import pow, sqrt
+from typing import Any, Tuple
 from numpy import dtype, generic, ndarray
 from detection.video.parser_result import ParserResult
 from api_utils.utils import CustomException
@@ -85,7 +85,7 @@ class Treatment:
                     Traitement de la distance d'ouverture de bouche
                 """
                 success, mouth_distance = mouth_treatment_manager.extract_mouth_distance(
-                    frame_counter=  frame_counter,
+                    frame_counter= frame_counter,
                     drawable_frame= drawable_frame
                 )   
 
@@ -135,7 +135,7 @@ class Treatment:
     @staticmethod
     def draw_landmark_on(
         drawable_frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
-        landmark: dict[str,int],
+        landmark: dict[str,any],
         drawing_color: Tuple[int, int, int]
     ):
         cv2.circle(
@@ -156,8 +156,8 @@ class Treatment:
     @staticmethod
     def draw_line_between(
         drawable_frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
-        landmark_one: dict[str,int],
-        landmark_two: dict[str,int],
+        landmark_one: dict[str,any],
+        landmark_two: dict[str,any],
         drawing_color: Tuple[int, int, int]
     ):
         cv2.line(
@@ -168,3 +168,29 @@ class Treatment:
             thickness= 4
         )
 
+    """
+        @brief Calcul l'équavlence entre pixel et centimètre
+        @param reference_landmark données du référenciel
+        @param real_value valeur attendue
+        @return la valeur de référence
+    """
+    @staticmethod
+    def get_a_pixel_value_in_centimer(reference_landmark: dict[str,int|float], real_value:int) -> int|float:
+        return reference_landmark["radius"] / real_value
+    
+
+    """
+        @brief Calcule la distance en pixel entre les deux points fournis
+        @param landmark_one point 1
+        @param landmark_two point 2
+        @return La distance en pixel
+    """
+    @staticmethod
+    def calculate_pixel_distance_between(landmark_one: dict[str,any],landmark_two: dict[str,any]) -> int |float:
+        landmark_one_coords = landmark_one["datas"]
+        landmark_two_coords = landmark_two["datas"]
+
+        return sqrt(
+            pow(landmark_one_coords["x"] - landmark_two_coords["x"],2) +
+            pow(landmark_one_coords["y"] - landmark_two_coords["y"],2)
+        )

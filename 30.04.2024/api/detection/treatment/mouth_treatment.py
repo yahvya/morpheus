@@ -75,10 +75,26 @@ class MouthTreatment:
             )
 
             """
-                Calcul de la distance entre les deux points en utilisant comme valeur de référence le sticker de référence frontal
+                Récupération du point de référence frontal et calcul de la distance entre les deux points
             """
-            
+            front_reference_marker = self.parsing_result.get_landmark_datas_for_frame(
+                landmark= MarkerImportLandmarks.FRONT_REFERENCE.value,
+                frame_counter= frame_counter
+            )
 
-            return True, 30
+            if front_reference_marker == None:
+                return False, None
+            
+            centimeter_reference = Treatment.get_a_pixel_value_in_centimer(
+                reference_landmark= front_reference_marker,
+                real_value= 3
+            )
+
+            distance_in_pixel = Treatment.calculate_pixel_distance_between(
+                landmark_one= upper_landmark,
+                landmark_two= lower_landmark
+            )
+
+            return True, distance_in_pixel / centimeter_reference
         except:
             return False, None

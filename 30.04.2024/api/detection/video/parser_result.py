@@ -1,9 +1,8 @@
+from typing import List
+
 """
     @brief Résultat de parsing vidéo
 """
-from typing import List
-
-
 class ParserResult:
     def __init__(self) -> None:
         self.results = {}

@@ -55,7 +55,7 @@ class VideoParser:
 
                 if not successfuly_read:
                     break
-
+                        
                 frame_counter += 1
 
                 """  
