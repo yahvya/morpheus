@@ -67,8 +67,8 @@ def detect_neck_marker(
         """
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [0, 0, 0],    
-            hsv_upper= [170, 255, 255],
+            hsv_lower= [100,10, 245],
+            hsv_upper= [179, 255, 255],
             min_radius= 3,
             max_radius=20  
         )
@@ -127,8 +127,8 @@ def detect_front_reference_marker(
         """
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [0, 0, 0],    
-            hsv_upper= [170, 255, 255],
+            hsv_lower= [100,10, 245],
+            hsv_upper= [179, 255, 255],
             min_radius= 5,
             max_radius= 15  
         )
@@ -187,8 +187,8 @@ def detect_left_profile_marker(
 
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [0, 0, 0],    
-            hsv_upper= [170, 255, 255],
+            hsv_lower= [100,10, 245],
+            hsv_upper= [179, 255, 255],
             min_radius= 3,
             max_radius=20  
         )
@@ -244,8 +244,8 @@ def detect_right_profile_marker(
 
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [0, 0, 0],    
-            hsv_upper= [170, 255, 255],
+            hsv_lower= [100,10, 245],
+            hsv_upper= [179, 255, 255],
             min_radius= 3,
             max_radius=20  
         )
