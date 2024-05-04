@@ -95,6 +95,15 @@ class MouthTreatment:
                 landmark_two= lower_landmark
             )
 
-            return True, distance_in_pixel / centimeter_reference
+            distance = distance_in_pixel / centimeter_reference
+
+            Treatment.draw_text_between(
+                drawable_frame= drawable_frame,
+                landmark= upper_landmark,
+                text= f"{distance} cm",
+                drawing_color= self.drawing_color
+            )
+            
+            return True, distance
         except:
             return False, None

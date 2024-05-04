@@ -4,6 +4,7 @@ import os
 from math import pow, sqrt
 from typing import Any, Tuple
 from numpy import dtype, generic, ndarray
+from detection.treatment.head_move_treatment import HeadMoveTreatment
 from detection.video.parser_result import ParserResult
 from api_utils.utils import CustomException
 from detection.treatment.mouth_treatment import MouthTreatment
@@ -41,7 +42,11 @@ class Treatment:
             """
                 Ouverture de la vidéo et création du fichier de vidéo recap
             """
-            video = cv2.VideoCapture(filename= self.video_path)
+            """
+                @todo supprimer test
+            """
+            video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
+            # video = cv2.VideoCapture(filename= self.video_path)
 
             if not video.isOpened():
                 raise Exception()
@@ -60,10 +65,17 @@ class Treatment:
                 parsing_result= self.parsing_result,
                 drawing_color= self.drawing_color
             )
+            head_move_treatment_manager = HeadMoveTreatment(
+                parsing_result= self.parsing_result,
+                drawing_color= self.drawing_color
+            )
 
             frame_counter = 0
             result  = {
                 "mouth-max-distance": 0
+            }
+            tmp = {
+                "head-move-datas": []
             }
             
             """
@@ -92,6 +104,14 @@ class Treatment:
                 if success and mouth_distance > result["mouth-max-distance"]:
                     result["mouth-max-distance"] = mouth_distance
 
+                success, head_move_datas = head_move_treatment_manager.extract_head_move_datas(
+                    frame_counter= frame_counter,
+                    drawable_frame= drawable_frame
+                )
+
+                if success:
+                    tmp["head-move-datas"].append(head_move_datas)
+
                 recap_video.write(image= drawable_frame)
 
             """
@@ -104,25 +124,25 @@ class Treatment:
 
             return result
         except CustomException as e:
-            if os.path.exists(path= recap_video_path):
-                os.unlink(path= recap_video_path)
-
             if video != None:
                 video.release()
 
             if recap_video != None:
                 recap_video.release()
+
+            if os.path.exists(path= recap_video_path):
+                os.unlink(path= recap_video_path)
 
             raise e
         except:
-            if os.path.exists(path= recap_video_path):
-                os.unlink(path= recap_video_path)
-
             if video != None:
                 video.release()
 
             if recap_video != None:
                 recap_video.release()
+
+            if os.path.exists(path= recap_video_path):
+                os.unlink(path= recap_video_path)
 
             raise CustomException(message= "Une erreur s'est produite lors du traitement des données extraites")
 
@@ -166,6 +186,29 @@ class Treatment:
             pt2= (landmark_two["datas"]["x"], landmark_two["datas"]["y"]),
             color= drawing_color,
             thickness= 4
+        )
+
+    """
+        @brief Dessine le texte à côté du point fourni
+        @param drawable_frame frame de dessin
+        @param landmark landmark à côté duquel dessiner
+        @param text message
+        @param drawing_color couleur de dessin
+    """
+    @staticmethod
+    def draw_text_between(
+        drawable_frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
+        landmark: dict[str,any],
+        text: str,
+        drawing_color: Tuple[int, int, int]
+    ):
+        cv2.putText(
+            img= drawable_frame,
+            text= text,
+            org= (landmark["datas"]["x"],landmark["datas"]["y"]),
+            fontFace= cv2.FONT_HERSHEY_COMPLEX,
+            fontScale= 1,
+            color= drawing_color
         )
 
     """
