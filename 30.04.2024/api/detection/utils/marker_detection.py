@@ -84,6 +84,33 @@ def detect_neck_marker(
         return {}
 
 """
+    @brief Fonction de détection customisé du marqueur de référence de face
+    @param frame La frame à traiter
+    @param important_landmarks liste des landmarks important à détecter
+    @return map des détections faîtes
+"""
+def detect_front_reference_marker():
+    return {}
+
+"""
+    @brief Fonction de détection customisé du marqueur de référence du profile gauche
+    @param frame La frame à traiter
+    @param important_landmarks liste des landmarks important à détecter
+    @return map des détections faîtes
+"""
+def detect_left_profile_marker():
+    return {}
+
+"""
+    @brief Fonction de détection customisé du marqueur de référence du profil droit
+    @param frame La frame à traiter
+    @param important_landmarks liste des landmarks important à détecter
+    @return map des détections faîtes
+"""
+def detect_right_profile_marker():
+    return {}
+
+"""
     @brief Recherche les cercles dans la frame fournie
     @param frame la frame
     @param min_radius rayon minimum de recherche

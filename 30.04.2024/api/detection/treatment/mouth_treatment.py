@@ -75,7 +75,7 @@ class MouthTreatment:
             )
 
             """
-                Calcul de la distance entre les deux points avec la distance entre les yeux comme valeur de référence
+                Calcul de la distance entre les deux points en utilisant comme valeur de référence le sticker de référence frontal
             """
             
 

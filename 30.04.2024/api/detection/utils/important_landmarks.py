@@ -47,3 +47,18 @@ class MarkerImportLandmarks(Enum):
         @brief Pomme d'adam
     """
     ADAM_APPLE = -1
+
+    """
+        @brief Marqueur de référence de face
+    """
+    FRONT_REFERENCE = -2
+
+    """
+        @brief Marqueur de référence du profil gauche
+    """
+    LEFT_PROFILE_REFERENCE = -3
+
+    """
+        @brief Marqueur de référence du profil droit
+    """
+    RIGHT_PROFILE_REFERENCE = -4
