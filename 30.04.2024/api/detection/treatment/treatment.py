@@ -33,7 +33,7 @@ class Treatment:
         @throws CustomException en cas d'erreur
     """
     def treat_results(self) -> dict[str,any]:
-        recap_video_path = f"{os.path.dirname(__file__)}/recaps/{int(time.time())}.mp4"
+        recap_video_path = f"{os.path.dirname(__file__)}/resources/recaps/{int(time.time())}.mp4"
         video = None 
         recap_video = None
 
@@ -141,7 +141,7 @@ class Treatment:
         cv2.circle(
             img= drawable_frame,
             center= (landmark["datas"]["x"], landmark["datas"]["y"]),
-            radius= 10,
+            radius= 5,
             color= drawing_color,
             thickness= -1
         )

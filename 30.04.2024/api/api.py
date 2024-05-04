@@ -58,7 +58,7 @@ async def manage_mobile_app_request(
             }
         }
     except CustomException as e:
-        if os != None:
+        if file_path != None:
             os.unlink(path= file_path)
 
         return {
@@ -66,7 +66,7 @@ async def manage_mobile_app_request(
             "error": e.get_error_message()
         }
     except:
-        if os != None:
+        if file_path != None:
             os.unlink(path= file_path)
             
         return {

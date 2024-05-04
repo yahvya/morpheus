@@ -2,16 +2,21 @@ from typing import Any, List
 
 import cv2
 import numpy
+import os
 from detection.utils.important_landmarks import MarkerImportLandmarks
 from numpy import dtype, generic, ndarray
 from mediapipe import solutions
 from detection.utils.utils import new_face_detector
 
+classifiers_path = f"{os.path.dirname(__file__)}/resources/haarcascades/";
+  
 """
-    @brief Détecteur de pose
+    @brief Détecteurs
 """
-pose_detector = solutions.pose.Pose(static_image_mode=False, min_detection_confidence=0.5, min_tracking_confidence=0.5)
+pose_detector = solutions.pose.Pose(static_image_mode=False, min_detection_confidence=0.8, min_tracking_confidence=0.8)
 face_detector = new_face_detector()
+left_ear_cascade = cv2.CascadeClassifier(f"{classifiers_path}leftear.xml")
+right_ear_cascade = cv2.CascadeClassifier(f"{classifiers_path}rightear.xml")
 
 """
     @brief Fonction de détection customisé du marqueur du cou
@@ -110,10 +115,10 @@ def detect_front_reference_marker(
         head_top_landmark_index = 10
         nose_landmark_index = 195
 
-        if len(founded_landmarks) <= 195:
+        if len(founded_landmarks) <= 195 or None in [founded_landmarks[head_top_landmark_index],founded_landmarks[nose_landmark_index]]:
             return {}
 
-        image_height, image_width, _ = converted_frame.shape
+        image_height, _, __ = converted_frame.shape
         head_top_landmark_y = int(founded_landmarks[head_top_landmark_index].y * image_height)
         nose_landmark_y = int(founded_landmarks[nose_landmark_index].y * image_height)
 
@@ -157,7 +162,52 @@ def detect_left_profile_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ):
-    return {}
+    try:
+        if left_ear_cascade.empty() or right_ear_cascade.empty():
+            return {}
+
+        """
+            Vérifie que la personne soit de profil gauche en vérifiant la présence d'une oreille gauche et pas d'oreille droite sur la frame
+        """
+        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2GRAY)
+        left_ears = left_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
+        right_ears = right_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
+        
+        if len(left_ears) != 1 or len(right_ears) > 0:
+            return {}
+
+        (_, y, __, height) = left_ears[0]
+        margin = 40
+        start_y = max(y - margin, 0)
+        end_y = min(y + height + margin,converted_frame.shape[0]) 
+
+        """
+            Récupération et extraction des marqueurs        
+        """
+
+        founded_markers = find_circles_in_frame(
+            frame= frame,
+            hsv_lower= [0, 0, 0],    
+            hsv_upper= [170, 255, 255],
+            min_radius= 3,
+            max_radius=20  
+        )
+
+        for marker_data in founded_markers:
+            (marker_center_x, marker_center_y), radius = marker_data
+
+            if marker_center_y > start_y and marker_center_y < end_y:
+                return {
+                    MarkerImportLandmarks.LEFT_PROFILE_REFERENCE.value : {
+                        "x": marker_center_x,
+                        "y": marker_center_y,
+                        "radius": radius
+                    }
+                }
+
+        return {}
+    except:
+        return {}
 
 """
     @brief Fonction de détection customisé du marqueur de référence du profil droit
@@ -169,7 +219,52 @@ def detect_right_profile_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ):
-    return {}
+    try:
+        if left_ear_cascade.empty() or right_ear_cascade.empty():
+            return {}
+
+        """
+            Vérifie que la personne soit de profil droit en vérifiant la présence d'une oreille droite et pas d'oreille gauche sur la frame
+        """
+        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2GRAY)
+        left_ears = left_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
+        right_ears = right_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
+        
+        if len(right_ears) != 1 or len(left_ears) > 0:
+            return {}
+
+        (_, y, __, height) = right_ears[0]
+        margin = 40
+        start_y = max(y - margin, 0)
+        end_y = min(y + height + margin,converted_frame.shape[0]) 
+
+        """
+            Récupération et extraction des marqueurs        
+        """
+
+        founded_markers = find_circles_in_frame(
+            frame= frame,
+            hsv_lower= [0, 0, 0],    
+            hsv_upper= [170, 255, 255],
+            min_radius= 3,
+            max_radius=20  
+        )
+
+        for marker_data in founded_markers:
+            (marker_center_x, marker_center_y), radius = marker_data
+
+            if marker_center_y > start_y and marker_center_y < end_y:
+                return {
+                    MarkerImportLandmarks.RIGHT_PROFILE_REFERENCE.value : {
+                        "x": marker_center_x,
+                        "y": marker_center_y,
+                        "radius": radius
+                    }
+                }
+
+        return {}
+    except:
+        return {}
 
 """
     @brief Recherche les cercles dans la frame fournie
