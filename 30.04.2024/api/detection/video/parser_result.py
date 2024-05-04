@@ -46,8 +46,8 @@ class ParserResult:
         if not landmark in self.results:
             return None
 
-        for data_index in self.results[landmark]:
-            if self.results[landmark][data_index]["frame-counter"] == frame_counter:
-                return self.results[landmark][data_index]
+        for data in self.results[landmark]:
+            if data["frame-counter"] == frame_counter:
+                return data
 
         return None

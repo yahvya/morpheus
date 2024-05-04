@@ -41,7 +41,7 @@ async def manage_mobile_app_request(
         treatment_result = Treatment(
             video_path= file_path,
             parsing_result= parsing_result
-        )
+        ).treat_results()
 
         # suppression du fichier
         os.unlink(path= file_path)
