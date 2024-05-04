@@ -75,6 +75,9 @@ class HeadMoveTreatment:
                 drawing_color= self.drawing_color
             )
 
-            return False, None
+            return True, {
+                "chin": chin_landmark,
+                "neck": neck_marker
+            }
         except:
             return False, None

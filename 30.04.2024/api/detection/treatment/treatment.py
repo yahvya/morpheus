@@ -4,6 +4,7 @@ import os
 from math import pow, sqrt
 from typing import Any, Tuple
 from numpy import dtype, generic, ndarray
+from detection.treatment.jaw_treatment import JawTreatment
 from detection.treatment.head_move_treatment import HeadMoveTreatment
 from detection.video.parser_result import ParserResult
 from api_utils.utils import CustomException
@@ -21,12 +22,10 @@ class Treatment:
     def __init__(
         self, 
         video_path: str, 
-        parsing_result: ParserResult,
-        drawing_color: Tuple[int, int, int] = [165,62,239]
+        parsing_result: ParserResult
     ):
         self.parsing_result = parsing_result
         self.video_path = video_path
-        self.drawing_color = drawing_color
 
     """
         @brief Lance le traitement des résultats
@@ -63,11 +62,17 @@ class Treatment:
             
             mouth_treatment_manager = MouthTreatment(
                 parsing_result= self.parsing_result,
-                drawing_color= self.drawing_color
+                drawing_color= [165,62,239]
             )
+
             head_move_treatment_manager = HeadMoveTreatment(
                 parsing_result= self.parsing_result,
-                drawing_color= self.drawing_color
+                drawing_color= [142,35,42]
+            )
+
+            jaw_treatment_manager = JawTreatment(
+                parsing_result= self.parsing_result,
+                drawing_color= [0,255,0]
             )
 
             frame_counter = 0
@@ -75,7 +80,8 @@ class Treatment:
                 "mouth-max-distance": 0
             }
             tmp = {
-                "head-move-datas": []
+                "head-move-datas": [],
+                "jaw-datas": []
             }
             
             """
@@ -104,6 +110,9 @@ class Treatment:
                 if success and mouth_distance > result["mouth-max-distance"]:
                     result["mouth-max-distance"] = mouth_distance
 
+                """
+                    Traitement du basculement de ma tête
+                """
                 success, head_move_datas = head_move_treatment_manager.extract_head_move_datas(
                     frame_counter= frame_counter,
                     drawable_frame= drawable_frame
@@ -111,6 +120,17 @@ class Treatment:
 
                 if success:
                     tmp["head-move-datas"].append(head_move_datas)
+
+                """
+                    Traitement des données de la machoire 
+                """
+                success, jaw_datas = jaw_treatment_manager.extract_jaw_datas(
+                    frame_counter= frame_counter,
+                    drawable_frame= drawable_frame
+                )
+
+                if success:
+                    tmp["jaw-datas"].append(jaw_datas)
 
                 recap_video.write(image= drawable_frame)
 
@@ -220,7 +240,6 @@ class Treatment:
     @staticmethod
     def get_a_pixel_value_in_centimer(reference_landmark: dict[str,int|float], real_value:int) -> int|float:
         return reference_landmark["radius"] / real_value
-    
 
     """
         @brief Calcule la distance en pixel entre les deux points fournis
