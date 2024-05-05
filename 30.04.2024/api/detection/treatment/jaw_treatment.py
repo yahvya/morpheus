@@ -1,6 +1,5 @@
-from typing import Any, Tuple
-
 import cv2
+from typing import Any, Tuple
 from numpy import dtype, generic, ndarray
 from detection.utils.important_landmarks import ImportantLandmarks
 from detection.video.parser_result import ParserResult

@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:mobileapp/app/profiles/profile_manager.dart';
 import 'package:mobileapp/components/app_button.dart';

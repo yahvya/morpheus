@@ -44,8 +44,8 @@ class Treatment:
             """
                 @todo supprimer test
             """
-            video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
-            # video = cv2.VideoCapture(filename= self.video_path)
+            # video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
+            video = cv2.VideoCapture(filename= self.video_path)
 
             if not video.isOpened():
                 raise Exception()
