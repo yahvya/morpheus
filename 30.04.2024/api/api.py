@@ -29,6 +29,7 @@ async def manage_mobile_app_request(
     signature: str = Header(...),
     video: UploadFile = File(...),
     mallampatiScore: int = Form(...),
+    mobilityGradeScore: int = Form(...),
     username: str = Form(...),
     user_email: str = Form(...)
 ):

@@ -7,6 +7,7 @@ import 'package:mobileapp/app/api/contact.dart';
 import 'package:mobileapp/app/profiles/profile.dart';
 import 'package:mobileapp/app/record/record_check.dart';
 import 'package:mobileapp/app/record/record_manager.dart';
+import 'package:mobileapp/app/utils/image_assets_reader.dart';
 import 'package:mobileapp/app/utils/json_assets_reader.dart';
 import 'package:mobileapp/components/app_icon_button.dart';
 import 'package:mobileapp/components/app_text_button.dart';
@@ -18,13 +19,33 @@ import 'package:video_player/video_player.dart';
 
 /// @brief Page d'enregistrement
 class RecordPage extends StatefulWidget{
-  const RecordPage({super.key,required this.profiles,required this.usedProfile});
+  RecordPage({super.key,required this.profiles,required this.usedProfile}){
+    mallamapatiChoiceMap = {
+      1: ImageAssetsReader.getImageFrom(AssetsConfig.mallamptiClass1)!,
+      2: ImageAssetsReader.getImageFrom(AssetsConfig.mallamptiClass2)!,
+      3: ImageAssetsReader.getImageFrom(AssetsConfig.mallamptiClass3)!,
+      4: ImageAssetsReader.getImageFrom(AssetsConfig.mallamptiClass4)!,
+    };
+
+    mobilityChoiceMap = {
+      0: ImageAssetsReader.getImageFrom(AssetsConfig.normalMobility)!,
+      1: ImageAssetsReader.getImageFrom(AssetsConfig.grade1Mobility)!,
+      2: ImageAssetsReader.getImageFrom(AssetsConfig.grade2Mobility)!,
+      3: ImageAssetsReader.getImageFrom(AssetsConfig.grade3Mobility)!,
+    };
+  }
 
   /// @brief Profil de l'utilisateur entrain d'enregistrer
   final Profile usedProfile;
 
   /// @brief Liste des profiles
   final List<Profile> profiles;
+
+  /// @brief Map des images de choix de mallampati
+  late final Map<int,AssetImage> mallamapatiChoiceMap;
+
+  /// @brief Map des images de choix de grade de mobilité
+  late final Map<int,AssetImage> mobilityChoiceMap;
 
   @override
   State<StatefulWidget> createState() {
@@ -36,6 +57,9 @@ class RecordPage extends StatefulWidget{
 class RecordPageState extends State<RecordPage>{
   /// @brief score actuel de mallampati
   int currentMallampati = 1;
+
+  /// @brief grade actuel de mobilité
+  int currentMobilityGrade = 0;
 
   /// @brief Range min de mallampati
   int mallampatiMin = 1;
@@ -128,7 +152,9 @@ class RecordPageState extends State<RecordPage>{
                 const SizedBox(height: 10),
                 buildCameraZone(context: context),
                 const SizedBox(height: 40),
-                buildSlider(context: context),
+                buildMallampatiGetter(context: context),
+                const SizedBox(height: 40),
+                buildMobilityGradeGetter(context: context),
                 const SizedBox(height: 30),
                 PageModel.basicText(
                   text: "Assurez vous d'avoir fourni toutes les informations",
@@ -174,38 +200,87 @@ class RecordPageState extends State<RecordPage>{
     super.dispose();
   }
 
-  /// @brief Construis la zone de récupération des informations du slider
+  /// @brief Construis la zone de récupération des informations du score de mallampati
   /// @param context le contexte
-  /// @return la zone du slider
-  Column buildSlider({required BuildContext context}){
+  /// @return la zone
+  Column buildMallampatiGetter({required BuildContext context}){
+    const spacer = SizedBox(height: 20);
+    const widthSpacer = SizedBox(width: 5);
+    List<Widget> children = [widthSpacer];
+
+    widget.mallamapatiChoiceMap.forEach((key,value){
+      children.addAll([
+        AppTextButton(
+          text: key.toString(),
+          onClick: (){
+            if(isDetecting || isValidating){
+              return;
+            }
+
+            setState(() {
+              currentMallampati = key;
+            });
+          },
+        ),
+        widthSpacer
+      ]);
+    });
+
     return Column(
       children: [
         PageModel.specialText(
           text: "Score de mallampati : $currentMallampati",
           size: 20
         ),
-        const SizedBox(height: 20),
-        Slider(
-          value: currentMallampati.toDouble(),
-          onChanged: (double newValue){
-            // blocage de l'action en cas de vidéo en cours ou de validation
-            if(recordManager.isRecording || isValidating){
+        spacer,
+        Image(image: widget.mallamapatiChoiceMap[currentMallampati]!,width: 200,height: 200),
+        spacer,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
+        )
+      ],
+    );
+  }
+
+  /// @brief Construis la zone de récupération des informations du grade mobilité
+  /// @param context le contexte
+  /// @return la zone
+  Column buildMobilityGradeGetter({required BuildContext context}){
+    const spacer = SizedBox(height: 20);
+    const widthSpacer = SizedBox(width: 5);
+    List<Widget> children = [widthSpacer];
+
+    widget.mobilityChoiceMap.forEach((key,value){
+      children.addAll([
+        AppTextButton(
+          text: key.toString(),
+          onClick: (){
+            if(isDetecting || isValidating){
               return;
             }
 
             setState(() {
-              currentMallampati = newValue.toInt();
+              currentMobilityGrade = key;
             });
           },
-          min: mallampatiMin.toDouble(),
-          max: mallampatiMax.toDouble(),
-          activeColor: AppTheme.specialBackgroundColor.color,
-          inactiveColor: AppTheme.specialBackgroundColor.color,
-          secondaryActiveColor: AppTheme.specialBackgroundColor.color,
-          thumbColor: AppTheme.specialText.color,
-          mouseCursor: MouseCursor.uncontrolled,
-          divisions: mallampatiMax - mallampatiMin,
-          label: currentMallampati.toString()
+        ),
+        widthSpacer
+      ]);
+    });
+
+    return Column(
+      children: [
+        PageModel.specialText(
+          text: "Grade mobilité : ${currentMobilityGrade == 0 ? "normal" : currentMobilityGrade}",
+          size: 20
+        ),
+        spacer,
+        Image(image: widget.mobilityChoiceMap[currentMobilityGrade]!,width: 200,height: 200),
+        spacer,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: children,
         )
       ],
     );
@@ -447,6 +522,7 @@ class RecordPageState extends State<RecordPage>{
       senderProfile: widget.usedProfile,
       video: recordManager.getLastRecordedVideo()!, 
       mallampatiScore: currentMallampati,
+      mobilityGradeScore: currentMobilityGrade,
       usedCamera: recordManager.camera!
       ).then((ApiResult result){
       // erreur d'appel ajout du message

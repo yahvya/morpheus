@@ -14,9 +14,10 @@ class Contact{
   /// @param senderProfile profile de l'utilisateur
   /// @param video la vidéo
   /// @param mallampatiScore score de mallampati choisi
+  /// @param mobilityGradeScore score de mobilité de bouche
   /// @param usedCamera de caméra utilisé
   /// @return Le résultat de l'appel
-  static Future<ApiResult> contact({required Profile senderProfile,required XFile video,required int mallampatiScore,required CameraController usedCamera}) async{
+  static Future<ApiResult> contact({required Profile senderProfile,required XFile video,required int mallampatiScore,required int mobilityGradeScore,required CameraController usedCamera}) async{
     try{
       // récupération de la configuration de l'api
       var readResult = await JsonAssetsReader.get(toRead: AssetsConfig.apiConfig);
@@ -48,6 +49,7 @@ class Contact{
       // création des en-têtes
       request.headers["signature"] = signature;
       request.fields["mallampatiScore"] = mallampatiScore.toString();
+      request.fields["mobilityGradeScore"] = mobilityGradeScore.toString();
       request.fields["username"] = senderProfile.fullname;
       request.fields["user_email"] = senderProfile.email;
       request.files.add(
