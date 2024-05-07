@@ -61,7 +61,6 @@ def check_signature(signature: str):
     @throws CustomException en cas d'erreur
 """
 def temporary_upload(file: UploadFile) -> str:
-
     tmp_dir_path = f"{os.path.dirname(__file__)}/resources/tmp/";
     file_path = f"{tmp_dir_path}{int(time.time())}.tmp"
 

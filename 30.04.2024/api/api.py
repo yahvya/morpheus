@@ -3,6 +3,7 @@
 """
 
 import os
+from time import time
 from fastapi import FastAPI, File, Header, UploadFile, Form
 from api_utils.utils import CustomException, check_signature, temporary_upload
 from detection.video.video_parser import VideoParser
@@ -11,6 +12,14 @@ from detection.utils.marker_detection import detect_neck_marker, detect_front_re
 from detection.treatment.treatment import Treatment
 
 app = FastAPI()
+
+"""
+    @brief Crée le format d'affichage en fonction du timestamp fourni
+    @param timestamp le timestamp
+    @return Temps affichable
+"""
+def format_timestamp(timestamp: float|int) -> str:
+    return ""
 
 """
     @brief Traitement de vidéo
@@ -32,16 +41,21 @@ async def manage_mobile_app_request(
         # création de la sauvegarde temporaire
         file_path = temporary_upload(file= video)
 
-        # traitement de la vidéo
+        # parsing de la vidéo
+        parsing_start_time = time()
         parsing_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
             custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
         )
+        parsing_end_time = time()
 
+        # traitement des extracations et création de la vidéo recap
+        treatment_start_time = time()
         treatment_result = Treatment(
             video_path= file_path,
             parsing_result= parsing_result
         ).treat_results()
+        treatment_end_time = time()
 
         # suppression du fichier
         os.unlink(path= file_path)
@@ -54,7 +68,10 @@ async def manage_mobile_app_request(
         return {
             "success": True,
             "datas": {
-                "textualDatas": {}
+                "textualDatas": {
+                    "Temps d'extraction des données": format_timestamp(timestamp= parsing_end_time - parsing_start_time),
+                    "Temps de traitement et génération de vidéo": format_timestamp(timestamp= treatment_end_time - treatment_start_time)
+                }
             }
         }
     except CustomException as e:
