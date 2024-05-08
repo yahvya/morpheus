@@ -9,6 +9,7 @@ from detection.treatment.head_move_treatment import HeadMoveTreatment
 from detection.video.parser_result import ParserResult
 from api_utils.utils import CustomException
 from detection.treatment.mouth_treatment import MouthTreatment
+from detection.treatment.treatment_result import TreatmentResult
 
 """
     @brief Traiteur des informations vidéos
@@ -29,10 +30,10 @@ class Treatment:
 
     """
         @brief Lance le traitement des résultats
-        @return les données de traitements en plus du chemin de la vidéo récaptifulative
+        @return les résultats du traitement
         @throws CustomException en cas d'erreur
     """
-    def treat_results(self) -> dict[str,any]:
+    def treat_results(self) -> TreatmentResult:
         recap_video_path = f"{os.path.dirname(__file__)}/resources/recaps/{int(time.time())}.mp4"
         video = None 
         recap_video = None
@@ -41,10 +42,6 @@ class Treatment:
             """
                 Ouverture de la vidéo et création du fichier de vidéo recap
             """
-            """
-                @todo supprimer test
-            """
-            # video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
             video = cv2.VideoCapture(filename= self.video_path)
 
             if not video.isOpened():
@@ -59,6 +56,10 @@ class Treatment:
                     int(video.get(cv2.CAP_PROP_FRAME_HEIGHT))
                 )
             )
+
+            """
+                Création des utilitaires de traitement
+            """
             
             mouth_treatment_manager = MouthTreatment(
                 parsing_result= self.parsing_result,
@@ -139,10 +140,16 @@ class Treatment:
             """
             video.release()
             recap_video.release()
+            
+            """
+                Création et remplissage de l'objet résultat
+            """
+            treatment_result = TreatmentResult()
 
-            result["recap-video"] = recap_video_path
+            treatment_result.set_max_mouth_distance(max_mouth_distance= result["mouth-max-distance"])
+            treatment_result.set_recap_video_path(recap_video_path= recap_video_path)
 
-            return result
+            return treatment_result
         except CustomException as e:
             if video != None:
                 video.release()
@@ -216,7 +223,7 @@ class Treatment:
         @param drawing_color couleur de dessin
     """
     @staticmethod
-    def draw_text_between(
+    def draw_text_near(
         drawable_frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
         landmark: dict[str,any],
         text: str,

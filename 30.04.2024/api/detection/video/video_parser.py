@@ -33,10 +33,6 @@ class VideoParser:
         video = None
 
         try:        
-            """
-                @todo à supprimer à la fin du test
-            """
-            # video = cv2.VideoCapture(filename= r"C:\Users\devel\Desktop\fichiers-temporaires\20240430_111913.mp4")
             video = cv2.VideoCapture(filename= self.video_path)
             
             if not video.isOpened():
@@ -55,9 +51,9 @@ class VideoParser:
 
                 if not successfuly_read:
                     break
-                        
+                
                 frame_counter += 1
-
+                
                 """  
                     Extraction des landmarks via facemesh
                 """
@@ -149,4 +145,4 @@ class VideoParser:
             return result_map
         except:
             return {}
-    
+

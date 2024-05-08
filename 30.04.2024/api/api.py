@@ -10,16 +10,21 @@ from detection.video.video_parser import VideoParser
 from detection.utils.important_landmarks import ImportantLandmarks
 from detection.utils.marker_detection import detect_neck_marker, detect_front_reference_marker, detect_left_profile_marker, detect_right_profile_marker
 from detection.treatment.treatment import Treatment
+from datetime import timedelta
 
 app = FastAPI()
 
 """
-    @brief Crée le format d'affichage en fonction du timestamp fourni
-    @param timestamp le timestamp
-    @return Temps affichable
+    @brief Crée une durée affichable à partir d'un time de départ et de fin
+    @param start time de départ
+    @param end time de fin
+    @return Durée affichable
 """
-def format_timestamp(timestamp: float|int) -> str:
-    return ""
+def time_from_diff_of(start: float|int, end: float|int) -> str:
+    duration = end - start
+    duration_timedelta = timedelta(seconds=duration)
+
+    return str(duration_timedelta)
 
 """
     @brief Traitement de vidéo
@@ -45,10 +50,8 @@ async def manage_mobile_app_request(
         # parsing de la vidéo
         parsing_start_time = time()
         parsing_result = VideoParser(video_path= file_path).parse(
-            # important_landmarks= [landmark.value for landmark in ImportantLandmarks],
-            important_landmarks= [ImportantLandmarks.UPPER_LIP.value,ImportantLandmarks.LOWER_LIP.value],
-            # custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
-            custom_detections_functions= [detect_front_reference_marker]
+            important_landmarks= [landmark.value for landmark in ImportantLandmarks],
+            custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
         )
         parsing_end_time = time()
 
@@ -64,16 +67,19 @@ async def manage_mobile_app_request(
         os.unlink(path= file_path)
 
         return {
-            "success": False,
-            "error": "Erreur de test"
-        }
-
-        return {
             "success": True,
             "datas": {
+                "recap-video-get-link": "",
                 "textualDatas": {
-                    "Temps d'extraction des données": format_timestamp(timestamp= parsing_end_time - parsing_start_time),
-                    "Temps de traitement et génération de vidéo": format_timestamp(timestamp= treatment_end_time - treatment_start_time)
+                    "Temps d'extraction des données": time_from_diff_of(
+                        start= parsing_start_time,
+                        end= parsing_end_time
+                    ),
+                    "Temps de traitement et génération de vidéo": time_from_diff_of(
+                        start= treatment_start_time,
+                        end= treatment_end_time
+                    ),
+                    "Distance maximale d'ouverture de bouche": treatment_result.get_max_mouth_distance()
                 }
             }
         }

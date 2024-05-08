@@ -141,6 +141,7 @@ def detect_front_reference_marker(
 
         """
            Recherche des marqueurs dans la zone fournie 
+           @todo valeur radious valable pour caméra pc
         """
         founded_markers = find_circles_in_frame(
             frame= frame,
@@ -293,10 +294,10 @@ def detect_right_profile_marker(
 """
 def find_circles_in_frame(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
+    min_radius:int,
+    max_radius:int,
     hsv_lower: List[int],
-    hsv_upper: List[int],
-    min_radius:int = 3,
-    max_radius:int = 7
+    hsv_upper: List[int]
 ):
     circles = []
 
