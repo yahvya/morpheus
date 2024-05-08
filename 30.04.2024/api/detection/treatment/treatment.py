@@ -181,7 +181,7 @@ class Treatment:
         cv2.circle(
             img= drawable_frame,
             center= (landmark["datas"]["x"], landmark["datas"]["y"]),
-            radius= 5,
+            radius= landmark["datas"]["radius"] if "radius" in landmark["datas"] else 5,
             color= drawing_color,
             thickness= -1
         )
@@ -227,7 +227,7 @@ class Treatment:
             text= text,
             org= (landmark["datas"]["x"],landmark["datas"]["y"]),
             fontFace= cv2.FONT_HERSHEY_COMPLEX,
-            fontScale= 1,
+            fontScale= 3,
             color= drawing_color
         )
 
@@ -239,7 +239,7 @@ class Treatment:
     """
     @staticmethod
     def get_a_pixel_value_in_centimer(reference_landmark: dict[str,int|float], real_value:int) -> int|float:
-        return reference_landmark["radius"] / real_value
+        return reference_landmark["datas"]["radius"] / real_value
 
     """
         @brief Calcule la distance en pixel entre les deux points fournis

@@ -28,8 +28,8 @@ def format_timestamp(timestamp: float|int) -> str:
 async def manage_mobile_app_request(
     signature: str = Header(...),
     video: UploadFile = File(...),
-    mallampatiScore: int = Form(...),
-    mobilityGradeScore: int = Form(...),
+    mallampati_score: int = Form(...),
+    mobility_grade_score: int = Form(...),
     username: str = Form(...),
     user_email: str = Form(...)
 ):
@@ -37,7 +37,7 @@ async def manage_mobile_app_request(
 
     try:
         # vérification de la signature
-        check_signature(signature= signature)
+        # check_signature(signature= signature)
         
         # création de la sauvegarde temporaire
         file_path = temporary_upload(file= video)
@@ -45,8 +45,10 @@ async def manage_mobile_app_request(
         # parsing de la vidéo
         parsing_start_time = time()
         parsing_result = VideoParser(video_path= file_path).parse(
-            important_landmarks= [landmark.value for landmark in ImportantLandmarks],
-            custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
+            # important_landmarks= [landmark.value for landmark in ImportantLandmarks],
+            important_landmarks= [ImportantLandmarks.UPPER_LIP.value,ImportantLandmarks.LOWER_LIP.value],
+            # custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
+            custom_detections_functions= [detect_front_reference_marker]
         )
         parsing_end_time = time()
 

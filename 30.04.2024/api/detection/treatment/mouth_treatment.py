@@ -87,7 +87,7 @@ class MouthTreatment:
             
             centimeter_reference = Treatment.get_a_pixel_value_in_centimer(
                 reference_landmark= front_reference_marker,
-                real_value= 3
+                real_value= 0.4
             )
 
             distance_in_pixel = Treatment.calculate_pixel_distance_between(
@@ -95,7 +95,7 @@ class MouthTreatment:
                 landmark_two= lower_landmark
             )
 
-            distance = distance_in_pixel / centimeter_reference
+            distance = round(distance_in_pixel / centimeter_reference,2)
 
             Treatment.draw_text_between(
                 drawable_frame= drawable_frame,
@@ -103,7 +103,19 @@ class MouthTreatment:
                 text= f"{distance} cm",
                 drawing_color= self.drawing_color
             )
+
+            """
+                @todo test
+            """
+            Treatment.draw_landmark_on(
+                drawable_frame= drawable_frame,
+                landmark= front_reference_marker,
+                drawing_color= [0,255,0]
+            )
+
+            print(f"pixel distance: {distance_in_pixel} - centi ref : {centimeter_reference} - distance : {distance}")
             
             return True, distance
-        except:
+        except Exception as e:
+            print(e)
             return False, None

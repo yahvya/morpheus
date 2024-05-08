@@ -48,8 +48,8 @@ class Contact{
 
       // création des en-têtes
       request.headers["signature"] = signature;
-      request.fields["mallampatiScore"] = mallampatiScore.toString();
-      request.fields["mobilityGradeScore"] = mobilityGradeScore.toString();
+      request.fields["mallampati_score"] = mallampatiScore.toString();
+      request.fields["mobility_grade_score"] = mobilityGradeScore.toString();
       request.fields["username"] = senderProfile.fullname;
       request.fields["user_email"] = senderProfile.email;
       request.files.add(

@@ -8,7 +8,7 @@ from numpy import dtype, generic, ndarray
 from mediapipe import solutions
 from detection.utils.utils import new_face_detector
 
-classifiers_path = f"{os.path.dirname(__file__)}/resources/haarcascades/";
+classifiers_path = f"{os.path.dirname(__file__)}/resources/haarcascades/"
   
 """
     @brief Détecteurs
@@ -67,10 +67,10 @@ def detect_neck_marker(
         """
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [100,10, 245],
-            hsv_upper= [179, 255, 255],
-            min_radius= 3,
-            max_radius=20  
+            hsv_lower = [89, 0, 0],
+            hsv_upper = [125, 255, 255],
+            min_radius= 6,
+            max_radius= 25
         )
 
         for marker_data in founded_markers:
@@ -112,31 +112,48 @@ def detect_front_reference_marker(
             return {}
         
         founded_landmarks = founded_faces.multi_face_landmarks[0].landmark
-        head_top_landmark_index = 10
-        nose_landmark_index = 195
+        top_limiter_index = 10
+        bottom_limiter_index = 8
+        left_limiter_index = 66
+        right_limiter_index = 296
 
-        if len(founded_landmarks) <= 195 or None in [founded_landmarks[head_top_landmark_index],founded_landmarks[nose_landmark_index]]:
+        if (
+            len(founded_landmarks) <= max([
+                top_limiter_index,
+                bottom_limiter_index,
+                left_limiter_index,
+                right_limiter_index
+            ]) or 
+            None in [
+                founded_landmarks[top_limiter_index],
+                founded_landmarks[bottom_limiter_index],
+                founded_landmarks[left_limiter_index],
+                founded_landmarks[right_limiter_index]
+            ]
+        ):
             return {}
 
-        image_height, _, __ = converted_frame.shape
-        head_top_landmark_y = int(founded_landmarks[head_top_landmark_index].y * image_height)
-        nose_landmark_y = int(founded_landmarks[nose_landmark_index].y * image_height)
+        image_height, image_width, __ = converted_frame.shape
+        top_landmark_y = int(founded_landmarks[top_limiter_index].y * image_height)
+        bottom_landmark_y = int(founded_landmarks[bottom_limiter_index].y * image_height)
+        left_limiter_x = int(founded_landmarks[left_limiter_index].x * image_width)
+        right_limiter_x = int(founded_landmarks[right_limiter_index].x * image_width)
 
         """
            Recherche des marqueurs dans la zone fournie 
         """
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [100,10, 245],
-            hsv_upper= [179, 255, 255],
-            min_radius= 5,
-            max_radius= 15  
+            hsv_lower = [89, 0, 0],
+            hsv_upper = [125, 255, 255],
+            min_radius= 6,
+            max_radius= 25
         )
 
         for marker_data in founded_markers:
             (marker_center_x, marker_center_y), radius = marker_data
 
-            if not (marker_center_y > head_top_landmark_y and marker_center_y < nose_landmark_y):
+            if not (marker_center_y >= top_landmark_y and marker_center_y <= bottom_landmark_y and marker_center_x >= left_limiter_x and marker_center_x <= right_limiter_x):
                 continue
 
             return {
@@ -148,8 +165,7 @@ def detect_front_reference_marker(
             }
 
         return {}
-    except Exception as e:
-        print(e)
+    except:
         return {}
 
 """
@@ -187,10 +203,10 @@ def detect_left_profile_marker(
 
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [100,10, 245],
-            hsv_upper= [179, 255, 255],
-            min_radius= 3,
-            max_radius=20  
+            hsv_lower = [89, 0, 0],
+            hsv_upper = [125, 255, 255],
+            min_radius= 6,
+            max_radius= 25
         )
 
         for marker_data in founded_markers:
@@ -244,10 +260,10 @@ def detect_right_profile_marker(
 
         founded_markers = find_circles_in_frame(
             frame= frame,
-            hsv_lower= [100,10, 245],
-            hsv_upper= [179, 255, 255],
-            min_radius= 3,
-            max_radius=20  
+            hsv_lower = [89, 0, 0],
+            hsv_upper = [125, 255, 255],
+            min_radius= 6,
+            max_radius= 25
         )
 
         for marker_data in founded_markers:
@@ -280,7 +296,7 @@ def find_circles_in_frame(
     hsv_lower: List[int],
     hsv_upper: List[int],
     min_radius:int = 3,
-    max_radius:int = 20
+    max_radius:int = 7
 ):
     circles = []
 
@@ -291,7 +307,7 @@ def find_circles_in_frame(
         upper_pink = numpy.array(object= hsv_upper)
 
         mask = cv2.inRange(src= hsv, lowerb= lower_pink,upperb= upper_pink)
-        contours, _ = cv2.findContours(image= mask,mode= cv2.RETR_TREE,method= cv2.CHAIN_APPROX_SIMPLE)
+        contours, _ = cv2.findContours(image= mask,mode= cv2.RETR_TREE,method= cv2.CHAIN_APPROX_SIMPLE) 
 
         for contour in contours:
             (x, y), radius = cv2.minEnclosingCircle(points= contour)
