@@ -1,3 +1,5 @@
+from detection.video.parser_result import ParserResult
+
 """
     @brief Résultat de traitement
 """
@@ -32,3 +34,18 @@ class TreatmentResult:
     def get_recap_video_path(self) -> str|None:
         return self.recap_video_path
     
+    """
+        @brief Stock le résultat de parsing
+        @param parse_result résultat de parsing
+        @return self
+    """
+    def set_parse_result(self,parse_result: ParserResult) -> object:
+        self.parse_result = parse_result
+        return self
+    
+    """
+        @return Le résultat de parsing ou None si non affecté
+    """
+    def get_parse_result(self) -> ParserResult|None:
+        return self.parse_result
+        

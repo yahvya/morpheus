@@ -49,19 +49,11 @@ async def manage_mobile_app_request(
 
         # parsing de la vidéo
         parsing_start_time = time()
-        parsing_result = VideoParser(video_path= file_path).parse(
+        treatment_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
             custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
         )
         parsing_end_time = time()
-
-        # traitement des extracations et création de la vidéo recap
-        treatment_start_time = time()
-        treatment_result = Treatment(
-            video_path= file_path,
-            parsing_result= parsing_result
-        ).treat_results()
-        treatment_end_time = time()
 
         # suppression du fichier
         os.unlink(path= file_path)
@@ -71,13 +63,9 @@ async def manage_mobile_app_request(
             "datas": {
                 "recap-video-get-link": "",
                 "textualDatas": {
-                    "Temps d'extraction des données": time_from_diff_of(
+                    "Durée de traitement": time_from_diff_of(
                         start= parsing_start_time,
                         end= parsing_end_time
-                    ),
-                    "Temps de traitement et génération de vidéo": time_from_diff_of(
-                        start= treatment_start_time,
-                        end= treatment_end_time
                     ),
                     "Distance maximale d'ouverture de bouche": treatment_result.get_max_mouth_distance()
                 }

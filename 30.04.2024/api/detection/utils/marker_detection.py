@@ -69,8 +69,8 @@ def detect_neck_marker(
             frame= frame,
             hsv_lower = [89, 0, 0],
             hsv_upper = [125, 255, 255],
-            min_radius= 6,
-            max_radius= 25
+            
+            
         )
 
         for marker_data in founded_markers:
@@ -147,8 +147,8 @@ def detect_front_reference_marker(
             frame= frame,
             hsv_lower = [89, 0, 0],
             hsv_upper = [125, 255, 255],
-            min_radius= 6,
-            max_radius= 25
+            
+            
         )
 
         for marker_data in founded_markers:
@@ -206,8 +206,8 @@ def detect_left_profile_marker(
             frame= frame,
             hsv_lower = [89, 0, 0],
             hsv_upper = [125, 255, 255],
-            min_radius= 6,
-            max_radius= 25
+            
+            
         )
 
         for marker_data in founded_markers:
@@ -263,8 +263,8 @@ def detect_right_profile_marker(
             frame= frame,
             hsv_lower = [89, 0, 0],
             hsv_upper = [125, 255, 255],
-            min_radius= 6,
-            max_radius= 25
+            
+            
         )
 
         for marker_data in founded_markers:
@@ -294,11 +294,12 @@ def detect_right_profile_marker(
 """
 def find_circles_in_frame(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
-    min_radius:int,
-    max_radius:int,
     hsv_lower: List[int],
     hsv_upper: List[int]
 ):
+    min_radius = 3
+    max_radius = 25
+
     circles = []
 
     try:
