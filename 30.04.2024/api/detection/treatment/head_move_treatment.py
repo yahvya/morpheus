@@ -37,7 +37,7 @@ class HeadMoveTreatment:
                 Récupération et dessin du point du menton
             """
             chin_landmark = self.parsing_result.get_landmark_datas_for_frame(
-                landmark= ImportantLandmarks.CHIN_CENTER.value,
+                landmark= ImportantLandmarks.CHIN_RIGHT_CENTER.value,
                 frame_counter= frame_counter
             )
 
@@ -68,13 +68,17 @@ class HeadMoveTreatment:
             if chin_landmark == None:
                 return False, None
             
+            """
+                Dessin de la ligne pour l'angle de tête
+            """
+            
             Treatment.draw_line_between(
                 drawable_frame= drawable_frame,
                 landmark_one= neck_marker,
                 landmark_two= chin_landmark,
                 drawing_color= self.drawing_color
             )
-
+            
             return True, {
                 "chin": chin_landmark,
                 "neck": neck_marker

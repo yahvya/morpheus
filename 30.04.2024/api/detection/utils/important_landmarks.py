@@ -7,7 +7,12 @@ class ImportantLandmarks(Enum):
     """
         @brief Pointe du menton
     """
-    CHIN_CENTER = 175
+    CHIN_CENTER = 152
+
+    """
+        @brief Pointe du menton décalé à droite
+    """
+    CHIN_RIGHT_CENTER = 148
 
     """
         @brief Mâchoire droite

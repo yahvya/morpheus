@@ -182,7 +182,7 @@ class VideoParser:
 
             treatment_result.set_max_mouth_distance(max_mouth_distance= tmp["mouth-max-distance"])
             treatment_result.set_recap_video_path(recap_video_path= recap_video_path)
-            treatment_result.set_parse_result(parse_result= result)
+            treatment_result.set_parse_result(parse_result= parser_result)
 
             return treatment_result
         except CustomException as e:

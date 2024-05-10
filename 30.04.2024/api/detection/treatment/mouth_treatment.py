@@ -111,6 +111,5 @@ class MouthTreatment:
             )
             
             return True, distance
-        except Exception as e:
-            print(e)
+        except:
             return False, None

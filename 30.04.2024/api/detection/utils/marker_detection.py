@@ -28,68 +28,7 @@ def detect_neck_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ) -> dict[int,dict[str,int]]:
-    try:
-        """
-            Récupération de la zone du cou dans l'image par coupure entre l'épaule droite et l'oreille droite
-        """
-        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2RGB)
-        detected_poses = pose_detector.process(converted_frame)
-
-        if not detected_poses.pose_landmarks:
-            return {}
-        
-        pose_landmarks = detected_poses.pose_landmarks.landmark
-        expected_landmarks = [
-            solutions.pose.PoseLandmark.RIGHT_SHOULDER.value,
-            solutions.pose.PoseLandmark.NOSE.value
-        ]
-
-        """
-            Vérification de présence des landmarks ainsi que de l'oreille droite dans le champ et récupération des coordonnées de zone
-        """
-
-        if len(pose_landmarks) - 1 < max(expected_landmarks):
-            return {}
-
-        left_shoulder_landmark = pose_landmarks[solutions.pose.PoseLandmark.LEFT_SHOULDER.value]
-        nose_landmark = pose_landmarks[solutions.pose.PoseLandmark.NOSE.value]
-
-        if None in [left_shoulder_landmark, nose_landmark] or len(detect_right_profile_marker(frame= frame, important_landmarks= important_landmarks)) == 0:
-            return {}
-
-        image_height, _, __ = converted_frame.shape
-        image_height = int(image_height)
-        start_y = nose_landmark.y * image_height
-        end_y = left_shoulder_landmark.y * image_height
-
-        """
-            Récupération des marqueurs et récupération de celui qui se trouve dans la zone du coup
-        """
-        founded_markers = find_circles_in_frame(
-            frame= frame,
-            hsv_lower = [89, 0, 0],
-            hsv_upper = [125, 255, 255],
-            
-            
-        )
-
-        for marker_data in founded_markers:
-            (marker_center_x, marker_center_y), radius = marker_data
-
-            if not (marker_center_y > start_y and marker_center_y < end_y ):
-                continue
-
-            return {
-                MarkerImportLandmarks.ADAM_APPLE.value: {
-                    "x": marker_center_x,
-                    "y": marker_center_y,
-                    "radius": radius
-                }
-            }
-
-        return {}
-    except:
-        return {}
+    return {}
 
 """
     @brief Fonction de détection customisé du marqueur de référence de face
@@ -140,22 +79,44 @@ def detect_front_reference_marker(
         right_limiter_x = int(founded_landmarks[right_limiter_index].x * image_width)
 
         """
+            Coupure et redimensionnement de la frame sur la zone attendue
+        """
+        sub_frame = cv2.resize(frame[top_landmark_y:bottom_landmark_y, left_limiter_x:right_limiter_x],(200,200))
+
+        """
            Recherche des marqueurs dans la zone fournie 
-           @todo valeur radious valable pour caméra pc
         """
         founded_markers = find_circles_in_frame(
-            frame= frame,
+            frame= sub_frame,
             hsv_lower = [89, 0, 0],
             hsv_upper = [125, 255, 255],
-            
-            
+            min_radius= 20,
+            max_radius= 24
         )
+
+        """
+            Calcul des facteurs de redimensionnement    
+        """
+        base_width = right_limiter_x - left_limiter_x
+        base_height = bottom_landmark_y - top_landmark_y
+        width_resize_factor = 200 / base_width
+        height_resize_factor = 200 / base_height
 
         for marker_data in founded_markers:
             (marker_center_x, marker_center_y), radius = marker_data
 
-            if not (marker_center_y >= top_landmark_y and marker_center_y <= bottom_landmark_y and marker_center_x >= left_limiter_x and marker_center_x <= right_limiter_x):
-                continue
+            """
+                Replacement des valeurs redimensionnées
+            """
+            marker_center_x = int((marker_center_x / width_resize_factor))
+            marker_center_y = int(marker_center_y / height_resize_factor)
+            radius = int(radius / max(width_resize_factor,height_resize_factor))
+
+            """
+                Décalage à partir de sous image
+            """
+            marker_center_x += left_limiter_x
+            marker_center_y += top_landmark_y
 
             return {
                 MarkerImportLandmarks.FRONT_REFERENCE.value : {
@@ -179,52 +140,7 @@ def detect_left_profile_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ):
-    try:
-        if left_ear_cascade.empty() or right_ear_cascade.empty():
-            return {}
-
-        """
-            Vérifie que la personne soit de profil gauche en vérifiant la présence d'une oreille gauche et pas d'oreille droite sur la frame
-        """
-        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2GRAY)
-        left_ears = left_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
-        right_ears = right_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
-        
-        if len(left_ears) != 1 or len(right_ears) > 0:
-            return {}
-
-        (_, y, __, height) = left_ears[0]
-        margin = 40
-        start_y = max(y - margin, 0)
-        end_y = min(y + height + margin,converted_frame.shape[0]) 
-
-        """
-            Récupération et extraction des marqueurs        
-        """
-
-        founded_markers = find_circles_in_frame(
-            frame= frame,
-            hsv_lower = [89, 0, 0],
-            hsv_upper = [125, 255, 255],
-            
-            
-        )
-
-        for marker_data in founded_markers:
-            (marker_center_x, marker_center_y), radius = marker_data
-
-            if marker_center_y > start_y and marker_center_y < end_y:
-                return {
-                    MarkerImportLandmarks.LEFT_PROFILE_REFERENCE.value : {
-                        "x": marker_center_x,
-                        "y": marker_center_y,
-                        "radius": radius
-                    }
-                }
-
-        return {}
-    except:
-        return {}
+    return {}
 
 """
     @brief Fonction de détection customisé du marqueur de référence du profil droit
@@ -236,52 +152,7 @@ def detect_right_profile_marker(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     important_landmarks: List[int]
 ):
-    try:
-        if left_ear_cascade.empty() or right_ear_cascade.empty():
-            return {}
-
-        """
-            Vérifie que la personne soit de profil droit en vérifiant la présence d'une oreille droite et pas d'oreille gauche sur la frame
-        """
-        converted_frame = cv2.cvtColor(src= frame, code= cv2.COLOR_BGR2GRAY)
-        left_ears = left_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
-        right_ears = right_ear_cascade.detectMultiScale(image= converted_frame,scaleFactor= 1.3, minNeighbors= 0) 
-        
-        if len(right_ears) != 1 or len(left_ears) > 0:
-            return {}
-
-        (_, y, __, height) = right_ears[0]
-        margin = 40
-        start_y = max(y - margin, 0)
-        end_y = min(y + height + margin,converted_frame.shape[0]) 
-
-        """
-            Récupération et extraction des marqueurs        
-        """
-
-        founded_markers = find_circles_in_frame(
-            frame= frame,
-            hsv_lower = [89, 0, 0],
-            hsv_upper = [125, 255, 255],
-            
-            
-        )
-
-        for marker_data in founded_markers:
-            (marker_center_x, marker_center_y), radius = marker_data
-
-            if marker_center_y > start_y and marker_center_y < end_y:
-                return {
-                    MarkerImportLandmarks.RIGHT_PROFILE_REFERENCE.value : {
-                        "x": marker_center_x,
-                        "y": marker_center_y,
-                        "radius": radius
-                    }
-                }
-
-        return {}
-    except:
-        return {}
+    return {}
 
 """
     @brief Recherche les cercles dans la frame fournie
@@ -295,11 +166,10 @@ def detect_right_profile_marker(
 def find_circles_in_frame(
     frame: cv2.Mat | ndarray[Any, dtype[generic]] | ndarray,
     hsv_lower: List[int],
-    hsv_upper: List[int]
+    hsv_upper: List[int],
+    min_radius:int,
+    max_radius:int
 ):
-    min_radius = 3
-    max_radius = 25
-
     circles = []
 
     try:
@@ -318,7 +188,18 @@ def find_circles_in_frame(
 
             if radius >= min_radius and radius <= max_radius:
                 circles.append((center, radius))
+                # cv2.circle(frame,(int(x),int(y)),radius,[255,255,0])
+                # cv2.putText(
+                #     img= frame,
+                #     text= f"{radius}",
+                #     org= (int(x + 10),int(y)),
+                #     fontFace= cv2.FONT_HERSHEY_COMPLEX,
+                #     fontScale= 1,
+                #     color= [255,255,0]
+                # )
+                # cv2.imshow("test",frame)
+                # cv2.waitKey()
     except:
         pass
-
+    
     return circles

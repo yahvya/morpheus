@@ -534,10 +534,14 @@ class RecordPageState extends State<RecordPage>{
         return;
       }
       
-      // affichage de la page résultat
-      Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (BuildContext context) => ResultPage(result: result,profiles: widget.profiles,)
-      ));
+      setState((){
+        isDetecting = false;
+        isValidating = false;
+        // affichage de la page résultat
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (BuildContext context) => ResultPage(result: result,profiles: widget.profiles,)
+        ));
+      });
     });
   }
 }

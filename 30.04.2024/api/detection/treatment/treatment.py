@@ -24,7 +24,7 @@ class Treatment:
         cv2.circle(
             img= drawable_frame,
             center= (landmark["datas"]["x"], landmark["datas"]["y"]),
-            radius= landmark["datas"]["radius"] if "radius" in landmark["datas"] else 5,
+            radius= landmark["datas"]["radius"] if "radius" in landmark["datas"] else 8,
             color= drawing_color,
             thickness= -1
         )

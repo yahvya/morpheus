@@ -51,7 +51,8 @@ async def manage_mobile_app_request(
         parsing_start_time = time()
         treatment_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
-            custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
+            # custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
+            custom_detections_functions= [detect_front_reference_marker]
         )
         parsing_end_time = time()
 
@@ -67,7 +68,7 @@ async def manage_mobile_app_request(
                         start= parsing_start_time,
                         end= parsing_end_time
                     ),
-                    "Distance maximale d'ouverture de bouche": treatment_result.get_max_mouth_distance()
+                    "Distance maximale d'ouverture de bouche": str(treatment_result.get_max_mouth_distance())
                 }
             }
         }
