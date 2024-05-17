@@ -25,6 +25,16 @@ class ImportantLandmarks(Enum):
     LEFT_JAW = 435
 
     """
+        @brief Tragus droit
+    """
+    RIGHT_TRAGUS = 234
+
+    """
+        @brief Tragus gauche
+    """
+    LEFT_TRAGUS = 454
+
+    """
         @brief Lèvre supérieur
     """
     UPPER_LIP = 0
@@ -47,13 +57,3 @@ class MarkerImportLandmarks(Enum):
         @brief Marqueur de référence de face
     """
     FRONT_REFERENCE = -2
-
-    """
-        @brief Marqueur de référence du profil gauche
-    """
-    LEFT_PROFILE_REFERENCE = -3
-
-    """
-        @brief Marqueur de référence du profil droit
-    """
-    RIGHT_PROFILE_REFERENCE = -4

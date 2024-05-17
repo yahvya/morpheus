@@ -1,5 +1,3 @@
-import 'package:http/http.dart' as http;
-
 /// @brief Résultat d'appel à l'api
 class ApiResult{
   const ApiResult({
@@ -19,7 +17,7 @@ class ApiResult{
   final Map<String,String> textualsDatas;
 
   /// @brief Vidéo résultante
-  final http.MultipartFile? resultVideo;
+  final String? resultVideo;
 
   /// @brief Enregistre les résultats au format zip
   Future<bool> downloadAsZip() async{

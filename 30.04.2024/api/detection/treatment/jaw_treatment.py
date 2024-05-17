@@ -1,7 +1,7 @@
 import cv2
 from typing import Any, Tuple
 from numpy import dtype, generic, ndarray
-from detection.utils.important_landmarks import ImportantLandmarks
+from detection.utils.important_landmarks import ImportantLandmarks, MarkerImportLandmarks
 from detection.video.parser_result import ParserResult
 
 """
@@ -33,6 +33,36 @@ class JawTreatment:
         from detection.treatment.treatment import Treatment
 
         try:
+            """
+                Récupération du tragus droit
+            """
+            right_tragus = self.parsing_result.get_landmark_datas_for_frame(
+                landmark= ImportantLandmarks.RIGHT_TRAGUS.value,
+                frame_counter= frame_counter
+            )
+
+            if right_tragus != None:
+                Treatment.draw_landmark_on(
+                    drawable_frame= drawable_frame,
+                    landmark= right_tragus,
+                    drawing_color= self.drawing_color
+                )
+
+            """
+                Récupération du tragus gauche
+            """
+            left_tragus = self.parsing_result.get_landmark_datas_for_frame(
+                landmark= ImportantLandmarks.LEFT_TRAGUS.value,
+                frame_counter= frame_counter
+            )
+
+            if left_tragus != None:
+                Treatment.draw_landmark_on(
+                    drawable_frame= drawable_frame,
+                    landmark= left_tragus,
+                    drawing_color= self.drawing_color
+                )
+
             """
                 Récupération du point du menton et dessin
             """
@@ -99,6 +129,36 @@ class JawTreatment:
                     drawable_frame= drawable_frame,
                     landmark_one= right_jaw_landmark,
                     landmark_two= left_jaw_landmark,
+                    drawing_color= self.drawing_color
+                )
+
+                """
+                    Récupération du point de référence frontal et calcul de la distance entre les deux points
+                """
+                front_reference_marker = self.parsing_result.get_landmark_datas_for_frame(
+                    landmark= MarkerImportLandmarks.FRONT_REFERENCE.value,
+                    frame_counter= frame_counter
+                )
+
+                if front_reference_marker == None:
+                    return False, None
+                
+                centimeter_reference = Treatment.get_a_pixel_value_in_centimer(
+                    reference_landmark= front_reference_marker,
+                    real_value= 0.4
+                )
+
+                distance_in_pixel = Treatment.calculate_pixel_distance_between(
+                    landmark_one= left_jaw_landmark,
+                    landmark_two= right_jaw_landmark
+                )
+
+                distance = round(distance_in_pixel / centimeter_reference,2)
+
+                Treatment.draw_text_near(
+                    drawable_frame= drawable_frame,
+                    landmark= left_jaw_landmark,
+                    text= f"{distance} cm",
                     drawing_color= self.drawing_color
                 )
 

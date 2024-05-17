@@ -538,7 +538,7 @@ class RecordPageState extends State<RecordPage>{
         isDetecting = false;
         isValidating = false;
         // affichage de la page résultat
-        Navigator.of(context).push(MaterialPageRoute(
+        Navigator.of(context).pushReplacement(MaterialPageRoute(
           builder: (BuildContext context) => ResultPage(result: result,profiles: widget.profiles,)
         ));
       });

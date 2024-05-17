@@ -1,7 +1,7 @@
 {
     "key": "UsvowEBopdU3sPw9q6JwpahrEv4AdDCvt098v4DG-i0=",
     "expected-message": "morpheus-api",
-    "link": "http://192.168.168.210:8000/morpheus-mobile",
+    "link": "http://192.168.222.210:8000/morpheus-mobile",
     "video-duration": 20,
     "mallampati": {
         "min": 1,

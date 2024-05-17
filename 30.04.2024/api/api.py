@@ -4,13 +4,13 @@
 
 import os
 from time import time
-from fastapi import FastAPI, File, Header, UploadFile, Form
+from fastapi import FastAPI, File, Header, UploadFile, Form, Request
 from api_utils.utils import CustomException, check_signature, temporary_upload
-from detection.video.video_parser import VideoParser
+from detection.video.video_parser import VideoParser, recap_dir
 from detection.utils.important_landmarks import ImportantLandmarks
-from detection.utils.marker_detection import detect_neck_marker, detect_front_reference_marker, detect_left_profile_marker, detect_right_profile_marker
-from detection.treatment.treatment import Treatment
+from detection.utils.marker_detection import detect_neck_marker, detect_front_reference_marker
 from datetime import timedelta
+from starlette.responses import FileResponse
 
 app = FastAPI()
 
@@ -31,6 +31,7 @@ def time_from_diff_of(start: float|int, end: float|int) -> str:
 """
 @app.post("/morpheus-mobile")
 async def manage_mobile_app_request(
+    request: Request,
     signature: str = Header(...),
     video: UploadFile = File(...),
     mallampati_score: int = Form(...),
@@ -42,7 +43,7 @@ async def manage_mobile_app_request(
 
     try:
         # vérification de la signature
-        # check_signature(signature= signature)
+        check_signature(signature= signature)
         
         # création de la sauvegarde temporaire
         file_path = temporary_upload(file= video)
@@ -51,8 +52,7 @@ async def manage_mobile_app_request(
         parsing_start_time = time()
         treatment_result = VideoParser(video_path= file_path).parse(
             important_landmarks= [landmark.value for landmark in ImportantLandmarks],
-            # custom_detections_functions= [detect_neck_marker,detect_right_profile_marker, detect_left_profile_marker, detect_front_reference_marker]
-            custom_detections_functions= [detect_front_reference_marker]
+            custom_detections_functions= [detect_neck_marker, detect_front_reference_marker]
         )
         parsing_end_time = time()
 
@@ -62,7 +62,7 @@ async def manage_mobile_app_request(
         return {
             "success": True,
             "datas": {
-                "recap-video-get-link": "",
+                "recapVideoGetLink": request.base_url._url + f"video/{treatment_result.get_recap_video_path()}",
                 "textualDatas": {
                     "Durée de traitement": time_from_diff_of(
                         start= parsing_start_time,
@@ -88,3 +88,15 @@ async def manage_mobile_app_request(
             "success": False,
             "error": "Une erreur s'est produite sur le serveur"
         }
+
+"""
+    @brief Affiche la vidéo recap
+    @param filename nom du fichier
+"""
+@app.get("/video/{filename}")
+async def show_video(filename: str):
+    if not os.path.exists(f"{recap_dir}{filename}"):
+        return {"file": "not found"}
+        
+    return FileResponse(path= f"{recap_dir}{filename}")
+

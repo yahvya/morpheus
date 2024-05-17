@@ -13,6 +13,7 @@ import 'package:flutter_launcher_icons/main.dart';
 import 'package:flutter_launcher_icons/pubspec_parser.dart';
 import 'package:flutter_launcher_icons/utils.dart';
 import 'package:flutter_launcher_icons/xml_templates.dart';
+import 'package:video_player/video_player.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -24,6 +25,7 @@ void main() {
           title: "Morpheus",
           locale: const Locale("fr"),
           home: ProfilePage(profiles: profiles)
+          // home: Test()
         )
       );
     });

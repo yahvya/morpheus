@@ -107,7 +107,8 @@ class Contact{
 
     return ApiResult(
       successfulyCalled: true,
-      textualsDatas: textualDatas
+      textualsDatas: textualDatas,
+      resultVideo: datas["recapVideoGetLink"] as String
     );
   }
 }

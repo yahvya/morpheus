@@ -11,6 +11,8 @@ from detection.video.parser_result import ParserResult
 from api_utils.utils import CustomException
 from typing import Any, List, Callable
 
+recap_dir = f"{os.path.dirname(__file__)}/resources/recaps/" 
+
 """
     @brief Parseur de vidéo
 """
@@ -27,7 +29,7 @@ class VideoParser:
     """
         @brief Parse la vidéo fournie et la traite
         @param important_landmarks liste des index des points important à récupérer
-        @param custom_detection_functions Fonctions customisés de détection. Prennent en paramètre (frame, important_landmarks) et fourni en résultat une map indicé par un landmark et avec comme valeur les données sur la récupération dict[int,dict[str,]]
+        @param custom_detection_functions Fonctions customisés de détection. Prennent en paramètre (frame, important_landmarks, important_landmarks_datas_in_frame) et fourni en résultat une map indicé par un landmark et avec comme valeur les données sur la récupération dict[int,dict[str,]]
         @return résultats du traitement
         @throws CustomException en cas d'erreur
     """
@@ -37,7 +39,8 @@ class VideoParser:
         custom_detections_functions: List[Callable] = []
     ) -> TreatmentResult:
         video = None
-        recap_video_path = f"{os.path.dirname(__file__)}/resources/recaps/{int(time.time())}.mp4"
+        file_name = f"{int(time.time())}.mp4"
+        recap_video_path = f"{recap_dir}{file_name}"
         recap_video = None
 
         try:        
@@ -51,7 +54,7 @@ class VideoParser:
             """
             recap_video = cv2.VideoWriter(
                 filename= recap_video_path,
-                fourcc= cv2.VideoWriter_fourcc(*"MP4V"),
+                fourcc= cv2.VideoWriter_fourcc(*"H264"),
                 fps= video.get(propId= cv2.CAP_PROP_FPS),
                 frameSize= (
                     int(video.get(cv2.CAP_PROP_FRAME_WIDTH)),
@@ -67,7 +70,7 @@ class VideoParser:
             
             mouth_treatment_manager = MouthTreatment(
                 parsing_result= parser_result,
-                drawing_color= [165,62,239]
+                drawing_color= [255,0,0]
             )
 
             head_move_treatment_manager = HeadMoveTreatment(
@@ -112,7 +115,7 @@ class VideoParser:
                     Extractions customisés et fusion avec les détections facemesh
                 """
                 custom_detections_result = [
-                    custom_detector(frame, important_landmarks)
+                    custom_detector(frame, important_landmarks, important_landmarks_datas_in_frame)
                     for custom_detector in custom_detections_functions
                 ]
                 
@@ -181,7 +184,7 @@ class VideoParser:
             treatment_result = TreatmentResult()
 
             treatment_result.set_max_mouth_distance(max_mouth_distance= tmp["mouth-max-distance"])
-            treatment_result.set_recap_video_path(recap_video_path= recap_video_path)
+            treatment_result.set_recap_video_path(recap_video_path= file_name)
             treatment_result.set_parse_result(parse_result= parser_result)
 
             return treatment_result
@@ -247,10 +250,11 @@ class VideoParser:
                     continue
 
                 founded_landmark = founded_face_landmarks[landmark_index]
-
+                
                 result_map[landmark_index] = {
                     "x": int(founded_landmark.x * image_width),
-                    "y": int(founded_landmark.y * image_height)
+                    "y": int(founded_landmark.y * image_height),
+                    "z": int(founded_landmark.z)
                 }
 
             return result_map

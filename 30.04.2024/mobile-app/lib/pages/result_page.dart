@@ -9,13 +9,22 @@ import 'package:video_player/video_player.dart';
 
 /// @brief Page d'affichage de résultat de traitement
 class ResultPage extends StatefulWidget{
-  const ResultPage({super.key,required this.profiles,required this.result});
+  ResultPage({super.key,required this.profiles,required this.result}){
+    controller = VideoPlayerController.networkUrl(Uri.parse(result.resultVideo!)); 
+
+    controller.initialize().then((_){
+      controller.play();
+    });
+  }
 
   /// @brief Résultat de traitement
   final ApiResult result;
 
   /// @brief Liste des profiles
   final List<Profile> profiles;
+
+  /// @brief Controller
+  late final VideoPlayerController controller;
   
   @override
   State<StatefulWidget> createState() {
@@ -25,24 +34,6 @@ class ResultPage extends StatefulWidget{
 
 /// @brief Etat de la page d'affichage de résultat de traitement
 class ResultPageState extends State<ResultPage>{
-  VideoPlayerController controller = VideoPlayerController.networkUrl(
-    Uri.parse("https://www.ebooksgratuits.com/temp/mp4/Choeurs_sur_Seine_chante_l_Europe_-_01_-_Poulenc_-_La_petite_fille_sage.mp4"),
-  );
-
-  ResultPageState(){
-    controller.initialize().then((_){
-      controller.setLooping(true);
-      controller.play();
-    });
-  }
-
-  @override
-  void dispose() {
-    controller.dispose();
-    
-    super.dispose();
-  }
-
   @override
   Widget build(BuildContext context){
     return PageModel.buildPage(SingleChildScrollView(
@@ -53,9 +44,18 @@ class ResultPageState extends State<ResultPage>{
           PageModel.specialText(text: "Résultats des traitements".toUpperCase()),
           const SizedBox(height: 60),
           SizedBox(
-            height: 250,
-            width: 250,
-            child: VideoPlayer(controller)
+            height: 350,
+            width: 350,
+            child:  GestureDetector(
+              onTap: (){
+                try{
+                  widget.controller.seekTo(Duration.zero);
+                  widget.controller.play();
+                }
+                catch(_){}
+              },
+              child: VideoPlayer(widget.controller),
+            )
           ),
           const SizedBox(height: 40),
           PageModel.specialText(

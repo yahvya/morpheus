@@ -70,8 +70,9 @@ class Treatment:
             text= text,
             org= (landmark["datas"]["x"],landmark["datas"]["y"]),
             fontFace= cv2.FONT_HERSHEY_COMPLEX,
-            fontScale= 3,
-            color= drawing_color
+            fontScale= 4.5,
+            color= drawing_color,
+            thickness= 2
         )
 
     """
@@ -96,6 +97,7 @@ class Treatment:
         landmark_two_coords = landmark_two["datas"]
 
         return sqrt(
-            pow(landmark_one_coords["x"] - landmark_two_coords["x"],2) +
-            pow(landmark_one_coords["y"] - landmark_two_coords["y"],2)
+            pow(landmark_two_coords["x"] - landmark_one_coords["x"],2) +
+            pow(landmark_two_coords["y"] - landmark_one_coords["y"],2) +
+            pow(landmark_two_coords["z"] - landmark_one_coords["z"],2)
         )
